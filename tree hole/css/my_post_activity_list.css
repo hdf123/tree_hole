@@ -1,0 +1,88 @@
+.main{
+    width: 100%;
+}
+.main ul{
+    width: 100%;
+    padding: 0 0.3rem;
+}
+.main ul li{
+    width: 100%;
+    position: relative;
+    padding:0.2rem 0;
+    border-bottom: 2px solid #eeeeee;
+}
+.main ul li img{
+    width: 1.1rem;
+    min-height: 1rem;
+    max-height: 1.1rem;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+.main ul li .center{
+    position: absolute;
+    left: 1.5rem;
+    top: 30%;
+}
+.main ul li .center span{
+    display: block;
+    font-size: 0.34rem;
+    margin-bottom: 0.05rem;
+}
+.main ul li .right{
+    position: absolute;
+    right: 3%;
+    top: 30%;
+    font-size: 0.32rem;
+    color:#fff;
+    background-color: #5f321a;
+    padding: 0.05rem 0.3rem;
+    border-radius: 10px;
+}
+/*个人 状态判断信息样式*/
+.main_content{
+    width: 100%;
+    padding: 0 0.3rem;
+}
+.main_content .top{
+    width: 100%;
+    padding: 0.2rem 0;
+}
+.main_content .top img{
+    width: 1.1rem;
+    min-height: 1rem;
+    max-height: 1.1rem;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+.main_content .top span{
+    font-size: 0.36rem;
+    margin-left: 0.3rem;
+}
+.sign_up_pay,.sign_up,.age,.connect_phone{
+    position: relative;
+    height: 0.89rem;
+    line-height: 0.89rem;
+    font-size: 0.32rem;
+    color:#333;
+}
+.sign_up_pay span,.sign_up span,.age span,.connect_phone span{
+    position: absolute;
+    left: 3%;
+}
+.sign_up_pay em,.sign_up em,.age em,.connect_phone em{
+    position: absolute;
+    left: 40%;
+}
+
+.rejest,.agree{
+    width: 30%;
+    margin-top: 0.3rem;
+    font-size: 0.32rem;
+    padding:.1rem 0;
+    margin-left: 0.8rem;
+    border-radius: 10px;
+}
+.agree{
+    color: #fff;
+    background-color: #5f321a;
+}

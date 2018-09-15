@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>资讯</title>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/mui_img.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/news.css"/>
+    <link rel="stylesheet" href="../css/footer.css"/>
+    <link rel="stylesheet" href="../css/mui_popover.css"/>
+    <link rel="stylesheet" href="../css/slider_left.css"/>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+    <div>请等待，正在加载...</div>
+</div>
+<div id="content_layer">
+    <!--侧滑部分-->
+    <div id="left">
+       <div class="header">
+          <!--侧滑信息-->
+       </div>
+        <ul class="scroll">
+            <li class="mui-table-view-cell">
+                <a href="./my_purse.html" class="mui-navigate-right"> <i></i>&nbsp;&nbsp;&nbsp;&nbsp;钱包</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a href="./my_post.html" class="mui-navigate-right"> <i></i>&nbsp;&nbsp;&nbsp;&nbsp;发布的帖子</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a href="./my_market.html" class="mui-navigate-right"> <i></i>&nbsp;&nbsp;&nbsp;&nbsp;市场中心</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a href="./my_employ.html" class="mui-navigate-right"> <i></i>&nbsp;&nbsp;&nbsp;&nbsp;应聘信息</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a href="./seting.html" class="mui-navigate-right"> <i></i>&nbsp;&nbsp;&nbsp;&nbsp;设置</a>
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+
+        </ul>
+    </div>
+
+<!--主体部分-->
+    <div class="layer" id="layer">
+        <div id="mask"></div>
+        <header id="topbar" >
+            <div class="img_box" id="show">
+              <!--填充头像-->
+            </div>
+            <div class="location">
+                <i></i>
+                <em>武汉大学</em>
+            </div>
+        </header>
+        <div class="server ">
+            <ul class="clearfix">
+                <li onclick="location.href='https://www.chsi.com.cn/cet/'">
+                    <img src="../img/english.png" alt=""/><span>四六级查询</span>
+
+                </li>
+               <!-- <li >
+                    <img src="../img/score.png" alt=""/><span>成绩查询</span>
+                </li>-->
+            </ul>
+        </div>
+        <div class="news_list">
+
+          <!--  <div class="news">
+                <div class="top clearfix">
+                    <img src="../img/focus-img1.png" alt=""/>
+                    <div class="top_middle clearfix">
+                        <span>音乐系管理员</span>
+                        <i>今天09:23</i>
+                    </div>
+                </div>
+                <div class="center" onclick="location.href='acity_detail.html'">
+                    <div class="article">下周一有钢琴辅导有兴趣的同学快快报名,下周一有钢琴辅导有兴趣的同学快快报名下周一有钢琴辅导有兴趣的</div>
+                    <div class="img_box"><img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="1"/></div>
+                        <div class="img_box"><img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="1"/></div>
+                    </div>
+                <div class="footer">
+                    <ul class="clearfix">
+                        <li>
+                            浏览45次
+                        </li>
+                        <li>
+                            ￥20
+                        </li>
+                        <li class="comment">
+                            <i></i>
+                            <em>评论</em>
+                        </li>
+                        <li  class="pay">
+                            <a href="#middlePopover" class=" mui-btn mui-btn-primary mui-btn-block mui-btn-outlined">
+                                <i></i>
+                                <em>打赏</em>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>-->
+
+        </div>
+        <footer>
+            <ul class="clearfix">
+                <li class="clearfix" onclick="location.href='./news.html'">
+                    <i></i>
+                    <em>资讯</em>
+                </li>
+                <li class="clearfix" onclick="location.href='./community.html'">
+                    <i></i>
+                    <em>社区</em>
+                </li>
+                <li class="clearfix" onclick="location.href='./publish.html'">
+                    <i></i>
+
+                </li>
+                <li class="clearfix" onclick="location.href='./business.html'">
+                    <i></i>
+                    <em>交易</em>
+                </li>
+                <li class="clearfix" onclick="location.href='./work.html'">
+                    <i></i>
+                    <em>兼职</em>
+                </li>
+            </ul>
+        </footer>
+    </div>
+</div>
+</body>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.preview.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script src="../js/left_slider.js"></script>
+<script id="getPic" type="text/html">
+    {{if message=="" || !message}}
+    <img  src="../img/focus-img1.png">
+    {{else}}
+    <img  src="{{message}}" onerror="this.src='../img/focus-img1.png'" >
+    {{/if}}
+</script>
+<script id="userInfo" type="text/html">
+    {{if avatar==null}}
+    <img src="../img/focus-img1.png" alt="" onclick="location.href='./head.html'"/>
+    {{else}}
+    <img src="{{avatar}}" onerror="this.src='../img/focus-img1.png'" alt="" onclick="location.href='./head.html'"/>
+    {{/if}}
+    <div class="center">
+        {{if userName==null}}
+        <em>{{realName}}</em>
+        {{else}}
+        <em>{{userName}}</em>
+        {{/if}}
+        <span onclick="location.href='./simple_abstruct.html'">{{motto==""||motto==null?"此人很懒，暂时没有简介！":motto}}</span>
+    </div>
+</script>
+<script id="news" type="text/html">
+
+    <p>校园资讯</p>
+    {{each list as value i}}
+    <div class="news">
+        <div class="top clearfix">
+            {{if value.student==null}}
+            <img src="../img/focus-img1.png" alt=""/>
+            <div class="top_middle clearfix">
+                <span>暂无姓名</span>
+                <i>{{time(value.pushTime)}}</i>
+            </div>
+            {{else}}
+            <img src="{{value.student.avatar}}" alt=""/>
+            <div class="top_middle clearfix">
+                <span>{{value.student.realName}}</span>
+                <i>{{time(value.pushTime)}}</i>
+            </div>
+            {{/if}}
+
+        </div>
+
+        <div class="center" onclick="location.href='acity_detail.html?schoolMessageId={{value.schoolMessageId}}'">
+            <div class="article">{{value.message}}</div>
+            {{each str(value.imagePath) as img j}}
+            <div class="img_box">
+                <img src="{{img}}" alt="" data-preview-src="" data-preview-group="{{i}}"/>
+            </div>
+            {{/each}}
+        </div>
+        <div class="footer">
+            <ul class="clearfix">
+                <li>
+                    浏览{{value.lookNumber==null?0:value.lookNumber}}次
+                </li>
+                <li>
+                    ￥{{value.price==null?0:value.price}}
+                </li>
+                <li class="comment" onclick="location.href='./all_comment.html?schoolMessageId={{value.schoolMessageId}}'">
+                    <i></i>
+                    <em>评论</em>
+                </li>
+                <li  class="pay" >
+                    <a href="#middlePopover{{i}}" class=" mui-btn mui-btn-primary mui-btn-block mui-btn-outlined">
+                        <i></i>
+                        <em>打赏</em>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <!--打赏弹框-->
+    <div id="middlePopover{{i}}" class="mui-popover" >
+        <div class="mui-popover-arrow"></div>
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <p>请输入打赏金额</p>
+                <input type="text" placeholder="请输入打赏金额 " class="price"/><i class="money">￥</i>
+                <div class="pay_style">支付方式</div>
+                <ul class="mui-table-view mui-table-view-radio">
+                    <li class="mui-table-view-cell mui-selected" data-value="1">
+                        <a class="mui-navigate-right" href="javascript:;">
+                            账户余额
+                        </a>
+                    </li>
+                    <!--<li class="mui-table-view-cell" data-value="2">
+                        <a class="mui-navigate-right" href="javascript:;" >
+                            支付宝
+                        </a>
+                    </li>
+                    <li class="mui-table-view-cell" data-value="3" >
+                        <a class="mui-navigate-right" href="javascript:;" >
+                            微信支付
+                        </a>
+                    </li>-->
+                </ul>
+                <div class="confirm" data-index="{{value.schoolMessageId}}">确定</div>
+            </div>
+        </div>
+
+    </div>
+    {{/each}}
+</script>
+<script>
+        $(function () {
+            $(document).ajaxStop(function(){
+                $("#loading").hide();
+            });
+            mui.previewImage();
+// 监听tap事件，解决 a标签 不能跳转页面问题
+            mui('body').on('tap','a',function(){document.location.href=this.href;});
+            mui.init({
+                swipeBack: true //启用右滑关闭功能
+            });
+
+            mui('.mui-scroll-wrapper').scroll();
+            mui('body').on('shown', '.mui-popover', function(e) {
+                var index=this.getAttribute("data-index");
+                //console.log(index);
+                //console.log('shown', e.detail.id);//detail为当前popover元素
+            });
+            mui('body').on('hidden', '.mui-popover', function(e) {
+                //console.log('hidden', e.detail.id);//detail为当前popover元素
+            });
+
+            //获取 头像信息
+            getAvatar($("#show"));
+
+            //侧边导航栏的用户信息展示
+            userInfo($(".header"));
+            //默认 渲染
+
+            function render(){
+                // /schoolMessage/getAllSchoolMessage
+                $.ajax({
+                    //处理session每次不唯一问题
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    async:false,
+                    type: "get",
+                    url: baseUrl+"/schoolMessage/getAllSchoolMessage",
+                    data:{},
+                    dataType: 'json',
+                    success:function(data) {
+                        console.log(data);
+                        if(data.state==true){
+                            template.helper("time",function(date){
+                                var time=new Date(date).toLocaleString().replace(/:\d{1,2}$/,' ').substr(5,11).replace("/","-");
+                                return time;
+                                /* return new Date(parseInt(date) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');*/
+                            });
+                            template.helper("str",function(str){
+                                return str.split(",");
+                            });
+                            $(".news_list").html(template("news",data));
+                            //展示学校
+                           var school_name= localStorage.getItem("school_name");
+                            if(school_name){
+                                $(".location>em").text(school_name.replace(/"/g,""));
+                            }
+                            $(".location>em").click(function(){
+                                location.href='./school.html';
+                            });
+                           /* //单选 框
+                             var str="1";
+                             document.querySelector('.mui-table-view.mui-table-view-radio').addEventListener('selected',function(e) {
+                             str = e.detail.el.getAttribute("data-value");
+                             console.log(str);
+                             //单选结束
+                             });*/
+                        }else {
+                           alert("网络错误，请重新登录");
+                            location.href='./login.html';
+                        }
+                    }
+
+                })
+
+            }
+            render();
+            //进行打赏
+            function reward(id,price){
+                $.ajax({
+                    //处理session每次不唯一问题
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    async:false,
+                    type: "post",
+                    url: baseUrl+"/schoolMessage/reward",
+                    data:{
+                        schoolMessageId:id,
+                        price:price
+                    },
+                    dataType: 'json',
+                    success:function(data) {
+                        console.log(data);
+                        if(data.code=="success"||data.state==true||data.list!=="网络出了点小问题...."){
+                            render();
+                        }
+                    }
+                })
+            }
+            $(".confirm").click(function(){
+                var price=$(".price").val();
+                if(price<=0||price==""){
+                alert("请您输入正确的金额");
+                    $(".price").val("");
+                    return false;
+                }else{
+                    price=price;
+                }
+                var id=$(this).data("index");
+                console.log(id);
+                reward(id,price);
+            })
+        })
+
+</script>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>他人的信息点开</title>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/mui_img.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/news.css"/>
+
+    <link rel="stylesheet" href="../css/work.css"/>
+    <link rel="stylesheet" href="../css/other_information.css"/>
+    <style>
+        .main_content li .middle img{
+            -webkit-border-radius: 0%;
+            -moz-border-radius: 0%;
+            border-radius: 0%;
+        }
+    </style>
+</head>
+<body>
+<div class="layer" style="overflow: hidden">
+    <header id="header" >
+        <i onclick="back()"></i>
+        <div class="top_header">
+            <img src="../img/focus-img1.png" alt=""/>
+            <div class="center">
+                <em>七月的雪</em>
+                <span>待到山花烂漫时，她在丛中笑待到山花烂漫时，她在丛中笑待到山花烂漫时，她在丛中笑</span>
+            </div>
+        </div>
+    </header>
+    <div class="nav">
+        <ul>
+            <li><a href="./other_information.html" >社团活动</a></li>
+            <li><a href="./other_information_post.html">发帖</a></li>
+            <li><a href="./other_information_sigle.html" class="active">约单</a></li>
+            <li><a href="./other_information_space.html" >闲置</a></li>
+        </ul>
+    </div>
+    <div class="main_content">
+        <ul>
+            <li>
+                <div class="top">
+                      <span onclick="location.href='./other_information.html'">
+                          <img src="../img/focus-img1.png" alt="">
+                        <em>漂亮朋友</em>
+                      </span>
+                    <i>0.2km.今天11:23 </i>
+                </div>
+                <div class="middle">
+                    <div class="img_box">
+                        <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="1"/>
+                    </div>
+                    <div class="img_box">
+                        <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="1"/>
+                    </div>
+                    <div class="img_box">
+                        <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="1"/>
+                    </div>
+                    <p>周边游</p>
+                    <h4>周末需要一人陪同，郑州周边游活动开始，希望对方是一个帅哥， 拒绝放鸽子周末需要一人陪同，郑州周边游活动开始，希望对方是一个帅哥， 拒绝放鸽子</h4>
+                </div>
+                <div class="down">
+                    <ul class="clearfix">
+                        <li>
+                            <em></em>
+                            <span>123456</span>
+                        </li>
+                        <li>
+                            <em></em>
+                            <span>23456</span>
+                        </li>
+                        <li onclick="location.href='./work_job_single.html'">
+                            <button>
+                                <em></em>
+                                <span>约单</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+            </li>
+            <li>
+                <div class="top">
+                        <span onclick="location.href='./other_information.html'">
+                            <img src="../img/focus-img1.png" alt="">
+                        <em>漂亮朋友</em>
+                        </span>
+                    <i>0.2km.今天11:23 </i>
+                </div>
+                <div class="middle">
+                    <div class="img_box">
+                        <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="1"/>
+                    </div>
+                    <div class="img_box">
+                        <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="1"/>
+                    </div>
+                    <div class="img_box">
+                        <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="1"/>
+                    </div>
+                    <p>周边游</p>
+                    <h4>周末需要一人陪同，郑州周边游活动开始，希望对方是一个帅哥， 拒绝放鸽子周末需要一人陪同，郑州周边游活动开始，希望对方是一个帅哥， 拒绝放鸽子</h4>
+                </div>
+                <div class="down">
+                    <ul class="clearfix">
+                        <li>
+                            <em></em>
+                            <span>123456</span>
+                        </li>
+                        <li>
+                            <em></em>
+                            <span>23456</span>
+                        </li>
+                        <li onclick="location.href='./work_job_single.html'">
+                            <button>
+                                <em></em>
+                                <span>约单</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/mui.preview.js"></script>
+<script src="../js/x_rem.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/base.js"></script>
+<script>
+    $(function(){
+        mui.previewImage();
+        mui('body').on('tap','a',function(){document.location.href=this.href;});
+
+    })
+</script>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>商品详情</title>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/mui_img.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/local_market_goodlist_detail.css"/>
+    <style>
+        .mui-slider .mui-slider-group .mui-slider-item img{
+            position: absolute;
+            top:40%;
+        }
+        .mui-slider .mui-slider-group .mui-slider-item>a:not(.mui-control-item){
+            width: 100%;
+            min-height: 7rem;
+            max-height: 7.5rem;
+        }
+        .mui-slider .mui-slider-group .mui-slider-item a img{
+            width: 100%;
+            min-height: 7rem;
+            max-height: 7.5rem;
+        }
+        .goodsNumber{
+            line-height: 1rem;
+            font-size: 0.32rem ;
+        }
+    </style>
+</head>
+<body>
+<div class="layer">
+    <!--填充-->
+  <!--  <header>
+        <i onclick="back()"></i>
+     &lt;!&ndash;   <del></del>&ndash;&gt;
+    </header>
+    &lt;!&ndash;商品 轮播图&ndash;&gt;
+    <div id="slider" class="mui-slider" >
+        <div class="mui-slider-group">
+            <div class="mui-slider-item"><a href="#"><img src="../img/focus-img1.png"  data-preview-src="" data-preview-group="1"/></a></div>
+            <div class="mui-slider-item"><a href="#"><img src="../img/focus-img1.png" data-preview-src="" data-preview-group="1" /></a></div>
+            <div class="mui-slider-item"><a href="#"><img src="../img/focus-img1.png" data-preview-src="" data-preview-group="1"/></a></div>
+        </div>
+        <div class="mui-slider-indicator">
+            <div class="mui-indicator mui-active"></div>
+            <div class="mui-indicator"></div>
+            <div class="mui-indicator"></div>
+        </div>
+    </div>
+    <div class="goods_info">
+        <p class="introduce">韩式田园吸顶灯马卡龙客厅灯韩式田园吸顶灯马卡龙客厅灯韩式田园吸顶灯马卡龙客厅灯韩式田园吸顶灯马卡龙客厅灯现代简约卧室儿童餐 厅大气家用灯具</p>
+       <div class="price">
+           <i>￥2169</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>会员价: ￥1203</em>
+       </div>
+        <div class="style">
+            <ul>
+                <li>快递：0.00</li>
+                <li>月销：1250</li>
+                <li>河南郑州</li>
+            </ul>
+        </div>
+    </div>
+    <div class="goods_shop" onclick="location.href='./local_market_shop.html'">
+        <img src="../img/focus-img1.png" alt=""/>
+        <div class="center">
+            <span>陌上浅笑</span>
+            <em>发布宝贝：2</em>
+        </div>
+        <div class="right">
+        </div>
+    </div>
+    <div class="goods_comment">
+        <div class="header">
+           <span>商品评价</span>
+            <i></i>
+        </div>
+        <div class="goods_comment_list">
+           <div class="goods_list_header">
+               <img src="../img/focus-img1.png" alt=""/>
+               <em>时***</em>
+               <del>8月27日  17:11</del>
+           </div>
+            <div class="p_info">
+               <p>宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！</p>
+                <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="2"/>
+            </div>
+        </div>
+        <button class="all_comment" onclick="location.href='./local_market_goodList_detail_comment.html'">查看全部评价</button>
+    </div>
+    <div class="goodS_detail">
+        <p>商品详情</p>
+        <img src="../img/focus-img1.png" data-preview-src="" data-preview-group="3"  alt=""/>
+    </div>
+    <div class="footer">
+        <ul>
+            <li><em></em><i>收藏</i></li>
+            <li onclick="location.href='local_market_shop.html'"><em></em><i>店铺</i></li>
+            <li><em></em><i>分享</i></li>
+        </ul>
+        <button class="right_buy" onclick="location.href='./local_market_business_buy_goods.html'">立即购买</button>
+    </div>-->
+
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/mui.preview.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script id="goodList_detail" type="text/html">
+   {{each list as value i}}
+   <header>
+       <i onclick="back()"></i>
+       <!--   <del></del>-->
+   </header>
+   <!--商品 轮播图-->
+   <div id="slider" class="mui-slider" >
+       <div class="mui-slider-group">
+           {{each value.goods.images as img j}}
+           <div class="mui-slider-item">
+               <a href="#">
+                   <img src="{{img.path}}"  data-preview-src="" data-preview-group="{{i}}"/>
+               </a>
+           </div>
+            {{/each}}
+       </div>
+       <div class="mui-slider-indicator">
+           {{each value.goods.images as img j}}
+           <div class="mui-indicator {{j==0?'mui-active':''}} "></div>
+           {{/each}}
+       </div>
+   </div>
+   <div class="goods_info">
+       <p class="introduce">{{value.goods.goodsName}}</p>
+       <div class="price">
+           <i>￥{{value.goods.price}}</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>会员价: ￥{{value.goods.smallPrice}}</em>
+       </div>
+       <div class="style">
+           <ul>
+               <li>快递：￥{{value.goods.expressFee==null?0:value.goods.expressFee}}</li>
+               <li>月销：1250</li>
+               <li>库存：{{value.goods.goodsNumbe==null?1:value.goods.goodsNumbe}}件
+                   </li>
+
+           </ul>
+
+       </div>
+       <p class="goodsNumber">地址：{{value.goods.address==null?"暂无数据":value.goods.address}}</p>
+   </div>
+   <div class="goods_shop" onclick="location.href='./local_market_shop.html'">
+       <img src="{{value.user.avatar}}" alt=""/>
+       <div class="center">
+           <span>{{value.user.userName}}</span>
+           <em>发布宝贝：2</em>
+       </div>
+       <div class="right">
+       </div>
+   </div>
+   {{/each}}
+   <div class="goods_comment">
+       <div class="header">
+           <span>商品评价</span>
+           <i></i>
+       </div>
+       <div class="goods_comment_list">
+           <div class="goods_list_header">
+               <img src="../img/focus-img1.png" alt=""/>
+               <em>时***</em>
+               <del>8月27日  17:11</del>
+           </div>
+           <div class="p_info">
+               {{if comment.length==0|| !comment}}
+               <p>暂时没有评价</p>
+               {{each comment as value i}}
+               <p>宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！</p>
+               {{each}}
+               {{/if}}
+
+               <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="2"/>
+           </div>
+       </div>
+       <button class="all_comment" onclick="location.href='./local_market_goodList_detail_comment.html'">查看全部评价</button>
+   </div>
+   <div class="goodS_detail">
+       <p>商品详情</p>
+       {{each list as value i}}
+       {{each value.goods.images as img j}}
+       <img src="{{img.path}}" data-preview-src="" data-preview-group="{{i}}"  alt=""/>
+       {{/each}}
+       {{/each}}
+   </div>
+   {{each list as value i}}
+   <div class="footer">
+       <ul>
+           <li class="save" data-id="{{value.goods.goodsId}}"><em></em><i>收藏</i></li>
+           <li onclick="location.href='local_market_shop.html'"><em></em><i>店铺</i></li>
+           <li><em></em><i>分享</i></li>
+       </ul>
+       <button class="right_buy" onclick="location.href='./local_market_business_buy_goods.html?goodsId={{value.goods.goodsId}}'">立即购买</button>
+   </div>
+{{/each}}
+</script>
+<script>
+    $(function(){
+        mui.previewImage();
+        // a链接问题
+// 监听tap事件，解决 a标签 不能跳转页面问题
+        mui('body').on('tap','a',function(){document.location.href=this.href;});
+        var goodsId=location.href.split("=")[1];
+        //console.log(goodsId);
+        function render(){
+           $.ajax({
+               //处理session每次不唯一问题
+               xhrFields: {
+                   withCredentials: true
+               },
+               type: "post",
+               async:false,
+               url: baseUrl+"/goods/getOneGoods",
+               data:{
+                   goodsId:goodsId
+               },
+               dataType: 'json',
+               success:function(data) {
+                   console.log(data);
+                   if(data.state==true){
+                    var html=template("goodList_detail",data);
+                       $(".layer").html(html);
+                       //自动轮播
+                       //获得slider插件对象
+                       var gallery = mui('.mui-slider');
+                       gallery.slider({
+                           interval:0//自动轮播周期，若为0则不自动播放，默认为0；
+                       });
+                   }
+               }
+           })
+       }
+        render();
+        //添加收藏
+        //收藏商品/goods/collectGoods
+        var falg =true;
+        $(".save").click(function(){
+            var goodsId=$(this).data("id");
+            console.log(goodsId);
+            if(falg){
+                $.ajax({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    async: false,
+                    type: "post",
+                    dataType: "json",
+                    url: baseUrl + "/goods/collectGoods",
+                    data: {
+                        goodsId: goodsId
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if(data.code=="success"){
+                            $(".save>span").text("已收藏");
+                        }
+                    }
+                })
+                falg=false;
+            }else{
+                $.ajax({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    async: false,
+                    type: "post",
+                    dataType: "json",
+                    url: baseUrl + "/goods/deleteCollectGoods",
+                    data: {
+                        goodsId: goodsId
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if(data.code=="success"){
+                            $(".save>span").text("已取消");
+                        }
+                    }
+                })
+                falg=true;
+            }
+        })
+        })
+</script>
+
+</html>

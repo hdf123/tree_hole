@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>二手市场-详情页面</title>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/mui_img.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <style>
+        body{
+            background-color: #fff;!important;
+        }
+        .layer>header>del{
+            position: absolute;
+            right: 3%;
+            height: 100%;
+            top: 10%;
+            font-size: 0.8rem;
+            color:#333;
+        }
+        .business_content{
+            width: 100%;
+        }
+        .business_content>.header{
+            width: 100%;
+            position: relative;
+            padding: 0.3rem;
+        }
+        .business_content>.header img{
+            width: 1.2rem;
+            min-height: 1rem;
+            max-height: 1.2rem;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+        .business_content>.header>.middle{
+            position: absolute;
+            left: 1.8rem;
+            top: 30%;
+        }
+        .header>.middle>em{
+            display: block;
+            font-size: 0.28rem;
+            margin-bottom: 0.1rem;
+        }
+        .header>.middle>i{
+            font-size: 0.24rem;
+            color:#a9a9a9;
+        }
+        .price{
+            color:#ff4947;
+            font-size: 0.4rem;
+            padding-left: 0.3rem;
+        }
+        .writing{
+            padding: 0.3rem;
+            font-size: 0.28rem;
+            color:#333;
+        }
+        .picture{
+            width: 100%;
+            padding-bottom: 1.3rem;
+        }
+        .picture>img{
+            width: 90%;
+            position: relative;
+            left: 5%;
+            margin-bottom: 0.1rem;
+        }
+        .leaver_message{
+            border-top:0.2rem solid #eee;
+            padding:0 0.3rem;
+            margin-bottom: 1.2rem;
+        }
+        .leaver_message>p{
+            height: 1rem;
+            line-height: 1rem;
+
+            font-size: 0.36rem;
+            
+        }
+        .leaver_message>.middle{
+            width: 100%;
+        }
+        .leaver_message>.middle img{
+            width: 1.2rem;
+            min-height: 1.2rem;
+            max-height: 1.3rem;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+        .leaver_message>.middle>span{
+            margin-left: 0.2rem;
+            font-size: 0.34rem;
+            color:#333;
+        }
+        .leaver_message .center{
+            margin-left: 1.5rem;
+        }
+        .leaver_message .center>span{
+            display: block;
+            color:#7d7d7d;
+            font-size: 0.3rem;
+            margin-bottom: 0.2rem;
+        }
+        .leaver_message .center>em{
+            color:#7d7d7d;
+            font-size: 0.24rem;
+        }
+        .leaver_message .center>em>i{
+            color:#666666;
+            background-color: #efefef;
+            padding:0.05rem 0.2rem;
+            border-radius: 10px;
+            border:1px solid #666;
+            margin-left: 0.2rem;
+        }
+        .footer_down{
+            border-top: 1px solid #eeeeee;
+            width: 100%;
+            height: 1rem;
+            line-height: 1rem;
+            position: fixed;
+            bottom: 0;
+            background-color: #fff;
+        }
+        .footer_down ul{
+            width: 60%;
+        }
+        .footer_down ul li{
+            float: left;
+            width: 33%;
+            text-align: center;
+        }
+        .footer_down ul li em{
+            display: inline-block;
+            width: 0.4rem;
+            height: 1rem;
+            background: url("../img/comment.png") no-repeat center;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+            vertical-align: middle;
+        }
+        .footer_down ul li:nth-of-type(2) em{
+            background-image: url("../img/comment.png");
+        }
+        .footer_down ul li:last-of-type em{
+            background-image: url("../img/five_star.png");
+        }
+        .footer_down .buy{
+            position: absolute;
+            right: 5%;
+            top: 20%;
+            color:#fff;
+            background-color: #5f321a;
+            padding: 0.1rem 0.2rem;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+    <div>请等待，正在加载...</div>
+</div>
+<div class="layer">
+<header>
+    <i onclick="back()"></i>
+<!--<del>...</del>-->
+</header>
+    <div class="business_content">
+      <!--填充-->
+    </div>
+</div>
+</body>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.preview.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script type="text/html" id="business_detail">
+    {{each list as value i}}
+    <div class="header">
+        {{if value.user.avatar==""}}
+        <img src="../img/focus-img1.png" alt=""/>
+        {{else}}
+        <img src="{{ value.user.avatar}}" alt=""/>
+        {{/if}}
+
+        <div class="middle">
+            <em>{{ value.user.realName}}</em>
+            <i>郑州金水 | {{ time(value.goods.pushTime)}}来过</i>
+        </div>
+    </div>
+    <div class="price">￥ {{value.goods.price==null?"0":value.goods.price}}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮费:￥{{value.goods.expressFee==null?"0":value.goods.expressFee}}</div>
+    <p class="writing">
+       {{value.goods.introduction}}
+    </p>
+    <div class="picture">
+       {{each value.goods.images as img j}}
+        <img src="{{img.path}}" data-preview-src="" data-preview-group="{{i}}" alt=""/>
+        {{/each}}
+    </div>
+  <!--  <div class="leaver_message">
+        <p>留言</p>
+        <div class="middle">
+            <img src="../img/focus-img1.png" alt=""/>
+            <span>阳光正好</span>
+        </div>
+        <div class="center">
+            <span>这个包包是什么材质的呢？</span>
+            <em>45分钟前 <i>3回复</i></em>
+        </div>
+    </div>-->
+    <div class="footer_down">
+        <ul>
+            <!--<li>
+                <em></em>
+                <span>喜欢</span>
+            </li>-->
+            <li>
+                <em></em>
+                <span>留言</span>
+            </li>
+            <li data-id="{{value.goods.goodsId}}" class="save">
+                <em></em>
+                <span>收藏</span>
+            </li>
+        </ul>
+        <button class="buy" onclick="location.href='./business_buy_goods.html?goodsId={{value.goods.goodsId}}'">立即购买</button>
+    </div>
+    {{/each}}
+</script>
+<script>
+$(function() {
+    mui.previewImage();
+//ajax 发送完毕
+    $(document).ajaxStop(function () {
+        $("#loading").hide();
+    });
+    var goodsId = location.href.split("=")[1];
+    goodsAddLookNumber(goodsId);
+    //console.log(goodsId);
+    function render() {
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            async: false,
+            type: "post",
+            dataType: "json",
+            url: baseUrl + "/goods/getOneGoods",
+            data: {
+
+                goodsId: goodsId
+            },
+            success: function (data) {
+                console.log(data);
+                if (data.state == true) {
+                    template.helper("time", function (date) {
+                        var time = new Date(date).toLocaleString().replace(/:\d{1,2}$/, ' ').substr(5, 11).replace("/", "-");
+                        return time;
+                        /* return new Date(parseInt(date) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');*/
+                    });
+                    //渲染
+                    //console.log(data.list);
+                    var html = template("business_detail", data);
+                    $(".business_content").html(html);
+                }
+            }
+        })
+    }
+
+    render()
+    //收藏商品/goods/collectGoods
+    var falg =true;
+    $(".save").click(function(){
+        var goodsId=$(this).data("id");
+        console.log(goodsId);
+        if(falg){
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                async: false,
+                type: "post",
+                dataType: "json",
+                url: baseUrl + "/goods/collectGoods",
+                data: {
+                    goodsId: goodsId
+                },
+                success: function (data) {
+                    console.log(data);
+                    if(data.code=="success"){
+                       $(".save>span").text("已收藏");
+                    }
+                }
+            })
+            falg=false;
+        }else{
+            $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
+                async: false,
+                type: "post",
+                dataType: "json",
+                url: baseUrl + "/goods/deleteCollectGoods",
+                data: {
+                    goodsId: goodsId
+                },
+                success: function (data) {
+                    console.log(data);
+                    if(data.code=="success"){
+                        $(".save>span").text("已取消");
+                    }
+                }
+            })
+            falg=true;
+        }
+    })
+
+
+})
+</script>
+</html>

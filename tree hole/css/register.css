@@ -1,0 +1,77 @@
+/*�ı�placeholder��������ɫ*/
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #d0cfd7; opacity:1;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #d0cfd7;opacity:1;
+}
+
+input:-ms-input-placeholder{
+    color: #d0cfd7;opacity:1;
+}
+
+input::-webkit-input-placeholder{
+    color: #d0cfd7;
+    opacity:1;
+}
+
+html{
+    height: 100%;
+    width: 100%;
+    background: url("../img/register.jpg") no-repeat;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+}
+.layer{
+    height: 100%;
+    width:100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.box{
+    margin-top: 52%;
+    width: 100%;
+    text-align: center;
+}
+.box input{
+    background-color: rgba(0,0,0,0);
+    padding-bottom: 0.1rem;
+    border-bottom:1px solid #8e8d9c;
+    font-size: 0.28rem;
+    width: 90%;
+    display: block;
+    position: relative;
+    left: 10%;
+    color: #fff;
+}
+.username,.Verification,.password{
+    line-height: 1rem;
+    height:1rem;
+    position: relative;
+    width: 90%;
+}
+.Verification span{
+    position: absolute;
+    right: 0%;
+    top: -25%;
+    height: 0.58rem;
+    line-height: 0.58rem;
+    font-size: 0.14rem;
+    padding:0rem 0.2rem;
+    color:#36322f;
+    background-color: #dbd9d9;
+    border-radius: 10px;
+}
+.register{
+    display: block;
+    width: 80%;
+    position: relative;
+    left:10%;
+    background-color: #dbd9d9;
+    color:#36322f;
+    font-size: 0.36rem;
+    border:0;
+    border-radius: 20px;
+    padding:0.2rem 0;
+}

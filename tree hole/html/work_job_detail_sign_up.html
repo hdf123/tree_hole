@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>确定报名</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <style>
+        /*改变placeholder的字体颜色*/
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #999; opacity:1;
+        }
+
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: #999;opacity:1;
+        }
+
+        input:-ms-input-placeholder{
+            color: #999;opacity:1;
+        }
+
+        input::-webkit-input-placeholder{
+            color: #999;opacity:1;
+        }
+        html{
+            background-color: #eeeeee;
+        }
+        .layer {
+            width: 100%;
+            background-color: #eeeeee;
+
+        }
+        header{
+            height: 1.3rem;
+            padding-top: 0.4rem;
+            line-height: 0.9rem;
+            position: relative;
+            background-color: #fff;
+            margin-bottom: 0.2rem;
+        }
+        header i{
+            position: absolute;
+            left: 3%;
+            top: 20%;
+            width: 0.6rem;
+            height: 0.9rem;
+            background: url("../img/left.png") no-repeat center;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+        }
+        header h3{
+            text-align: center;
+            font-size: 0.36rem;
+        }
+        .main{
+            width: 100%;
+            padding: 0.3rem;
+            background-color: #fff;
+        }
+        .sign,.manage{
+            width: 100%;
+            height:1rem;
+            line-height: 1rem;
+            position: relative;
+            font-size: 0.32rem;
+        }
+        .main .sign :after,.manage :after{
+            content: "";
+            height:0.3rem;
+            position: absolute;
+            /*background: #000;*/
+            width: 0.05rem;
+            color:#5f321a;
+            background-color: #5f321a;
+            left: 1%;
+            top: 30%;
+        }
+
+        .sign em,.manage em{
+            margin-left: 0.4rem;
+
+        }
+        .sign i {
+            color:red;
+            float: right;
+        }
+        .name p,.phone p{
+            height: 0.8rem;
+            line-height: 0.8rem;
+            font-size: 0.28rem;
+        }
+        .name p em,.phone p em{
+            color:red;
+        }
+        .name input,.phone input{
+            display: block;
+            width: 90%;
+            position: relative;
+            left: 5%;
+            height: 0.8rem;
+            line-height: 0.8rem;
+            border:1px solid #999;
+            text-indent: 1em;
+        }
+        .toast{
+            padding: 0.3rem;
+            color:#666;
+
+        }
+        .sure{
+            margin-top: 0.3rem;
+            position: relative;
+            left: 5%;
+            width: 90%;
+            background-color: #5f321a;
+            color:#fff;
+            font-size: 0.36rem;
+            height: 1rem;
+            line-height: 1rem;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="layer">
+    <header>
+        <i onclick="back()"></i>
+        <h3>填写报名</h3>
+    </header>
+    <div class="main">
+        <div class="sign clearfix">
+            <em>报名费用</em>
+            <i>￥20</i>
+        </div>
+        <div class="manage clearfix">
+            <em>报名信息</em>
+        </div>
+        <div class="name">
+            <p>姓名 <em>*</em></p>
+            <input type="text" placeholder="请填写你的姓名"/>
+        </div>
+        <div class="phone">
+            <p>电话 <em>*</em></p>
+            <input type="text" placeholder="请填写你的电话"/>
+        </div>
+
+    </div>
+    <p class="toast">报名失败后，报名费将自动退回钱包</p>
+    <button class="sure">确定报名</button>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script>
+    $(function(){
+        var href=location.href.split("=")[1];
+        console.log(href);
+        var price_work=localStorage.getItem("price_work");
+        if(price_work){
+            $(".sign>i").text("￥"+price_work);
+        }
+        $(".sure").click(function(){
+            var phone=$(".phone>input").val();
+            console.log(phone);
+            var name=$(".name>input").val();
+            console.log(name);
+            if(isNotBlank(phone)&&isNotBlank(name)){
+                if(!checkTelNum(phone)){
+                    alert('手机号码格式不正确，请您重新输入！');
+                    $(".phone>input").val("");
+                    return false;
+                }else{
+                    sign_up(name,phone);
+                }
+            }else{
+                alert("请填写完整信息");
+                return false;
+            }
+        })
+
+        //验证手机号
+        function checkTelNum(telNum){
+            if(!/^1[0-9]{10}$/.test(telNum)){
+                return false;
+            }
+            return true;
+        }
+        //验证不为空
+        function isNotBlank(data) {
+            return (data == "" || typeof(data)  == "undefined"|| data == null ) ? false : true;
+        }
+    })
+</script>
+</html>

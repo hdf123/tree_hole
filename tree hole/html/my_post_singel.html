@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>我的帖子-约单</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <link rel="stylesheet" href="../css/my_post_activity.css"/>
+
+    <style>
+        .nav ul{
+            width: 100%;
+        }
+        .nav ul li{
+            width: 33%;
+            height: 1rem;
+            line-height: 1rem;
+            float: left;
+        }
+        .nav ul li a{
+            color:#8c8c8c;
+            font-size: 0.34rem;
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+        .nav ul li .active{
+            color:#71462a;
+        }
+        .news_list {
+            padding-top: 0;
+        }
+        .footer ul .pay i{
+            left: 40%;
+        }
+        .center em{
+            display: block;
+            font-size: 0.4rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            margin-bottom: 0.1rem;
+            -webkit-box-orient: vertical;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+    <div>请等待，正在加载...</div>
+</div>
+<div class="layer">
+    <header>
+        <i onclick="location.href='./community.html'"></i>
+        <h3>发布的帖子</h3>
+    </header>
+    <div class="nav">
+        <ul class="clearfix">
+            <li>
+                <a href="./my_post_activity.html">
+                    社团活动
+                </a>
+            </li>
+            <li>
+                <a href="./my_post.html" >
+                    社区交友
+                </a>
+            </li>
+            <li>
+                <a href="./my_post_singel.html" class="active">
+                    约单
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="main">
+        <ul class="activity clearfix">
+
+          <!--  <li onclick="location.href='./my_post_activity_list.html'">
+                <img src="../img/focus-img1.png" alt=""/>
+                <div class="center">
+                    <em>大标题大标题大标题大标题大标题</em>
+                <span>
+                下周一有钢琴辅导有兴趣的同学快 快报名下周一有 快报名下周一有 快报名下周一有钢琴辅导有兴趣的同学快 快报名下周一有钢琴辅导有兴趣的同学快 快报名
+            </span>
+                    <i>3人约单</i>
+                </div>
+            </li>
+            <li onclick="location.href='./my_post_activity_list.html'">
+                <img src="../img/focus-img1.png" alt=""/>
+                <div class="center">
+                    <em>大标题大标题大标题大标题大标题</em>
+                <span>
+                下周一有钢琴辅导有兴趣的同学快 快报名下周一有 快报名下周一有 快报名下周一有钢琴辅导有兴趣的同学快 快报名下周一有钢琴辅导有兴趣的同学快 快报名
+            </span>
+                    <i>3人约单</i>
+                </div>
+            </li>-->
+
+        </ul>
+    </div>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script id="my_post_singel" type="text/html">
+{{each list as value i}}
+<li onclick="location.href='./my_post_activity_list.html?partnerId={{value.partner.partnerId}}'">
+    <img src="{{str(value.partner.imagePath)[0]}}" alt=""/>
+    <div class="center">
+        <em>{{value.partner.title}}</em>
+                <span>
+                    {{value.partner.content}}
+                </span>
+        <i>{{value.num}}人约单</i>
+    </div>
+</li>
+    {{/each}}
+</script>
+<script>
+$(function(){
+    //ajax 发送完毕
+    $(document).ajaxStop(function(){
+        $("#loading").hide();
+    });
+    function render(){
+        $.ajax({
+            //处理session每次不唯一问题
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            type:"post",
+            url:baseUrl+"/partner/getPartner",
+            dataType:"json",
+            data:{},
+            success:function(data){
+                console.log(data);
+                if(data.state==true&&data.list!=="网络出了点小问题...."){
+                    template.helper("time",function(date){
+                        var time=new Date(date).toLocaleString().replace(/:\d{1,2}$/,' ').substr(5,11).replace("/","-");
+                        return time;
+                       });
+
+                    template.helper("str",function(str){
+                        return str.split(",");
+                    });
+                    $(".activity").html(template("my_post_singel",data))
+                }else{
+                    $("#loading").show();
+                    $("#loading>div").text("网络错误，请稍后重试");
+                }
+            }
+        })
+
+    }
+    render();
+})
+</script>
+</html>

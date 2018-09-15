@@ -1,0 +1,77 @@
+.layer>header{
+    position: fixed;
+    z-index: 1;
+
+}
+.main{
+    width: 100%;
+    padding-top: 1.7rem;
+}
+.main .header{
+    width: 100%;
+    position: relative;
+    padding: 0.3rem;
+    border-top: 0.2rem solid #eee;
+    border-bottom: 0.2rem solid #eee;
+    background-color: #fff;
+}
+.main .header>img{
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+
+}
+.main .header .center{
+    position: absolute;
+    left: 1.5rem;
+    top: 22%;
+}
+.header .center>span{
+    display: block;
+    font-size: 0.3rem;
+}
+.header .center>i{
+    font-size: 0.22rem;
+    color:#666666;
+}
+.header .right{
+    position: absolute;
+    right: 5%;
+    top: 10%;
+}
+.header .right i{
+    display: inline-block;
+    width: 0.6rem;
+    height: 0.8rem;
+    background: url("../img/submit.png") no-repeat center;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    vertical-align: middle;
+}
+.nav{
+    width: 100%;
+    position: relative;
+    height: 1rem;
+    background-color: #fff;
+    line-height: 1rem;
+}
+.nav ul{
+    width: 100%;
+    position: relative;
+}
+.nav ul>li{
+    float: left;
+    width: 25%;
+
+}
+.nav ul>li a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    color:#666666;
+    text-align: center;
+    font-size: 0.3rem;
+}
+.nav ul>li .active{
+    color:#fbb054;
+ }

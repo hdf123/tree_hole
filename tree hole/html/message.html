@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>消息页面</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <style>
+        .layer>header{
+            position: fixed;
+            top: 0;
+            background-color: #fff;
+            z-index: 2;
+        }
+        .about_me{
+            width: 100%;
+            display: block;
+            height: 1.2rem;
+            line-height: 1.2rem;
+            font-size: 0.36rem;
+            padding: 0 0.3rem;
+            border-bottom: 0.2rem solid #eeeeee;
+        }
+        .main {
+            width: 100%;
+            padding-top: 1.6rem;
+        }
+        .main ul{
+            width: 100%;
+        }
+        .main ul li{
+            width: 100%;
+            position: relative;
+            padding: 0.2rem 0;
+            overflow-x: hidden;
+            border-bottom: 1px solid #eeeeee;
+        }
+        .main ul li img{
+            width: 0.8rem;
+            min-height: 0.8rem ;
+            border-radius: 50%;
+            margin-left: 0.3rem;
+            vertical-align: top;
+        }
+        .main ul li .center{
+            position: absolute;
+            left: 1.3rem;
+            top: 10%;
+        }
+        .main ul li .center em{
+            display: block;
+            font-size: 0.32rem;
+        }
+        .main ul li .center i{
+            font-size: 0.18rem;
+            color:#666;
+        }
+        .main ul li .right{
+            position: absolute;
+            right: 3%;
+            top: 10%;
+
+        }
+        .main ul li .right em{
+            display: block;
+            font-size: 0.16rem;
+            color:#666;
+        }
+        .main ul li .right i{
+            color:#fff;
+            background-color: red;
+           padding:0 0.1rem;
+            border-radius: 50%;
+        }
+    </style>
+
+</head>
+<body>
+<div class="layer" style="overflow-x: hidden;">
+    <header>
+        <i onclick="back()"></i>
+        <h3>消息</h3>
+    </header>
+
+    <div class="main">
+        <a class="about_me" href="./about_me.html">@ &nbsp;&nbsp;关于我的 </a>
+        <ul class="clearfix">
+            <li>
+                <img src="../img/focus-img1.png" alt=""/>
+                <div class="center">
+                    <em>SUN</em>
+                    <i>地点在哪?</i>
+                </div>
+                <div class="right">
+                    <em>7:30</em>
+                    <i>2</i>
+                </div>
+            </li>
+            <li>
+                <img src="../img/focus-img1.png" alt=""/>
+                <div class="center">
+                    <em>SUN</em>
+                    <i>地点在哪?</i>
+                </div>
+                <div class="right">
+                    <em>7:30</em>
+                    <i>2</i>
+                </div>
+            </li>
+            <li>
+                <img src="../img/focus-img1.png" alt=""/>
+                <div class="center">
+                    <em>SUN</em>
+                    <i>地点在哪?</i>
+                </div>
+                <div class="right">
+                    <em>7:30</em>
+                    <i>2</i>
+                </div>
+            </li>
+            <li>
+                <img src="../img/focus-img1.png" alt=""/>
+                <div class="center">
+                    <em>SUN</em>
+                    <i>地点在哪?</i>
+                </div>
+                <div class="right">
+                    <em>7:30</em>
+                    <i>2</i>
+                </div>
+            </li>
+            <li>
+                <img src="../img/focus-img1.png" alt=""/>
+                <div class="center">
+                    <em>SUN</em>
+                    <i>地点在哪?</i>
+                </div>
+                <div class="right">
+                    <em>7:30</em>
+                    <i>2</i>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+</html>

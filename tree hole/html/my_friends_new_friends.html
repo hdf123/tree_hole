@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>我的好友（添加好友）</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <style>
+        header{
+            position: fixed;
+            top: 0%;
+        }
+        .content{
+            width: 100%;
+        }
+        .content>ul{
+            width: 100%;
+        }
+        .content>ul>li{
+
+            height: 1.2rem;
+            line-height: 1.2rem;
+            border-bottom: 1px solid #eeeeee;
+        }
+        .content>ul>li img{
+            margin-left: 0.3rem;
+            width: 0.8rem;
+            height: 0.8rem;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+        .content>ul>li .left span{
+            margin-left: 0.3rem;
+        }
+        .content>ul>li>.right button{
+            width: 1.5rem;
+            height: 0.7rem;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            border:1px solid #eee;
+            background-color: #fff;
+        }
+        .content>ul>li>.right>.confirm{
+            margin-right: 0.3rem;
+            background-color: #5f321a;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+<div class="layer" style="overflow-x: hidden">
+    <header>
+        <i onclick="back()"></i>
+        <h3>新朋友</h3>
+    </header>
+    <div class="content">
+        <ul>
+            <li class="clearfix">
+                <div class="left f_left">
+                    <img src="../img/focus-img1.png" alt=""/>
+                    <span>扮演版心</span>
+                </div>
+                <div class="right f_right">
+                    <button class="rejest">拒绝</button>
+                    <button class="confirm">同意</button>
+                </div>
+            </li>
+            <li class="clearfix">
+                <div class="left f_left">
+                    <img src="../img/focus-img1.png" alt=""/>
+                    <span>扮演版心</span>
+                </div>
+                <div class="right f_right">
+                    <button class="rejest">拒绝</button>
+                    <button class="confirm">同意</button>
+                </div>
+            </li>
+            <li class="clearfix">
+                <div class="left f_left">
+                    <img src="../img/focus-img1.png" alt=""/>
+                    <span>扮演版心</span>
+                </div>
+                <div class="right f_right">
+                    <button class="rejest">拒绝</button>
+                    <button class="confirm">同意</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script>
+
+</script>
+</html>

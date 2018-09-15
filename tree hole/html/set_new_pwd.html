@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>设置新密码</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <style>
+        /*头部css*/
+        header{
+            height: 1.3rem;
+            padding-top: 0.4rem;
+            line-height: 1.3rem;
+            width: 100%;
+            background-color: #fff;
+            position:fixed;
+            z-index:11;
+            border-bottom: 1px solid #eeeeee;
+        }
+        header h3{
+            text-align: center;
+            color:#686868;
+            font-size: 0.36rem;
+        }
+        header  i,header em{
+            background: url("../img/b_left_03.png") no-repeat center;
+            height: 0.9rem;
+            width: 0.6rem;
+            position: absolute;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+        }
+        header  i{
+            left: 2%;
+            top: 38%;
+        }
+        .main{
+            padding: 0.93rem 0.5rem 0 0.5rem;
+        }
+        .main h4   {
+            width: 100%;
+            height: 1.1rem;
+            line-height: 1.1rem;
+            font-size: 0.36rem;
+            color:#333333;
+        }
+        .main form{
+            position: relative;
+            height: 0.68rem;
+            border-bottom: 1px solid #eeeeee;
+        }
+        .main form span{
+            font-size: 0.36rem;
+            color:#333;
+        }
+        .main form input{
+            font-size:0.36rem;
+            margin-left:0.35rem;
+            display: block;
+            width: 100%;
+        }
+        .main button{
+            margin-top: 0.5rem;
+            display: block;
+            width: 100%;
+            height: 0.88rem;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            background-color: #72462B;
+            color:#fff;
+            font-size: 0.36rem;;
+        }
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #b8b8b8; opacity:1;
+        }
+
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: #fff;opacity:1;
+        }
+
+        input:-ms-input-placeholder{
+            color: #b8b8b8;opacity:1;
+        }
+
+        input::-webkit-input-placeholder{
+            color: #b8b8b8;opacity:1;
+        }
+        .new_pwd {
+            position: relative;
+        }
+        .new_pwd .eyes{
+            position: absolute;
+            width: 0.6rem;
+            height: 100%;
+            right: 5%;
+            top: 0% ;
+            background: url("../img/close_eyes.png") no-repeat center;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="layer">
+    <header class="clearfix">
+        <i onclick="back()" ></i>
+        <h3>设置新密码</h3>
+    </header>
+    <div class="main">
+        <h4>请为您的账号，设置一个新的密码</h4>
+        <form action="new_pwd" class="new_pwd">
+           <input type="password" class="password" placeholder="请设置6-12位（数字+字母）"/>
+            <span class="eyes"></span>
+        </form>
+        <button class="next">保存新密码</button>
+    </div>
+</div>
+<script src="../js/x_rem.js"></script>
+<script src="../js/jquery.js"></script>
+<script>
+    $(function(){
+        function back(){
+            history.go(-1);
+        }
+        //小眼睛的逻辑
+         var  falg=true;
+        $(".eyes").click(function(){
+            if(falg){
+                $("input[type='password']").attr("type","text");
+                $(this).css("background-image","url(../img/eyes.png)");
+                falg=false;
+            }else{
+                $("input[type='text']").attr("type","password");
+                $(this).css("background-image","url(../img/close_eyes.png)");
+                falg=true;
+            }
+        });
+
+        //在这个页面要先判断用户输入的手机号格式是否正确 还要判断数据库里面是否存在此手机号注册的信息  （不判断存在应该也可以 留到下一页面）；
+
+        function findPassword(){
+            var phone=$(".phone input").val();
+            //console.log(phone);
+            if(isNotBlank(phone)){
+                if(!checkTelNum(phone)){
+                    alert("手机号格式不正确，请您查证后输入");
+                    $(".phone input").val("");
+                    return false;
+                }else{//保存手机号
+                    localStorage.setItem("phone",JSON.stringify(phone));
+                    var uuid=Math.random().toString(36).substr(2);
+                    var obj={};
+                    obj.mobile=phone;
+                    obj.type="2";
+                    obj.uuid=uuid;
+                    localStorage.setItem("findPwdUUID",JSON.stringify(uuid));
+                    console.log(obj);
+                    $.ajax({
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        type:"post",
+                        async: false,
+                        //contentType:'application/json;charset=UTF-8',
+                        data:obj,
+                        dataType:"json",
+                        url:"http://39.104.127.252:8089/beyond-web/api/user/sendCaptcha",
+                        success:function(data){
+                            console.log(data);
+                        }
+                    });
+                }
+            }else{
+                alert("手机号不能为空");
+                $(".phone input").val("");
+                return false;
+            }
+        }
+
+        function isNotBlank(data) {
+            return (data == "" || typeof(data)  == "undefined"|| data == null ) ? false : true;
+        }
+        //验证手机号
+        function checkTelNum(telNum){
+            if(!(/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(telNum))){
+                return false;
+            }
+            return true;
+        }
+        $(".next").click(function(){
+            findPassword();
+            window.location.href='./change_login_password.html';
+        })
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>我的钱包</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <style>
+        .my_purse_layer header h3{
+            text-align: left;
+            margin-left: 0.8rem;
+        }
+        .my_purse_layer header em{
+            position: absolute;
+            background: none;
+            width: 2rem;
+            right: -5%;
+            top: 28%;
+            font-size: 0.18rem;
+        }
+        .content .center{
+            text-align: center;
+            padding-top: 0.6rem;
+
+        }
+        .center img{
+            width: 2.2rem;
+            display: block;
+            margin:0 auto;
+        }
+        .center p:nth-of-type(1){
+            font-size: 0.3rem;
+            margin-top: 0.3rem;
+        }
+        .center p:nth-of-type(2){
+            font-size: 0.5rem;
+            color: red;
+        }
+        .content button{
+            display: block;
+            width: 90%;
+            position: relative;
+            left: 5%;
+            height: 1rem;
+            line-height: 1rem;
+            margin-top: 0.3rem;
+            border-radius: 10px;
+            font-size: 0.36rem;
+        }
+        .recharge{
+            color: #ffffff;
+            background-color: #5f321a;
+        }
+        .withdraw{
+            background: #fff;
+            border: 1px solid #5f321a;
+        }
+
+    </style>
+</head>
+<body>
+<div class="layer my_purse_layer">
+    <header>
+        <i onclick="back()"></i>
+        <h3 onclick="back()">我的钱包</h3>
+        <em class="detail">零钱明细</em>
+    </header>
+    <div class="content">
+    <!---->
+    </div>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+
+<script id="purse" type="text/html">
+    <div class="center">
+        <img src="../img/my_purse.png" alt=""/>
+        <p>我的余额</p>
+        <p class="balance">￥{{balance}}</p>
+    </div>
+    <button class="recharge" onclick="location.href='./my_purse_recharge.html?userId={{userId}}'">充值</button>
+    <button class="withdraw" onclick="location.href='./my_purse_withdaw.html?userId={{userId}}'">提现</button>
+</script>
+<script >
+    render();
+function render(){
+    $.ajax({
+        //处理session每次不唯一问题
+        xhrFields: {
+            withCredentials: true
+        },
+        async:false,
+        type: "post",
+        url: baseUrl+"/pay/getWallet",
+        data:{
+            type:1
+        },
+        dataType: 'json',
+        success:function(data) {
+            console.log(data);
+            if(data.code=="success"||data.state==true||data.list!=="网络出了点小问题...."){
+                //跳转页面
+               $(".content").html(template("purse",data));
+                $(".detail").click(function () {
+                   location.href='my_purse_detail.html'+"?userId="+data.userId;
+                })
+            }
+        }
+
+    })
+}
+</script>
+</html>

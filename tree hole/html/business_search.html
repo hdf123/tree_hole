@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>
+        本地商城（商品列表页面）
+    </title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <link rel="stylesheet" href="../css/local_market_goods_list.css"/>
+    <style>
+        .good_list{
+            padding-top: 1.8rem;
+        }
+        .no_goods{
+            padding-left:1rem;
+            padding-top: 1rem;
+            font-size: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+<div class="layer">
+    <header>
+        <i onclick="back()"></i>
+        <input type="text" placeholder="搜索商品"/>
+        <del id="search">搜索</del>
+    </header>
+    <div class="good_list">
+
+    </div>
+
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script id="business_search" type="text/html">
+    {{if list.length==0}}
+    <h3 class="no_goods">
+        对不起，暂时没有符合要求的商品
+    </h3>
+    {{else}}
+    <ul>
+        {{each list as value i}}
+        <li>
+            <a href="./local_market_goodList_detail.html?goodsId={{value.goodsId}}">
+                <img src="{{value.images[0].path}}" alt=""/>
+                <span>{{value.introduction}}</span>
+                <em> ￥{{value.price}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>销量 {{value.saleNumber}}</i></em>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+    {{/if}}
+</script>
+<script>
+    $(function(){
+        $("#search").click(function () {
+            //获取用户搜索的关键字
+            var key=$("header>input").val();
+
+            search(key);
+        })
+        function search(key){
+            $.ajax({
+                //处理session每次不唯一问题
+                xhrFields: {
+                    withCredentials: true
+                },
+                type: "post",
+                url:baseUrl+"/goods/searchGoods2",
+                data:{
+                    key:key
+                },
+                dataType: 'json',
+                success:function(data) {
+                    console.log(data);
+                    $(".good_list").html(template("business_search",data));
+
+                }
+
+            })
+        }
+
+    })
+</script>
+</html>

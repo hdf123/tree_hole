@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>我的_应聘信息(兼职详情)</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <link rel="stylesheet" href="../css/my_employ.css"/>
+</head>
+<body>
+<div class="layer">
+    <header>
+        <i onclick="location.href='./community.html'"></i>
+        <h3>应聘信息</h3>
+    </header>
+    <nav>
+        <ul>
+            <li>
+                <a href="./my_employ.html" class="active">
+                    兼职详情
+                </a>
+            </li>
+            <li>
+                <a href="./my_employ_single.html">
+                    约单详情
+                </a>
+            </li>
+            <li>
+                <a href="./my_employ_sign_up.html">
+                    报名详情
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="content">
+        <ul>
+            <li>
+                <div class="header">
+                    <span>轻松充场直招半天120日结现金</span>
+                    <i>已拒绝</i>
+                </div>
+                <div class="center">
+                    <em><i></i>金水区</em>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <del><s></s>06.20~06.25</del>
+                </div>
+                <div class="footer">
+                    <span>日结</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <em>120元/天</em>
+                </div>
+            </li>
+
+          <!--  <li>
+                <div class="header">
+                    <span>轻松充场直招半天120日结现金</span>
+                    <i>已拒绝</i>
+                </div>
+                <div class="center">
+                    <em><i></i>金水区</em>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <del><s></s>06.20~06.25</del>
+                </div>
+                <div class="footer">
+                    <span>日结</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <em>120元/天</em>
+                </div>
+            </li>
+            <li>
+                <div class="header">
+                    <span>轻松充场直招半天120日结现金</span>
+                    <i>已拒绝</i>
+                </div>
+                <div class="center">
+                    <em><i></i>金水区</em>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <del><s></s>06.20~06.25</del>
+                </div>
+                <div class="footer">
+                    <span>日结</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <em>120元/天</em>
+                </div>
+            </li>
+            <li>
+                <div class="header">
+                    <span>轻松充场直招半天120日结现金</span>
+                    <i>已拒绝</i>
+                </div>
+                <div class="center">
+                    <em><i></i>金水区</em>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <del><s></s>06.20~06.25</del>
+                </div>
+                <div class="footer">
+                    <span>日结</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <em>120元/天</em>
+                </div>
+            </li>
+            <li>
+                <div class="header">
+                    <span>轻松充场直招半天120日结现金</span>
+                    <i>已拒绝</i>
+                </div>
+                <div class="center">
+                    <em><i></i>金水区</em>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <del><s></s>06.20~06.25</del>
+                </div>
+                <div class="footer">
+                    <span>日结</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <em>120元/天</em>
+                </div>
+            </li>-->
+        </ul>
+    </div>
+
+</div>
+
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script id="my_employ" type="text/html">
+    {{each list as value i}}
+    <li>
+        <div class="header">
+            <span>{{value.station.title}}</span>
+           {{if value.status==0}}
+            <i>已拒绝</i>
+            {{else if value.status==1}}
+            <i>已同意</i>
+            {{else}}
+            <i>待处理</i>
+            {{/if}}
+        </div>
+        <div class="center">
+            <em><i></i>{{value.station.address}}</em>&nbsp;&nbsp;&nbsp;&nbsp;
+            {{if value.station.startTime==null}}
+            <del><s></s>日期不确定</del>
+            {{else}}
+            <del><s></s>{{time(value.station.startTime)}}~{{time(value.station.endTime)}}</del>
+            {{/if}}
+        </div>
+        <div class="footer">
+            <span>{{value.station.payType}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <em>{{value.station.price}}元/天</em>
+        </div>
+    </li>
+    {{/each}}
+</script>
+<script >
+    render();
+    function render(){
+        $.ajax({
+//处理session每次不唯一问题
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            type: "post",
+            url: baseUrl+"/station/getMyStationOrder",
+            data:{},
+            dataType: 'json',
+            success:function(data) {
+                console.log(data);
+                if(data.code=="success"||data.state==true||data.list!=="网络出了点小问题...."){
+                    template.helper("time",function(date){
+                        var time=new Date(date).toLocaleString().replace(/:\d{1,2}$/,' ').substr(5,11).replace("/","-");
+                        return time;
+                        /* return new Date(parseInt(date) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');*/
+                    });
+                    $(".content").html(template("my_employ",data));
+                }
+            }
+        })
+    }
+</script>
+</html>

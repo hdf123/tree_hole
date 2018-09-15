@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>添加地址页面</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <style>
+        .layer>header{
+            margin-bottom: 0.2rem;
+        }
+        .layer>header>em{
+            background: none;
+            width: 1rem;
+            top: 28%;
+            font-size:0.25rem;
+        }
+        .main_content{
+            padding: 0 0.3rem;
+        }
+        .main_content input{
+            display: block;
+            height: 1rem;
+            line-height: 1rem;
+            font-size: 0.3rem;
+            width: 100%;
+            margin-bottom: 0.2rem;
+            border-bottom: 1px solid #eee;
+        }
+        .main_content textarea{
+            width: 100%;
+            height: 1.2rem;
+            font-size: 0.3rem;
+            border:none;
+            padding-top: 0.2rem;
+
+        }
+        .main_content .address{
+            color:#666;
+            height: 1rem;
+            line-height: 1rem;
+            font-size: 0.3rem;
+            border-bottom: 1px solid #eeeeee;
+        }
+        .default_address{
+            border-top: 0.1rem solid #eeeeee;
+            /*height: 1rem;
+            line-height: 1rem;*/
+            font-size: 0.3rem;
+            position: relative;
+            padding-top: 0.3rem;
+        }
+        .default_address i{
+            border:1px solid #797979;
+            float: right;
+            width: 0.36rem;
+            height: 0.36rem;
+            line-height: 0.4rem;
+            font-size: 0.32rem;
+            text-align: center;
+        }
+
+        /*address*/
+        ._citys {width:100%; height:100%;display: inline-block; position: relative; }
+        ._citys span { color: #5f321a; height: 15px; width: 15px; line-height: 15px; text-align: center; border-radius: 3px; position: absolute; right: 1em; top: 10px; border: 1px solid #5f321a; cursor: pointer; }
+        ._citys0 { width: 100%; height: 34px; display: inline-block; border-bottom: 2px solid #5f321a; padding: 0; margin: 0; background-color: #fff;}
+        ._citys0 li { float:left; height:34px;line-height: 34px;overflow:hidden; font-size: 15px; color: #888; width: 80px; text-align: center; cursor: pointer; }
+        .citySel { background-color: #5f321a; color: #fff !important; }
+        ._citys1 { width: 100%;height:80%; display: inline-block; padding: 10px 0; overflow: auto;
+            background-color: #fff;}
+        ._citys1 a {  height: 35px; display: block; color: #666; padding-left: 6px; margin-top: 3px; line-height: 35px; cursor: pointer; font-size: 13px; overflow: hidden;
+             }
+        ._citys1 a:hover { color: #fff; background-color: #56b4f8; }
+        #PoPy{
+            z-index: 1111;
+        }
+        ._citys{
+            background-color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+<div class="layer">
+    <header style="">
+        <i onclick="back()"> </i>
+        <h3>添加地址</h3>
+        <em class="save">保存</em>
+    </header>
+    <div class="main_content">
+        <input type="text" placeholder="收货人" class="people"/>
+        <input type="text" placeholder="手机号码" class="phone_number"/>
+        <div id="city" class="address"> 所在地区</div>
+        <textarea  placeholder="详细地址:如道路、门牌号、小区、楼栋号、单元室等"></textarea>
+        <div class="default_address">
+            <span>设为默认地址</span>
+            <i class="set_address"></i>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/address/common.js"></script>
+<script src="../js/address/popt.js"></script>
+<script src="../js/address/cityjson.js"></script>
+<script src="../js/address/cityset.js"></script>
+<script src="../js/template-web.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#city").click(function (e) {
+            SelCity(this,e);
+           /* console.log(this);*/
+        });
+        var href=location.href.split("=")[1];
+       localStorage.setItem("href",href);
+        var flag=true;
+
+        $(".save").click(function(){
+         var address=document.querySelector("#city").innerText.replace(/-/g,"");
+           // console.log(text);
+            address=address+=$("textarea").val();
+            console.log(address);
+            var people=$(".people").val();
+            console.log(people);
+            var phone_number=$(".phone_number").val();
+            console.log(phone_number);
+            if( $(".set_address").text()=="√"){
+                localStorage.setItem("address.status",true);
+               var status=true;
+            }else{
+                status=false;
+            }
+            //找一个验证 电话号码的正则 座机+手机号码
+
+            if(address!=="所在地区"&&people!==""&&phone_number!==""){
+                /*localStorage.setItem("address",address);
+                localStorage.setItem("people",people);
+                localStorage.setItem("phone_number",phone_number);*/
+               //发送ajax 成功后跳转到 business_choose_address.html
+               /* var obj={};
+                obj.receiver=people;
+                obj.receiverPhone=phone_number;
+                obj.address=address;
+                obj.status=1;
+                obj=JSON.stringify(obj);
+               addNewAddress(obj);*/
+              addNewAddress(people,phone_number,1,address)
+            }else{
+                alert("请您填写完整收货信息");
+            }
+        //back();
+
+        })
+        //勾选 默认
+        $(".set_address").click(function(){
+            if(flag){
+                $(this).text("√");
+                flag=false;
+            }else{
+                $(this).text("");
+                flag=true;
+            }
+        })
+        /// 添加收货地址 goods/addAddress
+        function addNewAddress(receiver,province,status,address){
+            $.ajax({
+                //处理session每次不唯一问题
+                xhrFields: {
+                    withCredentials: true
+                },
+                async:false,
+                type: "post",
+                //contentType:"application/JSON",
+                url: baseUrl+"/goods/addAddress",
+                data:{
+                        receiver:receiver,
+                        receiverPhone:province,
+                        status:status,
+                        address:address
+            },
+                dataType: 'json',
+                success:function(data) {
+                    console.log(data);
+                    if(data.code=="success"||data.success==true||data.list!=="网络出了点小问题...."){
+                    location.href='business_choose_address.html'
+                    }else{
+                        alert('网络错误，请重新再试');
+                        location.href='./business_buy_goods_add_location.html';
+                    }
+
+                }
+
+            })
+        }
+    })
+
+</script>
+</html>

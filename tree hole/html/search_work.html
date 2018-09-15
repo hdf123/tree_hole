@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>搜索职位</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/mui.indexedlist.css"/>
+    <style>
+        .btnout{
+            display: inline-block;
+        }
+        body{
+            background-color: #fff;
+        }
+             h5{
+            color:#333;
+            padding-left: 0.5rem;
+        }
+
+        .location .guild{position: absolute;
+            z-index: 9; top: 0rem; width: 100%; height: auto;padding: 0 20px 0 10px;}
+        .place_ac{padding:0 23px 10px 10px;}
+        .location .guild h5{line-height: 30px;padding-top: 10px;}
+        .location .guild .btnout{width: 25%;float: left;padding: 0 10px;margin: 10px 0;}
+        .location .guild .btnout button{width: 100%;}
+       
+        .mui-btn-outlined{
+            border:none ;
+            color:#545458;
+            background-color : #f4f4f4;
+            margin-top: 0.3rem;
+            margin-right: 0.3rem;
+        }
+        .mui-search input[type=search] {
+            width: 80%;
+            position: relative;
+            left: 3rem;
+        }
+        header{
+            height: 2rem;
+            padding-top: 0.8rem;
+            background-color: #fff;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        header em{
+            display: inline-block;
+            background: url("../img/left.png") no-repeat center;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+            position: relative;
+            left: 3%;
+            width: 0.6rem;
+            height: 0.9rem;
+        }
+        header .search_job{
+            position: absolute;
+            left: 1rem;
+            width: 70%;
+            border-radius: 5px;
+            background-color: #f3f3f2;
+            border: none;
+            font-size: 0.36rem;
+            text-indent: 2em;
+        }
+        header:before{
+            content: "";
+            width: 0.6rem;
+            height: 100%;
+            position: absolute;
+            left: 17%;
+            top: 14%;
+            background: url("../img/search_03.png") no-repeat center;
+            -webkit-background-size: 120%;
+            background-size: 120%;
+            z-index: 1;
+        }
+        .search{
+            position: absolute;
+            right:0%;
+            width: 1rem;
+            top: 50%;
+            font-size: 0.36rem;
+            color:#545458;
+        }
+    </style>
+
+</head>
+<body>
+<div class="layer">
+        <header>
+            <em onclick="back()"></em>
+            <input type="text" placeholder="搜索职位" class="search_job"/>
+        <i class="search">搜索</i>
+        </header>
+
+    <div class="guild">
+        <h5>热门搜索</h5>
+        <div class="place_ac clearfix" id="place_ac">
+            <div class="btnout"><button type="button" class="mui-btn mui-btn-outlined">服务员</button></div>
+            <div class="btnout"><button type="button" class="mui-btn mui-btn-outlined">临时工</button></div>
+            <div class="btnout"><button type="button" class="mui-btn mui-btn-outlined">全国可报名</button></div>
+            <div class="btnout"><button type="button" class="mui-btn mui-btn-outlined">在家可做</button></div>
+            <div class="btnout"><button type="button" class="mui-btn mui-btn-outlined">客服</button></div>
+            <div class="btnout"><button type="button" class="mui-btn mui-btn-outlined">便利店</button></div>
+            <div class="btnout"><button type="button" class="mui-btn mui-btn-outlined">周末</button></div>
+            <div class="btnout"><button type="button" class="mui-btn mui-btn-outlined">小时工</button></div>
+
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.indexedlist.js"></script>
+<script>
+    $(function(){
+        $(".btnout").click(function(){
+            var text=$(this).text();
+            $(".search_job").val(text);
+        })
+        //点击搜索
+        $(".search").click(function(){
+           var content= $(".search_job").val();
+            console.log(content);
+        })
+    })
+</script>
+</html>

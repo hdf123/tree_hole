@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>报名详情（列表）</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <link rel="stylesheet" href="../css/my_post_activity_list.css"/>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+    <div>请等待，正在加载...</div>
+</div>
+<div class="layer">
+    <header>
+        <i onclick="back()"></i>
+        <h3 onclick="back()">报名详情</h3>
+    </header>
+    <div class="main">
+        <ul>
+           <!--填充-->
+        </ul>
+    </div>
+
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script id="list" type="text/html">
+    {{if list.length==0}}
+    <li style="font-size: 0.32rem ; padding-left: 0.5rem"> 对不起，暂时没有人报名</li>
+    {{else}}
+    {{each list as value i}}
+    <li onclick="location.href='./my_post_activity_detil.html?studentId={{value.signUpOrderId}}'">
+        <img src="{{value.student.avatar}}" alt=""/>
+        <div class="center">
+            <span>{{value.student.realName}}</span>
+            <em>{{time(value.schoolMessage.pushTime)}}</em>
+        </div>
+        <button class="right">同意</button>
+    </li>
+    {{/each}}
+    {{/if}}
+</script>
+<script id="sigle_list" type="text/html">
+    {{if list.length==0}}
+    <li style="font-size: 0.32rem ; padding-left: 0.5rem"> 对不起，暂时没有人报名</li>
+    {{else}}
+    {{each list as value i}}
+    <li onclick="location.href='./my_post_activity_detil.html?pusher_studentId={{value.partnerOrderId}}'">
+        <img src="{{value.partner.pusher.avatar}}" alt=""/>
+        <div class="center">
+            <span>{{value.partner.pusher.realName}}</span>
+            <em>{{time(value.partner.pushTime)}}</em>
+        </div>
+        <button class="right">同意</button>
+    </li>
+    {{/each}}
+    {{/if}}
+</script>
+<script>
+$(function(){
+    $(document).ajaxStop(function(){
+        $("#loading").hide();
+    })
+    //获取URL 地址栏参数 判断
+    // 如果是schoolMessageId 就是校园资讯 跳转页面 发送 getSignUpOrderForPusher请求
+    //如果是 partnerId 就是 约单 发送另一个 请求
+   var getUrlParams=function(){
+       var search=location.search;//search里面包含?
+       search=search.substr(1);
+       console.log(search);
+       var str=search.split("=");
+       if(str[0]=="schoolMessageId"){
+           getSignUpOrderForPusher(str[1])
+       }else{
+           getPartnerOrderById(str[1]);
+       }
+   }
+    getUrlParams()
+
+   /* var href=location.href.split("=")[1];
+    console.log(href);
+    getSignUpOrderForPusher()*/
+    //获取 发布者发布的资讯的报名
+    function  getSignUpOrderForPusher(href){
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            type: "post",
+            url:baseUrl+"/schoolMessage/getSignUpOrderBySchoolMessage",
+            data:{
+                schoolMessageId:href
+            },
+            dataType: 'json',
+            success:function(data) {
+                console.log(data);
+                if(data.state==true||data.list!=="网络出了点小问题...."){
+                    template.helper("str",function(str){
+                        return str.split(",");
+                    });
+                    template.helper("time",function(date){
+                        var time=new Date(date).toLocaleString().replace(/:\d{1,2}$/,' ').substr(5,11).replace("/","-");
+                        return time;
+                        /* return new Date(parseInt(date) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');*/
+                    });
+                    $(".main>ul").html(template("list",data));
+                }else{
+                    $("#loading").show();
+                    $("#loading>div").text("网络错误，请稍后重试");
+                }
+            }
+        })
+    }
+    //获取约单列表
+    function  getPartnerOrderById(href){
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            type: "post",
+            url:baseUrl+"/partner/getPartnerOrderByPartnerId ",
+            data:{
+                partnerId:href
+            },
+            dataType: 'json',
+            success:function(data) {
+                console.log(data);
+                if(data.state==true&&data.list!=="网络出了点小问题...."){
+                    template.helper("str",function(str){
+                        return str.split(",");
+                    });
+                    template.helper("time",function(date){
+                        var time=new Date(date).toLocaleString().replace(/:\d{1,2}$/,' ').substr(5,11).replace("/","-");
+                        return time;
+                        /* return new Date(parseInt(date) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');*/
+                    });
+                    $(".main>ul").html(template("sigle_list",data));
+                }else{
+                    $("#loading").show();
+                    $("#loading>div").text("网络错误，请稍后重试");
+                }
+            }
+        })
+    }
+})
+</script>
+</html>

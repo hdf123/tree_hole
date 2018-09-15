@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>市场中心</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <link rel="stylesheet" href="../css/my_market.css"/>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div class="layer">
+    <header>
+        <i onclick="location.href='./local_market.html'"></i>
+        <h3>市场中心</h3>
+    </header>
+    <div class="nav clearfix">
+        <ul class="clearfix">
+            <li>
+                <a href="./my_market.html"  class="active">出售中</a>
+            </li>
+            <li>
+                <a href="./my_market_published.html">已发布</a>
+            </li>
+            <li>
+                <a href="./my_market_order.html">全部订单</a>
+            </li>
+            <li>
+                <a href="./my_market_save.html">收藏</a>
+            </li>
+            <li>
+                <a href="./my_market_pay.html">佣金</a>
+            </li>
+        </ul>
+    </div>
+    <div class="list">
+        <ul class="clearfix">
+
+            <!--<li>
+                <div class="goods">
+                    <img src="../img/focus-img1.png" alt=""/>
+                    <div class="center">
+                        <span>夏日斜跨小包包女2018新款潮韩版百搭时尚夏日斜跨小包包女2尚夏日斜跨小包包女2尚夏日斜跨小包包女2尚夏日斜跨小包包女2018新款潮韩版百搭时尚</span>
+                        <em>10次预览 &nbsp;&nbsp; <del>2个留言</del></em>
+                        <i>￥15&nbsp;&nbsp; <s>原价90</s></i>
+                    </div>
+                </div>
+                <div class="handle">
+                    <button class="sold_out">下架</button>
+                    <button class="delete">删除</button>
+                </div>
+            </li>-->
+        </ul>
+    </div>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script id="my_sale" type="text/html">
+    {{if list.length==0}}
+    <li class="no_order">对不起，你暂时没有任何商品在出售中!</li>
+    {{else}}
+    {{each list as value i}}
+    {{if value.goodsNumber >= 1}}
+    <li>
+        <div class="goods">
+            {{if value.images.length==0}}
+            <img src="../img/no_photo.png" alt=""/>
+            {{else}}
+            <img src="{{value.images[0].path}}" alt=""/>
+            {{/if}}
+            <div class="center">
+                <span>{{value.introduction}}</span>
+                <!--<em>10次预览 &nbsp;&nbsp; <del>2个留言</del></em>-->
+                <i>￥{{value.price}}&nbsp;&nbsp; </i>
+                <!--<s>原价￥{{value.price==null?value.smallPrice-0+100:value.price-0+100}}</s>-->
+            </div>
+        </div>
+        <div class="handle">
+            <button class="sold_out" data-index="{{value.goodsId}}" onclick="underGoods('{{value.goodsId}}')" >下架</button>
+            <button class="delete" data-id="{{value.goodsId}}" onclick="deleteGoods('{{value.goodsId}}')">删除</button>
+        </div>
+    </li>
+    {{/if}}
+    {{/each}}
+    {{/if}}
+
+
+</script>
+<script>
+
+    function render(){
+        ///goods/selectMyGoodsTo  查看我发布的
+        $.ajax({
+            //处理session每次不唯一问题
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            type: "post",
+            url: baseUrl+"/goods/selectMyGoodsTo",
+            data:{
+
+            },
+            dataType: 'json',
+            success:function(data) {
+                console.log(data);
+                if(data.code=="success"||data.state==true||data.list!=="网络出了点小问题...."){
+                    $(".list>ul").html(template("my_sale",data))
+                }else{
+                    alert("网络错误，请您稍后重试");
+                    location.href='./login.html';
+                }
+            }
+        })
+    }
+    //onclick="underGoods('{{value.goodsId}}')"
+    //下架商品 /goods/underGoods  goodsId
+   /* $(".sold_out").click(function(){
+        var data=$(this).data("index");
+        console.log(data);
+        //underGoods(data);
+        $(this).text("下架成功");
+    })*/
+    function underGoods(goodsId){
+        $.ajax({
+            //处理session每次不唯一问题
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            type: "post",
+            url: baseUrl+"/goods/underGoods",
+            data:{
+                goodsId:goodsId
+            },
+            dataType: 'json',
+            success:function(data) {
+                console.log(data);
+                if(data.code=="success"||data.state==true||data.list!=="网络出了点小问题...."){
+                    alert("下架成功");
+                    render();
+                }
+            }
+        })
+    }
+    //删除商品 /goods/deleteGoods0  goodsId
+    function deleteGoods(goodsId){
+        $.ajax({
+            //处理session每次不唯一问题
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            type: "post",
+            url: baseUrl+"/goods/deleteGoods",
+            data:{
+                goodsId:goodsId
+            },
+            dataType: 'json',
+            success:function(data) {
+                console.log(data);
+                if(data.code=="success"||data.state==true||data.list!=="网络出了点小问题...."){
+                    alert("删除成功");
+                    render();
+                }
+            }
+
+        })
+    }
+    $(function(){
+        render();
+    })
+</script>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>资讯</title>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/mui_img.css"/>
+    <link rel="stylesheet" href="../css/mui_popover.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/news.css"/>
+    <link rel="stylesheet" href="../css/footer.css"/>
+    <link rel="stylesheet" href="../css/community.css"/>
+    <link rel="stylesheet" href="../css/slider_left.css"/>
+    <style>
+        /*侧滑导航后*/
+
+        /*结束*/
+        .community_layer header a{
+            width: 78%;
+        }
+        .community_layer header .active{
+            color:#333;
+        }
+
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+</div>
+<div id="content_layer">
+    <!--侧滑部分-->
+    <div id="left">
+        <div class="header">
+            <!--填充-->
+
+            <!--<img src="../img/focus-img1.png" alt="" onclick="location.href='./head.html'"/>
+            <div class="center">
+                <em>七月的雪</em>
+                <span onclick="location.href='./simple_abstruct.html'">待到山花烂漫时，她在丛中笑待到山花烂漫时，她在丛中笑待到山花烂漫时，她在丛中笑</span>
+            </div>-->
+        </div>
+        <ul class="scroll">
+            <li class="mui-table-view-cell">
+                <a href="./my_purse.html" class="mui-navigate-right"> <i></i>&nbsp;&nbsp;&nbsp;&nbsp;钱包</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a href="./my_post.html" class="mui-navigate-right"> <i></i>&nbsp;&nbsp;&nbsp;&nbsp;发布的帖子</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a href="./my_market.html" class="mui-navigate-right"> <i></i>&nbsp;&nbsp;&nbsp;&nbsp;市场中心</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a href="./my_employ.html" class="mui-navigate-right"> <i></i>&nbsp;&nbsp;&nbsp;&nbsp;应聘信息</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a href="./seting.html" class="mui-navigate-right"> <i></i>&nbsp;&nbsp;&nbsp;&nbsp;设置</a>
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+            <li class="mui-table-view-cell">
+            </li>
+        </ul>
+    </div>
+    <div class="layer community_layer" id="layer">
+        <div id="mask"></div>
+        <header id="topbar">
+            <div class="img_box" id="show">
+               <!-- <img src="../img/focus-img1.png" alt="" id="show"/>-->
+            </div>
+            <a href="javascript:;" class="relation"><span>校内交流</span></a>
+            <!--<a href="community_around.html" class="around"><span>附近</span></a>-->
+            <em class="friends" onclick="location.href='./my_friends.html'"></em>
+        </header>
+        <div class="news_list">
+            <!--<div class="news">
+                <div class="top clearfix">
+                    <img src="../img/focus-img1.png" alt=""/>
+                    <div class="top_middle clearfix">
+                        漂亮朋友
+                    </div>
+                    <div class="time"> 今天 11.23</div>
+                </div>
+                <div class="center">
+                    <div class="article">下周一有钢琴辅导有兴趣的同学快快报名,下周一有钢琴辅导有兴趣的同学快快报名下周一有钢琴辅导有兴趣的同学快快报名</div>
+                    <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="1"/> <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="1"/>
+                </div>
+                <div class="footer">
+                    <ul class="clearfix">
+                        <li>
+                            浏览45次
+                        </li>
+                        <li  class="pay">
+                            <a href="#middlePopover" class=" mui-btn mui-btn-primary mui-btn-block mui-btn-outlined">
+                                <i></i>
+                                <em>打赏</em>
+                            </a>
+
+                        </li>
+                        <li class="heart">
+                            <i></i>
+                            <em>8</em>
+                        </li>
+                        <li class="comment">
+                            <i></i>
+                            <em>8</em>
+                        </li>
+                        <li class="submit">
+                            <i></i>
+                            <em>8</em>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="news">
+            <div class="top clearfix">
+                <img src="../img/focus-img1.png" alt=""/>
+                <div class="top_middle clearfix">
+                    漂亮朋友
+                </div>
+                <div class="time"> 今天 11.23</div>
+            </div>
+            <div class="center">
+                <div class="article">下周一有钢琴辅导有兴趣的同学快快报名,下周一有钢琴辅导有兴趣的同学快快报名下周一有钢琴辅导有兴趣的同学快快报名</div>
+                <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="1"/> <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="1"/>
+            </div>
+            <div class="footer">
+                <ul class="clearfix">
+                    <li>
+                        浏览45次
+                    </li>
+                    <li  class="pay">
+                        <a href="#middlePopover" class=" mui-btn mui-btn-primary mui-btn-block mui-btn-outlined">
+                            <i></i>
+                            <em>打赏</em>
+                        </a>
+
+                    </li>
+                    <li class="heart">
+                        <i></i>
+                        <em>8</em>
+                    </li>
+                    <li class="comment">
+                        <i></i>
+                        <em>8</em>
+                    </li>
+                    <li class="submit">
+                        <i></i>
+                        <em>8</em>
+                    </li>
+                </ul>
+            </div>
+
+        </div>-->
+
+        </div>
+        <footer>
+            <ul class="clearfix">
+                <li class="clearfix" onclick="location.href='./news.html'">
+                    <i></i>
+                    <em>资讯</em>
+                </li>
+                <li class="clearfix" onclick="location.href='./community.html'">
+                    <i></i>
+                    <em>社区</em>
+                </li>
+                <li class="clearfix" onclick="location.href='./publish.html'">
+                    <i></i>
+
+                </li>
+                <li class="clearfix" onclick="location.href='./business.html'">
+                    <i></i>
+                    <em>交易</em>
+                </li>
+                <li class="clearfix" onclick="location.href='./work.html'">
+                    <i></i>
+                    <em>兼职</em>
+                </li>
+            </ul>
+        </footer>
+    </div>
+   <!-- &lt;!&ndash;打赏弹框&ndash;&gt;
+    <div id="middlePopover" class="mui-popover">
+        <div class="mui-popover-arrow"></div>
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <p>请输入打赏金额</p>
+                <input type="text" placeholder="请输入打赏金额 "/><i class="money">￥</i>
+                <div class="pay_style">选择支付方式</div>
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell"><a href="#">账户余额</a>
+                    </li>
+                    <li class="mui-table-view-cell"><a href="#">支付宝</a>
+                    </li>
+                    <li class="mui-table-view-cell"><a href="#">微信支付</a>
+                    </li>
+                </ul>
+                <div class="confirm">确定</div>
+            </div>
+        </div>
+
+    </div>-->
+</div>
+</body>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.preview.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script src="../js/left_slider.js"></script>
+<script id="getPic" type="text/html">
+    {{if message=="" || !message}}
+    <img  src="../img/focus-img1.png" >
+    {{else}}
+    <img  src="{{message}}" onerror="this.src='../img/focus-img1.png'" >
+    {{/if}}
+</script>
+<script id="userInfo" type="text/html">
+    {{if avatar==null}}
+    <img src="../img/focus-img1.png" alt="" onclick="location.href='./head.html'"/>
+    {{else}}
+    <img src="{{avatar}}" onerror="this.src='../img/focus-img1.png'" alt="" onclick="location.href='./head.html'"/>
+    {{/if}}
+    <div class="center">
+        {{if userName==null }}
+        <em>{{realName}}</em>
+        {{else}}
+        <em>{{userName}}</em>
+        {{/if}}
+        <span onclick="location.href='./simple_abstruct.html'">{{motto==""||motto==null?"此人很懒，暂时没有简介！":motto}}</span>
+    </div>
+</script>
+<script id="posted" type="text/html">
+  {{if list=="出现了一点问题"||list=="联系我"}}
+  <div style="padding:1rem;font-size: 0.3rem;">对不起，服务暂时出错了</div>
+  {{else}}
+  {{each list as value i}}
+  <div class="news">
+      <div class="top clearfix">
+          <img src="{{value.student.avatar}}" alt=""/>
+          <div class="top_middle clearfix">
+              {{value.student.realName}}
+          </div>
+          <div class="time"> {{time(value.pushTime)}}</div>
+      </div>
+      <div class="center" onclick="location.href='./detail.html?noteMessageId={{value.noteMessageId}}'">
+          <div class="article">{{value.message}}</div>
+          {{each str(value.mediaPath) as img j}}
+          <div class="img_box">
+              <img src="{{img}}" alt="" data-preview-src="" data-preview-group="{{i}}"/>
+          </div>
+          {{/each}}
+      </div>
+      <div class="footer">
+          <ul class="clearfix">
+              <li>
+                  浏览{{value.lookNumber==null?0:value.lookNumber}}次
+              </li>
+              <li  class="pay">
+                  <a href="#middlePopover{{i}}" class=" mui-btn mui-btn-primary mui-btn-block mui-btn-outlined">
+                      <i></i>
+                      <em>打赏</em>
+                  </a>
+
+              </li>
+              <li class="heart" onclick="addLoveNumber('{{value.noteMessageId}}')">
+                  <i></i>
+                  <em>{{value.loveNumber==null?0:value.loveNumber}}</em>
+              </li>
+              <li class="comment" onclick="location.href='community_all_comment.html?noteMessageId={{value.noteMessageId}}'">
+                  <i></i>
+                  <em>{{value.commentNumber==null?0:value.commentNumber}}</em>
+              </li>
+              <li class="submit">
+                  <i></i>
+                  <em>{{value.transmitNumber==null?0:value.transmitNumber}}</em>
+              </li>
+          </ul>
+      </div>
+
+  </div>
+  <!--打赏弹框-->
+  <!--打赏弹框-->
+  <div id="middlePopover{{i}}" class="mui-popover" >
+      <div class="mui-popover-arrow"></div>
+      <div class="mui-scroll-wrapper">
+          <div class="mui-scroll">
+              <p>请输入打赏金额</p>
+              <input type="text" class="price" placeholder="请输入打赏金额 "/><i class="money">￥</i>
+              <div class="pay_style">选择支付方式</div>
+              <ul class="mui-table-view mui-table-view-radio">
+                  <li class="mui-table-view-cell mui-selected" data-value="1">
+                      <a class="mui-navigate-right" href="javascript:;">
+                          账户余额
+                      </a>
+                  </li>
+                 <!-- <li class="mui-table-view-cell" data-value="2">
+                      <a class="mui-navigate-right" href="javascript:;" >
+                          支付宝
+                      </a>
+                  </li>
+                  <li class="mui-table-view-cell" data-value="3" >
+                      <a class="mui-navigate-right" href="javascript:;" >
+                          微信支付
+                      </a>
+                  </li>-->
+              </ul>
+              <div class="confirm" data-index="{{value.noteMessageId}}">确定</div>
+          </div>
+      </div>
+  </div>
+  {{/each}}
+  {{/if}}
+
+</script>
+<script>
+    //获取 头像信息
+    getAvatar($(".img_box"));
+
+    //侧边导航栏的用户信息展示
+    userInfo($(".header"));
+
+    //获取所有的用户帖子
+    var render= function(){
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            dataType:"json",
+            type:"get",
+            url:baseUrl+"/noteMessage/getAllNoteMessage2",
+            success:function(data){
+                console.log(data);
+                template.helper("time",function(date){
+                    var time=new Date(date).toLocaleString().replace(/:\d{1,2}$/,' ').substr(5,11).replace("/","-");
+                    return time;
+                    /* return new Date(parseInt(date) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');*/
+                });
+                template.helper("str",function(str){
+                    return str.split(",");
+                });
+                if(data.state==true){
+                    falg=true;
+                    $(".news_list").html(template("posted",data));
+
+                }else{
+                    $("#loading").show();
+                    $("#loading>div").text("网络错误，请稍后重试");
+                }
+            }
+        })
+    }
+    render();
+    //我现在是已经把锚点去掉了 需要获取自定义的属性的值
+    /* $(".pay").click(function(){
+     $(".mui-popover").show();
+     })*/
+
+      //添加点赞次数
+    var falg=true;
+          var addLoveNumber=function(noteMessageId){
+                 if(falg){
+                     $.ajax({
+                         //处理session每次不唯一问题
+                         xhrFields: {
+                             withCredentials: true
+                         },
+                         type: "post",
+                         url: baseUrl+"/noteMessage/addLoveNumber",
+                         data:{
+                             noteMessageId:noteMessageId
+                         },
+                         dataType: 'json',
+                         success:function(data) {
+                             if(data.code=="success"){
+                                 render()
+                             }else{
+                                 alert("请稍后重试");
+                             }
+
+                         }
+                     })
+
+                 }
+              falg=false;
+             }
+        $(function () {
+            mui.previewImage();
+    // 监听tap事件，解决 a标签 不能跳转页面问题
+            mui('body').on('tap','a',function(){document.location.href=this.href;});
+            mui.init({
+                swipeBack: true //启用右滑关闭功能
+            });
+            mui('.mui-scroll-wrapper').scroll();
+            mui('body').on('shown', '.mui-popover', function(e) {
+               /* var index=e.detail.getAttribute("data-index");*/
+               /* var index=this.getAttribute("data-index");
+                console.log(index);*/
+                //console.log('shown', e.detail.id);//detail为当前popover元素
+            });
+            mui('body').on('hidden', '.mui-popover', function(e) {
+                //console.log('hidden', e.detail.id);//detail为当前popover元素
+            });
+            $(document).ajaxStop(function(){
+                $("#loading").hide();
+            })
+            $(".confirm").click(function(){
+                var price=$(".price").val();
+                if(price<=0||price==""){
+                    alert("请您输入正确的金额");
+                    $(".price").val("");
+                    return false;
+                }else{
+                    price=price;
+                }
+                var id=$(this).data("index");
+                console.log(id);
+                reward(id,price);
+
+            })
+
+            //进行打赏
+            function reward(id,price){
+                $.ajax({
+                    //处理session每次不唯一问题
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    async:false,
+                    type: "post",
+                    url: baseUrl+"/noteMessage/reward",
+                    data:{
+                        noteMessageId:id,
+                        price:price
+                    },
+                    dataType: 'json',
+                    success:function(data) {
+                        console.log(data);
+                        if(data.code=="success"||data.state==true||data.list!=="网络出了点小问题...."){
+                        //成功之后再次渲染render（）
+                            render();
+                        }
+                    }
+                })
+            }
+
+    })
+
+</script>
+</html>

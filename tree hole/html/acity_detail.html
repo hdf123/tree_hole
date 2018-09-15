@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>活动详情</title>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/mui_img.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/news.css"/>
+    <link rel="stylesheet" href="../css/acity_detail.css"/>
+    <link rel="stylesheet" href="../css/mui_popover.css"/>
+</head>
+<body>
+<div class="layer acity_detail_layer">
+    <header class="acity_detail_header">
+        <em onclick="back()"></em>
+        <h3>活动详情</h3>
+    </header>
+    <div class="main">
+       <!--填充-->
+    </div>
+
+
+</div>
+
+</body>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.preview.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script id="activity_detail" type="text/html" >
+<div class="news">
+    <div class="top clearfix">
+        <img src="{{list.student==null?'../img/no_photo.png':list.student.avatar}}" alt=""/>
+        <div class="top_middle clearfix">
+            <span>{{list.student==null?"暂无姓名":list.student.realName}}</span>
+            <i>{{time(list.pushTime)}}</i>
+        </div>
+    </div>
+    <div class="center">
+        <div class="article">{{list.message}}</div>
+        {{each str(list.imagePath) as img j}}
+        <div class="img_box">
+            <img src="{{img}}" alt="" data-preview-src="" data-preview-group="1"/>
+        </div>
+        {{/each}}
+
+
+    </div>
+    <div class="footer">
+        <ul class="clearfix">
+            <li class="pay_money">
+                <i></i>
+                <em>￥ {{list.price}}</em>
+              <!--  <button>点击支付</button>-->
+            </li>
+            <li  class="pay">
+                <a href="#middlePopover" class=" mui-btn mui-btn-primary mui-btn-block mui-btn-outlined">
+                    <i></i>
+                    <em>打赏</em>
+                </a>
+
+            </li>
+            <li class="time">
+                <i></i>
+                <em>{{detail_time(list.startTime)}} 至 {{detail_time(list.endTime)}}</em>
+            </li>
+            <li class="comment">
+                <i></i>
+                <em>{{list.address}}</em>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<!--打赏弹框-->
+<div id="middlePopover" class="mui-popover">
+    <div class="mui-popover-arrow"></div>
+    <div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <p>请输入打赏金额</p>
+            <input type="text" placeholder="请输入打赏金额 "/><i class="money">￥</i>
+            <div class="pay_style">选择支付方式</div>
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell"><a href="#">账户余额</a>
+                </li>
+                <li class="mui-table-view-cell"><a href="#">支付宝</a>
+                </li>
+                <li class="mui-table-view-cell"><a href="#">微信支付</a>
+                </li>
+            </ul>
+            <div class="confirm">确定</div>
+        </div>
+    </div>
+
+</div>
+<button class="my" onclick="location.href='./sign_up.html?id={{list.schoolMessageId}}'">
+    我要报名
+</button>
+
+</script>
+<script>
+    $(function(){
+        mui.previewImage();
+// 监听tap事件，解决 a标签 不能跳转页面问题
+        mui('body').on('tap','a',function(){document.location.href=this.href;});
+        mui.init({
+            swipeBack: true //启用右滑关闭功能
+        });
+        mui('.mui-scroll-wrapper').scroll();
+        mui('body').on('shown', '.mui-popover', function(e) {
+            //console.log('shown', e.detail.id);//detail为当前popover元素
+        });
+        mui('body').on('hidden', '.mui-popover', function(e) {
+            //console.log('hidden', e.detail.id);//detail为当前popover元素
+        });
+        //增加浏览次数
+        var href=location.href.split("=")[1];
+        console.log(href);
+        addLookNumber(href);
+        function render(){
+            $.ajax({
+                //处理session每次不唯一问题
+                xhrFields: {
+                    withCredentials: true
+                },
+
+                type: "post",
+                url:baseUrl+"/schoolMessage/getOneSchoolMessage",
+                data:{
+                    schoolMessageId:href
+                },
+                dataType: 'json',
+                success:function(data) {
+                    console.log(data);
+                    if(data.state==true){
+                        console.log(1);
+                        template.helper("time",function(date){
+                            var time=new Date(date).toLocaleString().replace(/:\d{1,2}$/,' ').substr(5,11).replace("/","-");
+                            return time;
+                        });
+                        template.helper("detail_time",function(date){
+                            var detail_time=new Date(date).toLocaleString().replace(/:\d{1,2}$/,' ').replace(/\//g,"-");
+                            return detail_time;
+                        });
+                        template.helper("str",function(str){
+                            return str.split(",");
+                        });
+
+                        $(".main").html(template("activity_detail",data));
+                        localStorage.setItem("price_detail",data.list.price);
+                    }
+
+                }
+
+            })
+        }
+        render()
+
+
+
+    })
+</script>
+
+</html>

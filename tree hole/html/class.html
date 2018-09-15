@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>班级</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <style>
+        html{
+            height: 100%;
+            width: 100%;
+            background-color: #eee;
+        }
+        header{
+            background-color: #fff;
+        }
+        .done{
+            background: none;
+            color:#fff;
+            width: 0.8rem;
+            line-height: 140%;
+            font-size: 0.3rem;
+            display: inline-block;
+        }
+        .content{
+
+        }
+        .content input{
+            display: block;
+            height:1rem;
+            width: 100%;
+            line-height: 1rem;
+            font-size:0.3rem;
+            text-indent: 2em;
+        }
+        /*改变placeholder的字体颜色*/
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #666666; opacity:1;
+        }
+
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: #666666;opacity:1;
+        }
+
+        input:-ms-input-placeholder{
+            color: #666666;opacity:1;
+        }
+
+        input::-webkit-input-placeholder{
+            color: #666666;opacity:1;
+        }
+        header{
+            position: relative;
+            height: 1.3rem;
+            padding: 0 0.3rem;
+            padding-top: 0.4rem;
+            line-height: 1.3rem ;
+
+        }
+        header i{
+            background: url("../img/left.png") no-repeat center;
+            position: absolute;
+            left: 3%;
+            width: 0.6rem;
+            height: 0.9rem;
+            padding-top: 0.5rem;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+        }
+        header h3{
+            text-align: center;
+            font-size: 0.36rem;
+        }
+        header .done{
+            position: absolute;
+            right: 5%;
+            color:#666;
+            font-size: 0.36rem;
+            top: 45%;
+        }
+    </style>
+</head>
+<body>
+<div class="layer">
+    <header class="clearfix">
+        <i onclick="back()" ></i>
+        <h3>专业名称</h3>
+        <em  class="done">完成</em>
+    </header>
+    <div class="content">
+        <input type="text" placeholder=" 请输入您的专业" class="name"/>
+    </div>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/jquery.js"></script>
+<script>
+$(function(){
+    function back(){
+        history.go(-1);
+    }
+  $(".done").click(function(){
+      var content= $(".name").val();
+      //console.log(content);
+      //content.JSON.stringify(content);
+      if(content!==""){
+          window.localStorage.setItem("class_name",JSON.stringify(content));
+          window.location.href="addData.html";
+      }else{
+          alert("请您输入班级名称");
+      }
+      //传给后台 然后后台在返回给我，我渲染到更外一个页面
+
+  })
+})
+
+</script>
+</html>

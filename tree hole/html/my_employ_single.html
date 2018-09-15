@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>我的_应聘信息(约单详情)</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <link rel="stylesheet" href="../css/my_employ.css"/>
+</head>
+<body>
+<div class="layer">
+    <header>
+        <i onclick="location.href='./community.html'"></i>
+        <h3>应聘信息</h3>
+    </header>
+    <nav>
+        <ul>
+            <li>
+                <a href="./my_employ.html" >
+                    兼职详情
+                </a>
+            </li>
+            <li>
+                <a href="./my_employ_single.html" class="active">
+                    约单详情
+                </a>
+            </li>
+            <li>
+                <a href="./my_employ_sign_up.html">
+                    报名详情
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="content_main">
+        <ul>
+           <!-- <li>
+                <div class="header">
+                    <img src="../img/focus-img1.png" alt=""/>
+                    <span>漂亮朋友</span>
+                    <del>已拒绝约单</del>
+                </div>
+                <div class="center">
+                    <p>周边游</p>
+                    <h4>周末需要一人陪同，郑州周边游活动开始，希望对方是一个帅哥周末需要一人陪同，郑州周边游活动开始，希望对方是一个帅哥周末需要一人陪同，郑州周边游活动开始，希望对方是一个帅哥， 拒绝放鸽子</h4>
+                </div>
+
+            </li>
+            <li>
+                <div class="header">
+                    <img src="../img/focus-img1.png" alt=""/>
+                    <span>漂亮朋友</span>
+                    <del>已拒绝约单</del>
+                </div>
+                <div class="center">
+                    <p>周边游</p>
+                    <h4>周末需要一人陪同，郑州周边游活动开始，希望对方是一个帅哥周末需要一人陪同，郑州周边游活动开始，希望对方是一个帅哥周末需要一人陪同，郑州周边游活动开始，希望对方是一个帅哥， 拒绝放鸽子</h4>
+                </div>
+
+            </li>
+            <li>
+                <div class="header">
+                    <img src="../img/focus-img1.png" alt=""/>
+                    <span>漂亮朋友</span>
+                    <del>已拒绝约单</del>
+                </div>
+                <div class="center">
+                    <p>周边游</p>
+                    <h4>周末需要一人陪同，郑州周边游活动开始，希望对方是一个帅哥周末需要一人陪同，郑州周边游活动开始，希望对方是一个帅哥周末需要一人陪同，郑州周边游活动开始，希望对方是一个帅哥， 拒绝放鸽子</h4>
+                </div>
+
+            </li>-->
+
+
+        </ul>
+    </div>
+
+</div>
+
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script id="my_employ_single" type="text/html">
+{{each list as value i}}
+<li>
+    <div class="header">
+        <img src="{{value.partner.pusher.avatar}}" alt=""/>
+        <span>{{value.partner.pusher.realName}}</span>
+        {{if value.status=0}}
+        <del>已成功约单</del>
+        {{else if value.status=1}}
+        <del>已拒绝约单</del>
+        {{else}}
+        <del>待确认约单</del>
+        {{/if}}
+    </div>
+    <div class="center">
+        <p>{{value.partner.title}}</p>
+        <h4>{{value.partner.content}}</h4>
+    </div>
+</li>
+    {{/each}}
+</script>
+<script >
+    render();
+    function render(){
+        $.ajax({
+//处理session每次不唯一问题
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            type: "post",
+            url: baseUrl+"/partner/getPartnerOrderForApplier",
+            data:{},
+            dataType: 'json',
+            success:function(data) {
+                console.log(data);
+                if(data.code=="success"||data.state==true||data.list!=="网络出了点小问题...."){
+                $(".content_main>ul").html(template("my_employ_single",data));
+                }
+            }
+        })
+    }
+</script>
+</html>

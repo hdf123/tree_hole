@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>我的帖子</title>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/mui_img.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <link rel="stylesheet" href="../css/news.css"/>
+    <link rel="stylesheet" href="../css/community.css"/>
+    <style>
+        .layer>header{
+            position: fixed;
+            top: 0;
+            z-index:2;
+            background-color: #fff;
+        }
+
+        .nav{
+            padding-top: 1.7rem;
+        }
+      .nav ul{
+            width: 100%;
+        }
+        .nav ul li{
+            width: 33%;
+            height: 1rem;
+            line-height: 1rem;
+            float: left;
+        }
+        .nav ul li a{
+            color:#8c8c8c;
+            font-size: 0.34rem;
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+        .nav ul li .active{
+            color:#71462a;
+        }
+        .news_list {
+            padding-top: 0;
+        }
+        .footer ul .pay i{
+            left: 40%;
+        }
+        .news:last-of-type{
+            border-bottom: 0;
+        }
+        .footer ul .pay em, .footer ul .comment em{
+            margin-left: 0.8rem;
+        }
+        .news_list{
+            padding-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+    <div>请等待，正在加载...</div>
+</div>
+<div class="layer">
+    <header>
+        <i onclick="location.href='./community.html'"></i>
+        <h3>发布的帖子</h3>
+    </header>
+    <div class="nav">
+            <ul class="clearfix">
+                <li>
+                    <a href="./my_post_activity.html">
+                        社团活动
+                    </a>
+                </li>
+                <li >
+                    <a href="javascript:;" class="active">
+                        社区交友
+                    </a>
+                </li>
+                <li>
+                    <a href="./my_post_singel.html">
+                        约单
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    <div class="news_list">
+       <!-- <div class="news">
+            <div class="top clearfix">
+                <img src="../img/focus-img1.png" alt=""/>
+                <div class="top_middle clearfix">
+                    漂亮朋友
+                </div>
+                <div class="time"> 今天 11.23</div>
+            </div>
+            <div class="center">
+                <div class="article">下周一有钢琴辅导有兴趣的同学快快报名,下周一有钢琴辅导有兴趣的同学快快报名下周一有钢琴辅导有兴趣的同学快快报名</div>
+                <div class="img_box">
+                    <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="1"/>
+                </div>
+
+                <div class="img_box">
+                    <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="1"/>
+                </div>
+            </div>
+            <div class="footer">
+                <ul class="clearfix">
+                    <li>
+                        浏览45次
+                    </li>
+                    <li  class="pay">
+                        <a href="#middlePopover" class=" mui-btn mui-btn-primary mui-btn-block mui-btn-outlined">
+                            <i></i>
+                            <em>金额</em>
+                        </a>
+
+                    </li>
+                    <li class="heart">
+                        <i></i>
+                        <em>8</em>
+                    </li>
+                    <li class="comment">
+                        <i></i>
+                        <em>8</em>
+                    </li>
+                    <li class="submit">
+                        <i></i>
+                        <em>8</em>
+                    </li>
+                </ul>
+            </div>
+
+        </div>-->
+
+    </div>
+</div>
+</body>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/mui.preview.js"></script>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script id="my_post" type="text/html">
+    {{each list as value i}}
+    <div class="news">
+               <div class="top clearfix">
+                   <img src="{{value.student.avatar}}" alt=""/>
+                   <div class="top_middle clearfix">
+                       {{value.student.realName}}
+                   </div>
+                   <div class="time"> {{time(value.pushTime)}}</div>
+               </div>
+               <div class="center">
+                   <div class="article">{{value.message}}</div>
+                  {{each str(value.mediaPath) as img j}}
+                   <div class="img_box">
+                       <img src="{{img}}" alt="" data-preview-src="" data-preview-group="{{i}}"/>
+                   </div>
+
+                  {{/each}}
+               </div>
+               <div class="footer">
+                   <ul class="clearfix">
+                       <li>
+                           浏览{{value.lookNumber}}次
+                       </li>
+                       <li  class="pay">
+                           <a href="#middlePopover" class=" mui-btn mui-btn-primary mui-btn-block mui-btn-outlined">
+                               <i></i>
+                               <em>金额</em>
+                           </a>
+
+                       </li>
+                       <li class="heart">
+                           <i></i>
+                           <em>{{value.loveNumber}}</em>
+                       </li>
+                       <li class="comment">
+                           <i></i>
+                           <em>{{value.commentNumber}}</em>
+                       </li>
+                       <li class="submit">
+                           <i></i>
+                           <em>{{value.transmitNumber}}</em>
+                       </li>
+                   </ul>
+               </div>
+
+           </div>
+    {{/each}}
+</script>
+<script>
+    $(function(){
+        //ajax 发送完毕
+        $(document).ajaxStop(function(){
+            $("#loading").hide();
+        });
+        mui.previewImage();
+        mui('body').on('tap','a',function(){document.location.href=this.href;});
+        function render(){
+            $.ajax({
+                //处理session每次不唯一问题
+                xhrFields: {
+                    withCredentials: true
+                },
+                async:false,
+                type:"get",
+                url:baseUrl+"/noteMessage/getNoteMessage",
+                dataType:"json",
+                data:{},
+                success:function(data){
+                    console.log(data);
+                    if(data.state==true||data.list!=="网络出了点小问题...."){
+                        template.helper("time",function(date){
+                            var time=new Date(date).toLocaleString().replace(/:\d{1,2}$/,' ').substr(5,11).replace("/","-");
+                            return time;
+                        });
+
+                        template.helper("str",function(str){
+                            return str.split(",");
+                        });
+                       $(".news_list").html(template("my_post",data))
+                    }else{
+                        $("#loading").show();
+                        $("#loading>div").text("网络错误，请稍后重试");
+                    }
+                }
+            })
+
+        }
+        render();
+    })
+</script>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>市场中心</title>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <link rel="stylesheet" href="../css/my_market.css"/>
+    <style>
+        body{
+            background-color: #fff;!important;
+        }
+        .list ul li:first-of-type{
+            border-top: 0.2rem solid #eee;
+        }
+        .list ul li:last-of-type{
+            border-bottom: 0;
+        }
+        .list ul li{
+            border-bottom: 2px solid #eeeeee;
+            border-top: none;
+        }
+        .list ul li .goods{
+            border-bottom: 0;
+        }
+        .list ul li .goods .center{
+            left: 2.2rem;
+            top: 30%;
+        }
+        .mui-table-view-cell>.mui-slider-left>.mui-btn, .mui-table-view-cell>.mui-slider-right>.mui-btn{
+            width: 3rem;
+            padding:0;
+            display: block;
+            padding-top: 40px;
+            text-align: center;
+        }
+        .mui-table-view-cell>.mui-slider-right{
+            width: 3rem;
+            padding: 0;
+        }
+        .mui-popup-button{
+            color:#666;
+        }
+        .layer>header{
+            height: 1.5rem;
+            padding-top: 0.5rem;
+        }
+        header>h3{
+            line-height: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+</div>
+<div class="layer">
+    <header>
+        <i onclick="location.href='./local_market.html'"></i>
+        <h3>市场中心</h3>
+    </header>
+    <div class="nav clearfix">
+        <ul class="clearfix">
+            <li>
+                <a href="./my_market.html" >出售中</a>
+            </li>
+            <li>
+                <a href="./my_market_published.html" >已发布</a>
+            </li>
+            <li>
+                <a href="./my_market_order.html" >全部订单</a>
+            </li>
+            <li>
+                <a href="./my_market_save.html"  class="active">收藏</a>
+            </li>
+            <li>
+                <a href="./my_market_pay.html">佣金</a>
+            </li>
+        </ul>
+    </div>
+    <div class="list">
+        <ul id="OA_task_1" class="mui-table-view">
+           <!-- <li class="mui-table-view-cell" onclick="location.href='business_detail.html?goodsId=50'">
+                <div class="mui-slider-right mui-disabled">
+                    <a class="mui-btn mui-btn-red">删除</a>
+                </div>
+                <div class="mui-slider-handle goods">
+                        <img src="../img/focus-img1.png" alt=""/>
+                        <div class="center">
+                            <span>夏日斜跨小包包女2018新款潮韩版百搭时尚夏日斜跨小包包女2尚夏日斜跨小包包女2尚夏日斜跨小包包女2尚夏日斜跨小包包女2018新款潮韩版百搭时尚</span>
+                            <em>10次预览 &nbsp;&nbsp; <del>2个留言</del></em>
+                            <i>￥15&nbsp;&nbsp; <s>原价90</s></i>
+                        </div>
+                    </div>
+            </li>-->
+
+        </ul>
+    </div>
+</div>
+</body>
+
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script id="my_save" type="text/html">
+{{if list.length==0}}
+<li class="mui-table-view-cell"> 您暂时没有收藏任何商品！</li>
+{{else}}
+{{each list as value i}}
+<li class="mui-table-view-cell" data-index="{{value.goods.goodsId}}" >
+    <div class="mui-slider-right mui-disabled"  > <!--onclick="deleteSave('{{value.goods.goodsId}}')"-->
+        <a class="mui-btn mui-btn-red">删除</a>
+    </div>
+    <div class="mui-slider-handle goods" onclick="location.href='business_detail.html?goodsId={{value.goods.goodsId}}'">
+        <img src="{{value.goods.images[0].path}}" alt=""/>
+        <div class="center">
+            <span>{{value.goods.introduction}}</span>
+          <!--  <em>10次预览 &nbsp;&nbsp; <del>2个留言</del></em>-->
+            <i>￥{{value.goods.price}}&nbsp;&nbsp; <s>原价{{value.goods.smallPrice==null?value.goods.price:value.goods.smallPrice}}</s></i>
+        </div>
+    </div>
+</li>
+{{/each}}
+    {{/if}}
+</script>
+<script>
+    //ajax 发送完毕
+    $(document).ajaxStop(function(){
+        $("#loading").hide();
+    });
+    function render(){
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            type: "get",
+            dataType: "json",
+            url: baseUrl + "/goods/getCollectGoods",
+            data: {
+
+            },
+            success: function (data) {
+                console.log(data)
+                if(data.state==true&&data.list!== "出现了异常"){
+                  /*  template.helper("str",function(str){
+                        return str.split(",");
+                    });*/
+
+                    $(".list>ul").html(template("my_save",data));
+                }else{
+                    alert("网络异常，请稍后重试");
+                    location.href='./login.html';
+                }
+            }
+        })
+    }
+    render();
+    //明天测试一下
+    mui.init();
+    mui(".mui-slider").slider({interval:4000});
+    function deleteSave(goodsId){
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            async: false,
+            type: "post",
+            dataType: "json",
+            url: baseUrl + "/goods/deleteCollectGoods",
+            data: {
+                goodsId: goodsId
+            },
+            success: function (data) {
+                console.log(data);
+                if(data.code=="success"){
+                   // alert("已删除");
+                    render();
+                }
+            }
+        })
+    }
+    (function($) {
+        //$.swipeoutOpen(el,direction)//打开指定列的滑动菜单，el:指定列的dom对象，direction：取值left|right，指定打开的是左侧或右侧滑动菜单
+        //$.swipeoutClose(el);//关闭指定列的滑动菜单，el:指定列的dom对象
+        //				setTimeout(function() {
+        //					$.swipeoutOpen(document.getElementById("OA_task_1").querySelector('li:last-child'), 'left');
+        //					setTimeout(function() {
+        //						$.swipeoutClose(document.getElementById("OA_task_1").querySelector('li:last-child'));
+        //					}, 1000);
+        //				}, 1000);
+        //第一个demo，拖拽后显示操作图标，点击操作图标删除元素；
+        $('#OA_task_1').on('tap', '.mui-btn', function(event) {
+            var elem = this;
+            var li = elem.parentNode.parentNode.getAttribute("data-index");
+            mui.confirm('确认删除该条记录？', '温馨提示', btnArray, function(e) {
+                if (e.index == 0) {
+                    // li.parentNode.removeChild(li);
+                    console.log(li);
+                    //发送ajax
+                    deleteSave(li);
+                } else {
+                    setTimeout(function() {
+                        $.swipeoutClose(elem.parentNode.parentNode);
+                    }, 0);
+                }
+            });
+        });
+        var btnArray = ['确认', '取消'];
+
+    })(mui);
+
+
+</script>
+</html>

@@ -1,0 +1,106 @@
+.layer>header{
+    position: fixed;
+    z-index: 23;
+    background-color: #fff;
+}
+.nav{
+    padding-top: 1.7rem;
+    width: 100%;
+
+    line-height: 1rem;
+}
+.nav ul{
+    width: 100%;
+    height: 100%;
+}
+.nav ul li{
+    width: 20%;
+    float: left;
+}
+.nav ul li a{
+    display: block;
+    width: 100%;
+    color:#999;
+    font-size: 0.3rem;
+    text-align: center;
+}
+.nav ul li .active{
+    color:#71462a;
+}
+.list{
+    width: 100%;
+}
+.list ul{
+    width: 100%;
+}
+.list ul li{
+    width: 100%;
+    position: relative;
+    border-top:0.2rem solid #eee;
+}
+.list ul li .goods{
+    width: 100%;
+    padding:0.3rem;
+
+    border-bottom:2px solid #eee;
+}
+.list ul li .goods img{
+    width: 1.5rem;
+    min-height: 1.5rem;
+}
+.list ul li .goods .center{
+    position: absolute;
+    left: 2rem;
+    top: 6%;
+}
+.list ul li .goods .center span{
+    display: block;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    margin-bottom: 0.1rem;
+}
+.list ul li .goods .center em{
+    display: block;
+    color:#999;
+}
+.list ul li .goods .center i{
+    color:red;
+    font-size: 0.36rem;
+}
+.list ul li .goods .center s{
+    font-size: 0.24rem;
+    color:#999;
+}
+.list ul li .handle{
+    height: 1.2rem;
+    line-height: 1.2rem;
+    position: relative;
+}
+.list ul li .handle button{
+    border:1px solid #999;
+    font-size : 0.3rem;
+    background: #fff;
+    width: 20%;
+    padding: 0.05rem 0;
+}
+.list ul li .handle .sold_out{
+    position: absolute;
+    right: 30%;
+    top: 23%;
+}
+.list ul li .handle .delete,.list ul li .handle .send_out{
+    position: absolute;
+    right: 5%;
+    top: 23%;
+}
+
+.no_order{
+    margin: 0 auto;
+    font-size: 0.32rem;
+    color:#666;
+    padding-left: 0.5rem;
+    line-height: 1.5rem;
+}

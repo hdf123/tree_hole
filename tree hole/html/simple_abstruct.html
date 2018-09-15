@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>简介编辑</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <style>
+        html{
+            background-color: #eeeeee;
+        }
+        .layer>header{
+            background-color: #fff;
+        }
+        .main{
+            border-top:0.2rem solid #eee;
+        }
+        .main textarea{
+            width: 100%;
+            border: none;
+            font-size: 0.3rem;
+            height: 3.8rem;
+            padding: 0.3rem;
+        }
+        .published{
+            margin-top: 0.5rem;
+            height: 0.9rem;
+            line-height: 0.9rem;
+            background-color: #5f321a;
+            color: #ffffff;
+            width: 90%;
+            position: relative;
+            left: 5%;
+            font-size: 0.3rem;
+            text-align: center;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="layer" style="overflow-x: hidden;">
+    <header>
+        <i onclick="back()"></i>
+        <h3 onclick="back()">简介编辑</h3>
+    </header>
+    <div class="main">
+        <textarea name="" id="" placeholder="记录下你的专属编辑" autofocus></textarea>
+    </div>
+    <button class="published">发布</button>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script>
+    $(".published").click(function(){
+        var motto=$(".main>textarea").val();
+        console.log(motto);
+        if(motto==""){
+            motto=""
+            alert("简介不能为空哦")
+        }else{
+            render(motto);
+        }
+
+    })
+
+    function render(motto){
+        $.ajax({
+            //处理session每次不唯一问题
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            type: "post",
+            url: baseUrl+"/student/setMotto",
+            data:{
+                motto:motto
+            },
+            dataType: 'json',
+            success:function(data) {
+                //console.log(data);
+                back()
+            }
+
+        })
+    }
+
+</script>
+</html>

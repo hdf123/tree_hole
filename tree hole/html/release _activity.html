@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta charset="UTF-8">
+    <title>发表</title>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/mui.picter.min.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
+    <link rel="stylesheet" href="../css/chat.css"/>
+    <link rel="stylesheet" href="../css/location.css"/>
+    <link rel="stylesheet" href="../css/publish_activity.css"/>
+    <link href="../css/data_time/mobiscroll.2.13.2.css" rel="stylesheet" />
+    <style>
+        body{
+            overflow: scroll;
+        }
+        .mbsc-android-holo .dwv{
+            color:#5f4321;
+            border-bottom: 2px solid #5f321a;
+        }
+        .mui-btn-blue, .mui-btn-primary, input[type=submit] {
+            color: #fff;
+            border: 1px solid #5f4321;
+            background-color: #5f4321;
+        }
+        #loading{
+            display: none;
+            top: 20%;
+        }
+        #loading>div{
+            margin-left: -0.5rem;
+        }
+        .sing_up_end{
+            border-bottom:1px solid #eeeeee;
+        }
+        .imageBox{
+
+            border-top: 0.2rem solid #eeeeee;
+        }
+        .z_file,.z_addImg{
+            margin-top: 0.2rem;
+        }
+        .sign_up_setting{
+            border-bottom: 2px solid #eeeeee;
+        }
+        #sure{
+            background-color: #eeeeee;
+            bottom: 1%;
+        }
+        .confirm{
+            font-size: 0.32rem;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+    <div>请等待，正在发送...</div>
+</div>
+<div class="publish_layer" style="overflow-x: hidden">
+    <header class="publish_header">
+        <i class="f_left" onclick="back()" ></i>
+        <h3 class="publish">发布活动</h3>
+    </header>
+    <div class="say">
+        <textarea name="" id="" cols="50" rows="4" placeholder="请输入活动详情"></textarea>
+    </div>
+
+   <!-- <div class="location">
+        <img src="../img/point.png" alt=""/>
+        <em class="location_info">位置</em>
+    </div>-->
+ <div class="activity_time">
+     <div class="settings" style="display:none;">
+     <select name="demo" id="demo">
+         <option value="date">日期</option>
+     </select>
+ </div>
+     <div class="activity_space" onclick="location.href='./activity_space.html'">
+         <span>活动地点 </span>
+         <i></i>
+     </div>
+     <div class="sign_up_setting" onclick="location.href='./sign_up_setting.html'">
+         <span>报名设置</span>
+         <i></i>
+     </div>
+    <div class="begin_time">
+        <span>开始时间</span>
+        <input name="test" id="tests" class="demo-test-date demo-test-datetime demo-test-time demo-test-credit" placeholder="请设置活动开始时间" />
+    </div>
+     <div class="end_time">
+         <span>结束时间</span>
+         <input name="test" id="test" class="demo-test-date demo-test-datetime demo-test-time demo-test-credit" placeholder="请设置活动结束时间"  />
+     </div>
+     <div class="sing_up_end">
+         <div class="mui-content">
+
+             <span> 报名截止时间</span>
+             <input id='sign_up' data-options='{}' class="btn mui-btn mui-btn-block" placeholder="请设置报名截止时间"/>
+             <div id='result' class="ui-alert"></div>
+
+         </div>
+     </div>
+     <div class="imageBox">
+         <!--<a href="javascript:;" class="image">
+               <img src="../img/publish_common.png" alt="" class="userImg"/>
+               <span class="add_pic">点击添加图片</span>
+           </a>-->
+         <!--<a href="javascript:;">
+           <img src="../img/publish_common.png" alt="" class="userImg"/>
+           <span class="add_pic">点击添加图片</span>
+       </a>
+           <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput" multiple>-->
+         <div class="z_photo">
+             <div class="z_file">
+                 <!--   <img src="../img/publish_common.png" alt="" class="userImg"/>-->
+                 <!--<span class="add_pic">点击添加图片</span>-->
+                 <input type="file" capture="camera" name="file" id="file" value=""  accept="image/*" multiple onchange="imgChange('z_photo','z_file');" />
+             </div>
+         </div>
+
+         <div class="z_mask">
+
+             <div class="z_alert">
+                 <p>确定要删除这张图片吗？</p>
+                 <p>
+                     <span class="z_cancel">取消</span>
+                     <span class="z_sure">确定</span>
+                 </p>
+             </div>
+         </div>
+     </div>
+ </div>
+<div id="sure">
+    <button class="confirm">
+    确定发布
+</button>
+</div>
+
+</div>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.picker.min.js"></script>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/data_time/jquery-1.9.1.js"></script>
+<script src="../js/data_time/mobiscroll.2.13.2.js"></script>
+<script>
+
+    //图片上传
+    var obj={};
+    //判断是否地址
+    var address=localStorage.getItem("address");
+    if(address!==null){
+        $(".activity_space>i").css("background","none");
+        $(".activity_space>i").text(localStorage.getItem("address"));
+        $(".activity_space>i").width("70%");
+     $(".activity_space>i").css("textAlign","right");
+    }
+    var price_spend=localStorage.getItem("price_spend");
+    if(price_spend!==null){
+        $(".sign_up_setting>i").css("background","none");
+        $(".sign_up_setting>i").text("￥"+localStorage.getItem("price_spend"));
+        $(".sign_up_setting>i").width("70%");
+     $(".sign_up_setting>i").css("textAlign","right");
+    }
+
+    /*$("#tests").change(function(){
+        var startTime= $("#tests").val();
+
+        if(startTime!==""){
+            localStorage.setItem("startTime",startTime);
+        }
+    });
+    $("#tests").val(localStorage.getItem("startTime"));*/
+
+    $(".confirm").click(function(){
+        //获取 开始时间 结束时间 报名截止时间 时间转换为Date类型
+       var startTime= $("#tests").val();
+        var endTime=$("#test").val();
+       /* if(endTime!==""){
+            localStorage.setItem("endTime",startTime);
+        }
+        $("#test").val(localStorage.getItem("endTime"));*/
+        var sign_up=$("#sign_up").val();
+        //转换成功 图片的base64地址 很重要
+        // console.log(images);
+        //获取用户输入的全部内容之后 包括图片的地址  发送给后台 在进行页面的跳转
+        var content=$("textarea").val() ;
+        if(content!==""&&startTime==""&&endTime==""&&sign_up==""&&localStorage.getItem("address")!==""){
+            startTime=new Date(startTime.replace(/-/g,"/"));
+            endTime=new Date(endTime.replace(/-/g,"/"));
+            sign_up=new Date(sign_up.replace(/-/g,"/"));
+            obj.message=content;
+            obj.type=0;
+            obj.startTime=startTime;
+            obj.endTime=endTime;
+            obj.sign_up=sign_up;
+            obj.address=localStorage.getItem("address");
+            obj.image= JSON.stringify(images);
+            obj.price=price_spend;
+            console.log(obj);
+            $.ajax({
+                //处理session每次不唯一问题
+                xhrFields: {
+                    withCredentials: true
+                },
+                //请求方式
+                type:'post',
+                url:baseUrl+'/schoolMessage/setSchoolMessage',
+                dataType:'json',
+                data:obj,
+                beforeSend:function(){
+                    $("#loading").show();
+                    $("body").css("overflow","hidden");
+                },
+                success:function(data){
+                    console.log(data);
+                    if(data.code=="success"){
+                        alert("发表成功");
+                        $("#loading").hide();
+                        //清除location 本地存储
+                        localStorage.removeItem("price_spend");
+                        localStorage.removeItem("address");
+                        localStorage.removeItem("startTime");
+                        location.href='./news.html';
+
+                    }
+                },
+                error:function(data){
+                    console.log(data);
+                }
+            })
+        }
+        else{
+            alert("记得填写内容喔");
+        }
+
+    })
+
+
+    /*上传图片
+     * */
+    function imgChange(obj1, obj2) {
+        //获取点击的文本框
+        var file = document.getElementById("file");
+        //存放图片的父级元素
+        var imgContainer = document.getElementsByClassName(obj1)[0];
+
+        //获取的图片文件
+        var fileList = file.files;
+        //文本框的父级元素
+        var input = document.getElementsByClassName(obj2)[0];
+
+        var imgArr = [];
+        //遍历获取到得图片文件
+        for (var i = 0; i < fileList.length; i++) {
+            //判断上传的图片大小
+            if(file.files && file.files[i]){
+                var fileData = file.files[i];
+                var size = fileData.size;   //注意，这里读到的是字节数
+                var isAllow = false;
+                if(!size) isAllow = false;
+                var maxSize = 2048;
+                maxSize = maxSize * 1024;   //转化为字节
+                isAllow = size <= maxSize;
+                if(!isAllow){
+                    alert("大小超过2 M，请重新上传");
+                    return false;
+                }
+            }
+
+            //结束
+
+            var imgUrl = window.URL.createObjectURL(file.files[i]);
+            imgArr.push(imgUrl);
+            var img = document.createElement("img");
+            img.setAttribute("src", imgArr[i]);
+            var imgAdd = document.createElement("div");
+            imgAdd.setAttribute("class", "z_addImg");
+            imgAdd.appendChild(img);
+            imgContainer.appendChild(imgAdd);
+            //getBase64Image(img,imgArr[i]);
+        };
+        //'console.log(imgArr);这个是图片的本地地址
+        for(let i=0;i<imgArr.length;i++){
+            (function(image, x, y,index){
+                drawing(image, x, y,index)
+            })(imgArr[i],0,0,i)
+        }
+        imgRemove();
+    };
+    function imgRemove() {
+        var imgList = document.getElementsByClassName("z_addImg");
+        var mask = document.getElementsByClassName("z_mask")[0];
+        var cancel = document.getElementsByClassName("z_cancel")[0];
+        var sure = document.getElementsByClassName("z_sure")[0];
+        for (var j = 0; j < imgList.length; j++) {
+            imgList[j].index = j;
+            imgList[j].onclick = function() {
+                var t = this;
+                mask.style.display = "block";
+                cancel.onclick = function() {
+                    mask.style.display = "none";
+                };
+                sure.onclick = function() {
+                    mask.style.display = "none";
+                    t.style.display = "none";
+                };
+
+            }
+        };
+    };
+    var container=document.querySelector(".z_photo");
+    var images=[];
+    function drawing(image, x, y,index) {
+        var img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.src = image;
+        img.onload = function () {
+            let id='canvas'+index;
+            createCanvas(id,img.width,img.height);
+            var cs = document.getElementById(id);
+            var ctx = cs.getContext("2d");
+            ctx.drawImage(img, x, y);
+            var imageUrl=cs.toDataURL('', 1);
+            images.push(imageUrl);
+            //转换成功
+            // console.log(images);
+            removeDom(id);
+        } ;
+    }
+
+    function createCanvas(id,width,height){
+        var canvas=document.createElement("canvas");
+        canvas.setAttribute('id',id);
+        canvas.setAttribute('width',width);
+        canvas.setAttribute('height',height);
+        canvas.style.display="none";
+        container.appendChild(canvas);
+    }
+    function removeDom(id){
+        document.getElementById(id).outerHTML='';
+    }
+    $(".location").click(function(){
+        $(".location_alert").css("display","block");
+        $(".publish_layer").css("display","none");
+        $(".back_pub").click(function(){
+            $(".location_alert").css("display","none");
+            $(".publish_layer").css("display","block");
+            //获取位置
+            var location_info=localStorage.getItem("location");
+            if(location_info){
+                $(".location_info").text(location_info.substr(3,location_info.length));
+                //显示之后 清除  还有reamrk别名
+                console.log(location_info);
+            }else{
+                $(".location_info").text("位置")
+            }
+        })
+    })
+
+</script>
+<!--mui时间 -->
+<script>
+    (function($) {
+        $.init();
+        var result = $('#result')[0];
+        var btns = $('.btn');
+        btns.each(function(i, btn) {
+            btn.addEventListener('tap', function() {
+                var optionsJson = this.getAttribute('data-options') || '{}';
+                var options = JSON.parse(optionsJson);
+                var id = this.getAttribute('id');
+                /*
+                 * 首次显示时实例化组件
+                 * 示例为了简洁，将 options 放在了按钮的 dom 上
+                 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
+                 */
+                var picker = new $.DtPicker(options);
+                picker.show(function(rs) {
+                    /*
+                     * rs.value 拼合后的 value
+                     * rs.text 拼合后的 text
+                     * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+                     * rs.m 月，用法同年
+                     * rs.d 日，用法同年
+                     * rs.h 时，用法同年
+                     * rs.i 分（minutes 的第二个字母），用法同年
+                     */
+                    var sign_up_end=document.querySelector("#sign_up");
+                    sign_up_end.value=rs.text;
+                    //result.innerText = '选择结果: ' + rs.text;
+                    /*
+                     * 返回 false 可以阻止选择框的关闭
+                     * return false;
+                     */
+                    /*
+                     * 释放组件资源，释放后将将不能再操作组件
+                     * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+                     * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+                     * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+                     */
+                    picker.dispose();
+                });
+            }, false);
+        });
+    })(mui);
+</script>
+<!--日期时间插件-->
+<script type="text/javascript">
+        var curr = new Date().getFullYear();
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+
+        opt.default = {
+            theme: 'android-holo light', //皮肤样式
+            display: 'modal', //显示方式
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            stepMinute: 5,
+            startYear: curr - 0, //开始年份
+            endYear: curr + 0 //结束年份
+        };
+        $('.settings').bind('change', function() {
+            var demo = 'datetime';
+            if (!demo.match(/select/i)) {
+                $('.demo-test-' + demo).val('');
+            }
+            $('.demo-test-' + demo).scroller('destroy').scroller($.extend(opt['datetime'], opt['default']));
+            $('.demo').hide();
+            $('.demo-' + demo).show();
+        });
+        $('#demo').trigger('change');
+
+</script>
+</body>
+</html>

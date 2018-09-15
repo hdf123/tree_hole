@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>市场中心</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <link rel="stylesheet" href="../css/my_market.css"/>
+    <style>
+        .pay_list{
+            width: 100%;
+        }
+        .pay_list ul{
+            width: 100%;
+        }
+        .pay_list ul li{
+            width: 100%;
+        }
+        .pay_list li .top{
+            width: 100%;
+            padding: 0.3rem;
+            position: relative;
+            height: 1.5rem;
+        }
+        .pay_list li .top img{
+            width: 1.1rem;
+            min-height: 1rem;
+            border-radius: 50%;
+            vertical-align: middle;
+            position: absolute;
+            left: 3%;
+        }
+        .pay_list li .top em{
+            position: absolute;
+            left: 1.5rem;
+            top: 40%;
+            font-size: 0.36rem;
+            color:#999;
+        }
+        .pay_list li .top i{
+            position: absolute;
+            right: 3%;
+            top: 45%;
+            color:#b7b7b7;
+        }
+        .pay_list li .bottom{
+            position: relative;
+            width: 100%;
+            height: 1.6rem;
+            margin-top: 0.2rem;
+        }
+        .pay_list li .bottom img{
+            width: 1.5rem;
+            min-height: 1.5rem;
+            position: absolute;
+            left: 3%;
+        }
+        .pay_list li .bottom .middle{
+            position: absolute;
+            left: 2rem;
+
+        }
+        .pay_list li .bottom .middle span{
+            margin-top: 0.1rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            word-break: break-all;
+            font-size: 0.28rem;
+        }
+        .pay_list li .bottom .footer{
+            margin-top: 0.2rem;
+        }
+        .pay_list li .bottom .footer i{
+                color:#ff4947;
+        }
+        .pay_list li .bottom .footer em{
+            margin-right: 0.3rem;
+            color:#ff4947;
+            font-size: 0.3rem;
+        }
+        .pay_list li .bottom .footer em del{
+            color:#333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="layer">
+    <header>
+        <i onclick="location.href='./local_market.html'"></i>
+        <h3>市场中心</h3>
+    </header>
+    <div class="nav clearfix">
+        <ul class="clearfix">
+            <li>
+                <a href="./my_market.html" >出售中</a>
+            </li>
+            <li>
+                <a href="./my_market_published.html"  >已发布</a>
+            </li>
+            <li>
+                <a href="./my_market_order.html">全部订单</a>
+            </li>
+            <li>
+                <a href="./my_market_save.html">收藏</a>
+            </li>
+            <li>
+                <a href="./my_market_pay.html" class="active">佣金</a>
+            </li>
+        </ul>
+    </div>
+    <div class="pay_list">
+        <ul>
+            <li class="clearfix">
+                <div class="top clearfix">
+                    <img src="../img/focus-img1.png" alt=""/>
+                    <em>七月的雪</em>
+                    <i>2018.08.15 13:00</i>
+                </div>
+                <div class="bottom clearfix">
+                    <img src="../img/focus-img1.png" alt=""/>
+                    <div class="middle clearfix">
+                        <span>夏日斜跨小包包女2018新款潮韩版百搭夏日斜跨小包包女2018新款潮韩版百搭夏日斜跨小包包女2018新款潮韩版百搭 </span>
+                   <div class="footer">
+                       <i class="f_left">成功购买</i>
+                       <em class="f_right">+5元 <del>佣金</del></em>
+                   </div>
+                    </div>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script >
+
+</script>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>选择收货地址</title>
+
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <style>
+        .layer>header{
+            padding-top: 0.5rem;
+            height: 1.5rem;
+        }
+        .layer>header h3{
+            line-height: 0.9rem;
+        }
+        .mui-table-view-cell p{
+            font-size: 0.3rem;
+            color:#333;
+
+        }
+        .address{
+            margin-top: 0.3rem;
+        }
+        .add_address{
+            position: fixed;
+            height: 1rem;
+            line-height: 1rem;
+            bottom: 1%;
+            left: 5%;
+            width: 90%;
+            color:#fff;
+            background-color: #5f321a;
+            font-size: 0.32rem;
+            border-radius: 10px;
+        }
+        .mui-popup-button{
+            color:#666;
+        }
+        .no_address{
+            padding-top: 0.3rem;
+
+            line-height: 1rem;
+            text-align: center;
+            font-size: 0.32rem;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+    <div>请等待，正在加载...</div>
+</div>
+<div class="layer">
+    <header>
+        <i onclick="back()"></i>
+        <h3>选择取货地址</h3>
+    </header>
+    <div class="content">
+        <ul id="OA_task_1" class="mui-table-view">
+
+           <!-- <li class="mui-table-view-cell" data-index="2">
+                <div class="mui-slider-right mui-disabled">
+                    <a class="mui-btn mui-btn-red">删除</a>
+                </div>
+                <div class="mui-slider-handle">
+                 <p class="clearfix">
+                     <span class="f_left">收货人：<em>胡海鸽</em></span>
+                     <em class="f_right">17684569322</em>
+                 </p>
+                    <div class="address">
+                        取货地址：
+                        <i>河南省郑州市中原区梧桐街道祝福红城南区</i>
+                    </div>
+
+                </div>
+            </li>-->
+        </ul>
+        <button class="add_address" >添加新地址</button>
+    </div>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script id="userAddress" type="text/html">
+    {{if list.length==0}}
+    <li class="no_address">对不起，您暂时没有任何收货地址</li>
+    {{else}}
+    {{each list as value i}}
+    <li class="mui-table-view-cell" data-index="{{value.addressId}}">
+        <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-red">删除</a>
+        </div>
+        <div class="mui-slider-handle" data-addressId="{{value.addressId}}">
+            <p class="clearfix">
+                <span class="f_left">收货人：<em>{{value.receiver}}</em></span>
+                <em class="f_right">{{value.receiverPhone}}</em>
+            </p>
+            <div class="address">
+                取货地址：
+                <i>{{value.address}}</i>
+            </div>
+
+        </div>
+    </li>
+    {{/each}}
+    {{/if}}
+
+</script>
+<script>
+    mui.init();
+    $(document).ajaxStop(function(){
+        $("#loading").hide();
+    })
+    var href=location.href.split("=")[1];
+    //onclick="location.href='./business_buy_goods_add_location.html'"
+    $(".add_address").click(function(){
+        location.href='./business_buy_goods_add_location.html?goodId='+href;
+    })
+    localStorage.setItem("href",href);
+    //拿到 该用户的地址
+    render();
+    function render(){
+        //
+        $.ajax({
+            //处理session每次不唯一问题
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            type: "post",
+            url: baseUrl+"/goods/selectMyAddress",
+            data:{},
+            dataType: 'json',
+            success:function(data) {
+                console.log(data);
+                if(data.code=="success"||data.state==true||data.list!=="网络出了点小问题...."){
+                    $(".content>ul").html(template("userAddress",data))
+
+                }else{
+                    $("#loading").show();
+                    $("#loading>div").text("网络错误，请稍后重试");
+                }
+
+            }
+        })
+
+    }
+
+    (function($) {
+        //$.swipeoutOpen(el,direction)//打开指定列的滑动菜单，el:指定列的dom对象，direction：取值left|right，指定打开的是左侧或右侧滑动菜单
+        //$.swipeoutClose(el);//关闭指定列的滑动菜单，el:指定列的dom对象
+        //				setTimeout(function() {
+        //					$.swipeoutOpen(document.getElementById("OA_task_1").querySelector('li:last-child'), 'left');
+        //					setTimeout(function() {
+        //						$.swipeoutClose(document.getElementById("OA_task_1").querySelector('li:last-child'));
+        //					}, 1000);
+        //				}, 1000);
+        //第一个demo，拖拽后显示操作图标，点击操作图标删除元素；
+        $('#OA_task_1').on('tap', '.mui-btn', function(event) {
+            var elem = this;
+            var li = elem.parentNode.parentNode.getAttribute("data-index");
+            mui.confirm('确认删除该条记录？', '温馨提示', btnArray, function(e) {
+                if (e.index == 0) {
+                   // li.parentNode.removeChild(li);
+                    console.log(li);
+                    //发送ajax
+                    deleteAddress(li);
+
+                } else {
+                    setTimeout(function() {
+                        $.swipeoutClose(elem.parentNode.parentNode);
+                    }, 0);
+                }
+            });
+        });
+        var btnArray = ['确认', '取消'];
+
+    })(mui);
+    //删除收货地址 /goods/deleteAddressById
+    function deleteAddress(id){
+        $.ajax({
+            //处理session每次不唯一问题
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            type: "post",
+            url: baseUrl+"/goods/deleteAddressById",
+            data:{
+                addressId:id
+            },
+            dataType: 'json',
+            success:function(data) {
+                console.log(data);
+                if(data.code=="success"||data.state==true||data.list!=="网络出了点小问题...."){
+
+                    render();
+
+                }else{
+                    $("#loading").show();
+                    $("#loading>div").text("网络错误，请稍后重试");
+                }
+
+            }
+        })
+    }
+   // onclick="location.href='./business_buy_goods.html?id'"
+    $(".mui-slider-handle").click(function(){
+        //获取自定义属性 拿到addressId 跳转页面；
+        var address=$(this).attr("data-addressId");
+        console.log(address);
+        localStorage.setItem("addressId",address);
+        localStorage.getItem("href");
+        console.log(href);
+       /* var location_href=location.pathname.split("/html/")[1];
+        console.log(location_href);*/
+
+            location.href='./business_buy_goods.html';
+
+
+    })
+</script>
+</html>

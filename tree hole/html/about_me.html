@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>关于我的</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <style>
+        .layer>header{
+            position: fixed;
+            top: 0;
+            background-color: #fff;
+            z-index: 2;
+        }
+        .main{
+            width: 100%;
+        }
+        .main .notice{
+            width: 100%;
+            padding: 0 0.3rem;
+            padding-bottom: 0.2rem;
+            padding-top: 1.8rem;
+            border-bottom:  0.2rem solid #eeeeee;
+        }
+        .main .notice>header{
+            width: 100%;
+            position: relative;
+            padding: 0.2rem 0 ;
+        }
+        .main .notice>header img{
+            width: 0.8rem;
+            min-height: 0.8rem;
+            border-radius: 50%;
+        }
+        .notice>header .center{
+            position: absolute;
+            left: 1.2rem;
+            top: 10%;
+        }
+        .notice>header .center i{
+            display: block;
+            font-size: 0.36rem;
+        }
+        .notice>header .center em{
+            font-size: 0.16rem;
+            color:#666;
+        }
+        .notice>header .right{
+            position: absolute;
+            right: 3%;
+            top: 20%;
+            color:#999;
+        }
+        .notice .type{
+            width: 100%;
+            height: 1rem;
+        }
+        .notice .type em{
+            width: 0.6rem;
+            height: 0.6rem;
+            display: inline-block;
+            background: url("../img/hand_wite.png") no-repeat center;
+            -webkit-background-size: 80%;
+            background-size: 80%;
+            background-color: #2671bc;
+            border-radius: 50%;
+            vertical-align: middle;
+            padding: 0.02rem 0.02rem;
+        }
+        .notice .detail{
+            width: 100%;
+            position: relative;
+        }
+        .notice .detail img{
+            width: 1.7rem;
+            min-height: 1.7rem;
+            vertical-align: middle;
+        }
+        .notice .detail span{
+            position: absolute;
+            left: 2.2rem;
+            top: 10%;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            word-break: break-all;
+            color:#666;
+        }
+        .response {
+            width: 100%;
+            height: 0.8rem;
+            margin-top: 0.3rem;
+
+        }
+        .response input{
+            display: block;
+            width: 95%;
+            height: 0.8rem;
+            position: relative;
+            left: 3%;
+            line-height: 0.8rem;
+            border:1px solid #eee;
+            text-indent: 1em;
+            border-radius: 5px;
+            background-color: #eeeeee;
+        }
+    </style>
+</head>
+<body>
+<div class="layer" style="overflow-x: hidden">
+    <header>
+        <i onclick="back()"></i>
+        <h3>关于我的</h3>
+    </header>
+    <div class="main">
+        <div class="notice">
+            <header>
+                <img src="../img/focus-img1.png" alt=""/>
+                <div class="center">
+                    <i>花花姑娘</i>
+                    <em>今天 11:36</em>
+                </div>
+                <div class="right"> 回复</div>
+            </header>
+            <!--状态判断 if 渲染-->
+            <p class="type"> <em></em> 赞了我</p>
+            <div class="detail">
+                <img src="../img/focus-img1.png" alt=""/>
+                <span>剪了短发以后，觉得怎么都好看剪了短发以后，觉得怎么都好看剪了短发以后，觉得怎么都好看，随便一扎随便一扎随便一扎随便一扎</span>
+            </div>
+            <div class="response">
+                <input type="text" placeholder="回复 花花姑娘"/>
+            </div>
+        </div>
+        <div class="notice">
+            <header>
+                <img src="../img/focus-img1.png" alt=""/>
+                <div class="center">
+                    <i>花花姑娘</i>
+                    <em>今天 11:36</em>
+                </div>
+                <div class="right"> 回复</div>
+            </header>
+            <!--状态判断 if 渲染-->
+            <p class="type"> <em></em> 赞了我</p>
+            <div class="detail">
+                <img src="../img/focus-img1.png" alt=""/>
+                <span>剪了短发以后，觉得怎么都好看剪了短发以后，觉得怎么都好看剪了短发以后，觉得怎么都好看，随便一扎随便一扎随便一扎随便一扎</span>
+            </div>
+            <div class="response">
+                <input type="text" placeholder="回复 花花姑娘"/>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script>
+
+</script>
+</html>

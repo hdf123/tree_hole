@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>我的市场（查看订单）</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <style>
+        html{
+            background: #eeeeee;
+        }
+        .main_content{
+            border-top: 0.3rem solid #eeeeee;
+            width: 100%;
+            background-color: #fff;
+            padding: 0.3rem;
+        }
+        .main_content>p{
+            height: 0.88rem;
+            line-height: 0.88rem;
+            font-size: 0.3rem;
+        }
+        .main_content>.type{
+            width: 100%;
+        }
+        .main_content>.type>p{
+            font-size: 0.3rem;
+            height: 0.88rem;
+            line-height: 0.88rem;
+        }
+        .main_content>.type .info{
+            height: 0.6rem;
+            font-size: 0.26rem;
+            padding-top: 0.2rem;
+        }
+        .main_content>.type .time{
+            padding-top: 0.1rem;
+            border-bottom: 1px solid #eeeeee;
+            line-height: 0.8rem;
+            color:#999;
+        }
+    </style>
+</head>
+<body>
+<div class="layer">
+    <header>
+        <i onclick="back()"></i>
+        <h3>查看订单</h3>
+    </header>
+    <div class="main_content">
+        <!--填充-->
+    </div>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script id="goodsOrder" type="text/html">
+    <p>订单号：{{nu}}</p>
+    <div class="type">
+        <p>物流状态：已发货</p>
+        {{each data as value i}}
+        <div class="info">{{value.context}}</div>
+        <div class="time"> {{value.time}}</div>
+        {{/each}}
+    </div>
+</script>
+<script>
+$(function(){
+    // /goods/queryExpress  goodsOrderId
+    $.ajax({
+        //处理session每次不唯一问题
+        xhrFields: {
+            withCredentials: true
+        },
+        async:false,
+        type: "post",
+        url: baseUrl+"/goods/queryExpress",
+        data:{
+            goodsOrderId:location.href.split("=")[1]
+        },
+        dataType: 'json',
+        success:function(data) {
+            console.log(data);
+            if(data.status=="200"){
+            $(".main_content").html(template("goodsOrder",data))
+            }else{
+                alert("网络错误，请您稍后再试");
+                location.href='./login.html'
+            }
+        }
+    })
+})
+</script>
+</html>

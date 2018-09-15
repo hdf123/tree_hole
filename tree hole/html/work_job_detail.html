@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>兼职界面-职位详情</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <style>
+        header{
+            height: 1.4rem;
+            padding-top: 0.4rem;
+            line-height: 1.3rem;
+            position: relative;
+            border-bottom: 2px solid #eeeeee;
+        }
+        header em{
+            font-size: 0.36rem;
+            padding-left:0.3rem ;
+
+        }
+        header del{
+            position: absolute;
+            right: 3%;
+            width: 0.4rem;
+            height: 100%;
+            background: url("../img/submit_detail.png") no-repeat center;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+            top: 0%;
+        }
+        .main{
+
+        }
+        .main_top{
+            padding: 0 0.3rem;
+            width: 100%;
+            margin-top: 0.2rem;
+        }
+        .main_top .top{
+            position: relative;
+            line-height: 0.6rem;
+        }
+        .main_top .top em {
+            font-size: 0.34rem;
+            color:#5f321a;
+        }
+        .main_top .top i{
+            position: absolute;
+            right: 3%;
+            top: 0%;
+            color:#666;
+        }
+        .main_top .middle{
+            width: 100%;
+            position: relative;
+            line-height: 0.8rem ;
+
+        }
+        .main_top .middle i{
+           color:#999;
+            font-size: 0.36rem;
+        }
+        .main_top .middle del{
+            position: absolute;
+            font-size: 0.4rem;
+            color:#5f321a;
+            right: 3%;
+        }
+        .main_top .down{
+
+            line-height: 0.8rem;
+            color:#666;
+            border-bottom: 2px solid #eee;
+        }
+        .main_middle{
+            width: 100%;
+            padding: 0 0.3rem;
+        }
+        .main_middle p{
+            line-height: 0.8rem;
+            font-size: 0.36rem;
+        }
+        .main_middle h4{
+            color:#666;
+            padding-bottom: 0.2rem;
+        }
+        .main .footer{
+            padding: 0 0.3rem;
+
+            position: relative;
+            border-top: 0.2rem solid #eee;
+            border-bottom: 0.2rem solid #eee;
+        }
+        .main .footer em{
+            display: inline-block;
+            width: 0.6rem;
+            height:0.9rem;
+            background: url("../img/point%20(2).png") no-repeat center;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+            vertical-align: middle;
+
+        }
+        .main .footer span{
+            line-height: 1rem;
+        }
+        .main .footer i{
+            position: absolute;
+            right: 5%;
+            top: 28%;
+            font-size: 0.3rem;
+            color: #666;
+        }
+        .sign_up{
+            position: fixed;
+            bottom: 1%;
+            height: 1rem;
+            line-height: 1rem;
+            color: #fff;
+            background-color: #5f321a;
+            width: 90%;
+            left: 5%;
+            font-size: 0.36rem;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+    <div>请等待，正在加载...</div>
+</div>
+<div class="layer">
+    <header>
+        <em onclick="back()">< 职位详情</em>
+        <del></del>
+    </header>
+    <div class="main">
+      <!--填充-->
+    </div>
+
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script id="job_detail" type="text/html">
+    <div class="main_top">
+        <div class="top">
+            <em >{{title}}</em>
+            <i>{{time(pushTime)}}&nbsp;&nbsp;&nbsp;&nbsp; <del>刚刚</del></i>
+        </div>
+        <div class="middle">
+            {{if startTime==null}}
+            <i><em></em>日期不确定</i>
+            {{else}}
+            <i><em></em>{{time(startTime)}}~{{time(endTime)}}</i>
+            {{/if}}
+            <del>{{price}}/天</del>
+        </div>
+        <div class="down">
+            联系人 <em style="font-size: 0.3rem;">{{businessman.userName.substr(0,1)}}</em>{{businessman.sex=="男"?"先生":"女士"}}： {{businessman.mobilePhone}}
+        </div>
+    </div>
+    <div class="main_middle">
+        <p>职位职责：</p>
+        <h4>{{content}}</h4>
+
+    </div>
+    <div class="footer">
+        <em></em>
+        <span>地址:{{address}}</span>
+      <!--  <i> ></i>-->
+    </div>
+    <button class="sign_up" onclick="sign_up('{{stationId}}')">立即报名</button>
+</script>
+<script>
+//点击报名参加
+var sign_up=function(stationId){
+    $.ajax({
+        //处理session每次不唯一问题
+        xhrFields: {
+            withCredentials: true
+        },
+        type: "post",
+        url: baseUrl+"/station/signUp",
+        data:{
+            "stationId":stationId,
+        },
+        dataType: 'json',
+        success:function(data) {
+            console.log(data);
+            if(data.state==true){
+                $(".sign_up").text("已报名，请等待审核");
+                location.href="./work.html"
+            }
+
+        }
+
+    })
+}
+    $(function(){
+
+
+        $(document).ajaxStop(function(){
+            $("#loading").hide();
+        });
+        var href=location.href.split("=")[1];
+        console.log(href);
+        job_detail();
+        function job_detail(){
+            $.ajax({
+                //处理session每次不唯一问题
+                xhrFields: {
+                    withCredentials: true
+                },
+                type: "post",
+                url: baseUrl+"/station/getByIdStation",
+                data:{
+                    stationId:href
+                },
+                dataType: 'json',
+                success:function(data) {
+                    console.log(data);
+                    if(data=="{}"||typeof(data)=="undefined"){
+                        $("#loading").show();
+                    }else{
+                        template.helper("time",function(date){
+                            var time=new Date(date).toLocaleString().replace(/:\d{1,2}$/,' ').substr(5,11).replace("/","-");
+                            return time;
+                            /* return new Date(parseInt(date) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');*/
+                        });
+                        $(".main").html(template("job_detail",data));
+                      // localStorage.setItem("price_work",data.price)
+
+                    }
+
+
+                }
+            })
+        }
+
+
+    })
+</script>
+</html>

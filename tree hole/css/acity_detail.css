@@ -1,0 +1,110 @@
+.acity_detail_header{
+    position: relative;
+    border-bottom: 1px solid #eeeeee;.center .article
+}
+.acity_detail_header em{
+    position: absolute;
+    left: 5%;
+    top: 10%;
+    width: 0.6rem;
+    height: 100%;
+    background: url("../img/b_left_03.png") no-repeat center;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+}
+.acity_detail_header h3{
+    text-align: center;
+    line-height: 0.9rem;
+}
+.center .article{
+    -webkit-line-clamp: 10;
+}
+.acity_detail_layer .footer ul li{
+    width: 100%;
+    height: 1rem;
+    line-height: 1rem;
+    position: relative;
+}
+.footer .pay_money i{
+    width: 0.6rem;
+    height: 100%;
+    position: absolute;
+    background:url("../img/pay_money.png")no-repeat center;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+}
+.footer .pay_money em{
+    margin-left:0.6rem ;
+    color:red;
+}
+.footer .pay_money button{
+    position: absolute;
+    right: 3%;
+    top: 2%;
+    border:1px solid #5f321a;
+    color:#5f321a;
+    padding:0.1rem 0.1rem;
+    border-radius: 5px;
+
+}
+.footer ul .pay{
+    height: 100%;
+}
+.footer ul .pay i{
+    background-image: url("../img/shang.png");
+    width: 0.6rem;
+    height: 100%;
+}
+.footer ul .pay .mui-btn {
+    height: 100%;
+}
+.footer ul .pay .mui-btn em{
+    position: absolute;
+    left: 5%;
+    height: 100%;
+    top: 32%;
+}
+.footer ul .time{
+    position: relative;
+}
+.footer ul .time i{
+    position: absolute;
+
+    background: url("../img/time.png") no-repeat center;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    width: 0.6rem;
+    height: 100%;
+}
+.footer ul .time em{
+    position: absolute;
+    left: 10%;
+    height: 100%;
+    top: 0%;
+}
+.footer ul .comment i{
+    width: 0.6rem;
+    height: 100%;
+    background-image: url("../img/point%20(2).png");
+}
+.footer ul .comment em{
+    position: absolute;
+    left:3%;
+    height: 100%;
+    top: 0%
+}
+.news{
+    border-bottom: 0;
+}
+.my{
+    position: fixed;
+    bottom: 0px;
+    height: 1rem;
+    line-height: 1rem;
+    background-color: #5f321a;
+    width: 90%;
+    border-radius: 5px;
+    color:#fff;
+    left: 5%;
+    font-size: 0.36rem;
+}

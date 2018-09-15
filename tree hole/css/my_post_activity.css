@@ -1,0 +1,50 @@
+.main{
+    width: 100%;
+}
+.layer>header{
+    position: fixed;
+    top: 0;
+    z-index:2;
+    background-color: #fff;
+}
+
+.nav{
+    padding-top: 1.7rem;
+}
+.main .activity{
+    width: 100%;
+}
+.main .activity li{
+    width: 100%;
+    position: relative;
+    padding:0.3rem;
+    border-bottom: 0.2rem solid #eee;
+}
+.main .activity li:last-of-type{
+    border-bottom: 0;
+}
+.main .activity li img{
+    width: 2.3rem;
+    min-height: 2rem;
+    max-height: 2.3rem;
+
+}
+.main .activity li .center{
+    position: absolute;
+    left: 3rem;
+    top: 10%;
+}
+.main .activity li .center span{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    margin-bottom: 0.2rem;
+}
+.main .activity li .center i{
+    background-color: #c65760;
+    padding:0.1rem 0.2rem;
+    color:#fff;
+    border-radius: 5px;
+}

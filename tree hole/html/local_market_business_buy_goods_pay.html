@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>支付订单</title>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <style>
+        html{
+            background-color: #eeeeee;
+        }
+        .layer>header{
+            height: 1.5rem;
+        }
+        .layer>header>h3{
+
+            line-height: 0.9rem;
+        }
+        .main_center>p{
+            height: 1rem;
+            line-height: 1rem;
+            padding-left: 0.3rem;
+            background-color: #fff;
+            border-bottom: 0.2rem solid #eee;
+        }
+        .main_center>p>i{
+            font-size: 0.36rem;
+            color:#fe6430;
+        }
+        .center_pay>h4{
+            padding-left: 0.3rem;
+            font-size: 0.36rem;
+            height: 1rem;
+            line-height: 1rem;
+            background-color: #fff;
+        }
+        .mui-navigate-right em{
+            width: 0.6rem;
+            height: 0.6rem;
+            margin-right: 0.3rem;
+            display: inline-block;
+            background: url("../img/we_chat_pay.png") no-repeat center;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+            vertical-align: middle;
+        }
+        li:nth-of-type(2) em{
+            background-image: url("../img/pay_zhi.png");
+            -webkit-background-size: 110%;
+            background-size: 110%;
+        }
+        .mui-table-view-radio .mui-table-view-cell .mui-navigate-right:after{
+            color:#5f321a;
+        }
+        .confirm_pay{
+            position: relative;
+            width: 90%;
+            left: 5%;
+            height: 1rem;
+            line-height: 1rem ;
+            font-size: 0.32rem;
+            text-align: center;
+            color: #fff;
+            margin-top: 0.5rem;
+            background-color: #5f321a;
+        }
+    </style>
+</head>
+<body>
+<div class="layer">
+    <header>
+        <i onclick="back()"></i>
+        <h3>支付订单</h3>
+    </header>
+    <div class="main_center">
+        <p>订单总额: <i>20.0元</i></p>
+        <div class="center_pay">
+            <h4>选择支付方式</h4>
+            <ul class="mui-table-view mui-table-view-radio" >
+                <li class="mui-table-view-cell mui-selected" data-value="1">
+                <a class="mui-navigate-right">
+                    <em></em>微信支付
+                </a>
+            </li>
+                <li class="mui-table-view-cell" data-value="2">
+                    <a class="mui-navigate-right">
+                        <em></em>支付宝支付
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <button class="confirm_pay">确定支付</button>
+</div>
+</body>
+<script src="../js/mui.min.js"></script>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script>
+    $(function(){
+        mui.init({
+            swipeBack:true //启用右滑关闭功能
+        });
+    //var info = document.getElementById("info");
+        var info=1;
+    document.querySelector('.mui-table-view.mui-table-view-radio').addEventListener('selected',function(e){
+        //info.innerHTML = "当前选中的为："+e.detail.el.innerText;
+      info= e.detail.el.getAttribute("data-value");
+        console.log(info);
+    });
+        //用户确定之后 点击
+        $(".confirm_pay").click(function(){
+
+        })
+    })
+</script>
+</html>

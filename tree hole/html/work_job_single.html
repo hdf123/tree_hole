@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>约单</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <style>
+        html{
+            background-color: #eeeeee;
+        }
+        .layer>header{
+            background-color: #fff;
+        }
+        .main_content{
+            width: 100%;
+        }
+        .main_content .info{
+            background-color: #eeeeee;
+            padding:0.3rem ;
+            position: relative;
+
+        }
+        .main_content .info img{
+            width: 1.2rem;
+            min-height:1.2rem;
+            max-height: 1.3rem;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+        .main_content .info .middle{
+            position: absolute;
+            top: 25%;
+            left: 1.8rem;
+        }
+        .info .middle span{
+            display: block;
+            font-size: 0.34rem;
+            color:#5f321a;
+            margin-bottom: 0.1rem;
+        }
+        .info .middle span i{
+            font-size: 0.24rem;
+            margin-left: 0.2rem;
+            color:#ff4d94;
+        }
+        .info .middle em{
+            font-size: 0.24rem;
+            color:#999;
+        }
+        .info .middle em del{
+            width: 0.5rem;
+            display: inline-block;
+            vertical-align: middle;
+            background: url("../img/point%20(2).png") no-repeat center;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+            height: 0.5rem;
+        }
+        .sign_need{
+            background-color: #fff;
+            width: 100%;
+            padding: 0 0.3rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 0.2rem solid #eee;
+        }
+        .sign_need>p{
+            height: 1rem;
+            line-height: 1rem;
+            font-size: 0.36rem;
+            color:#5f321a;
+            margin-left: 0.4rem;
+            position: relative;
+        }
+        .sign_need>p:before{
+            position: absolute;
+            height: 0.4rem;
+            width: 0.12rem;
+            left: -5%;
+            top: 27%;
+            background-color: #5f321a;
+            content: "";
+        }
+        .sign_need>h4{
+            font-size: 0.3rem;
+            line-height: 0.6rem;
+        }
+        .sign_need>span{
+            font-size: 0.24rem;
+            color:#6d6e6e;
+            margin-top: 0.1rem;
+        }
+        .earnest_Money{
+            background-color: #fff;
+            position: relative;
+            font-size: 0.3rem;
+            color: #5f321a;
+            height: 1rem;
+            line-height: 1rem;
+            padding-left: 0.7rem;
+
+        }
+        .earnest_Money:before{
+            position: absolute;
+            height: 0.3rem;
+            width: 0.12rem;
+            left: 4%;
+            top: 35%;
+            background-color: #5f321a;
+            content: "";
+        }
+        .reward{
+            position: relative;
+            height: 1rem;
+            background-color: #fff;
+            line-height: 1rem;
+        }
+        .reward i{
+            position: absolute;
+            left: 3%;
+            width: 0.6rem;
+            height: 100%;
+            background: url("../img/reward.png") no-repeat center;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+        }
+        .reward>input{
+            position: absolute;
+            height: 100%;
+            line-height: 100%;
+            right: 3%;
+            width: 40%;
+            top: 0%;
+        }
+        .sure{
+            margin-top: 0.5rem;
+            position: relative;
+            width: 90%;
+            height: 1rem;
+            line-height: 1rem;
+            background-color: #5f321a;
+            color:#fff;
+            font-size: 0.36rem;
+            text-align: center;
+            border-radius: 5px;
+            left: 5%;
+        }
+    </style>
+</head>
+<body>
+<div class="layer" style="overflow: hidden;">
+    <header>
+        <i onclick="back()"></i>
+        <h3>约单</h3>
+    </header>
+    <div class="main_content">
+        <!--填充-->
+        <!--  <button class="sure" onclick="location.href='./sign_single.html'">确定约单</button>-->
+        </div>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script id="work_job_single" type="text/html">
+    {{if list.pusher==null}}
+    <div class="info">
+        <img src="../img/focus-img1.png" alt=""/>
+        <div class="middle">
+            <span>七月的雪 <i>女</i></span>
+            <em><del></del>位置展示</em>
+        </div>
+    </div>
+    {{else}}
+    <div class="info">
+            <img src="{{list.pusher.avatar}}" alt=""/>
+            <div class="middle">
+            <span>{{list.pusher.realName}} <i>{{list.pusher.sex}}</i></span>
+             <em><del></del>{{list.address}}</em>
+            </div>
+    </div>
+        {{/if}}
+
+    <div class="sign_need">
+            <p>发布需求</p>
+            <h4>{{list.title}}</h4>
+            <span>{{list.content}}</span>
+    </div>
+    <div class="earnest_Money">
+            诚意金
+            </div>
+            <div class="reward">
+            <i></i>
+            <input type="number" min="0" placeholder="请输入打赏金额"/>
+            </div>
+            <button class="sure" >确定约单</button>
+
+</script>
+<script>
+    $(function(){
+        var href=location.href.split("=")[1];
+        console.log(href);
+        render();
+        function render(){
+            $.ajax({
+                //处理session每次不唯一问题
+                xhrFields: {
+                    withCredentials: true
+                },
+                async:false,//有时候需要 同步 考虑代码的执行
+                type: "post",
+                url:baseUrl+ "/partner/getByIdPartner",
+                data:{
+                    partnerId:href
+                },
+                dataType: 'json',
+                success:function(data) {
+                    console.log(data);
+                    $(".main_content").html(template("work_job_single",data));
+                   //var partnerId =data.list.partnerId;
+                    localStorage.setItem("partnerId",data.list.partnerId);
+                }
+
+            })
+        }
+
+        function sign_up(partnerId,deposit){
+            $.ajax({
+                //处理session每次不唯一问题
+                xhrFields: {
+                    withCredentials: true
+                },
+                type: "post",
+                url:baseUrl+ "/partner/signUp",
+                data:{
+                    "partner.partnerId":partnerId,
+                    deposit:deposit
+
+                },
+                dataType: 'json',
+                success:function(data) {
+                    console.log(data);
+                    if(data.code=="success"){
+                        localStorage.removeItem("partnerId");
+                       location.href="./work_sigle.html"
+                    }
+                }
+            })
+        }
+        $(".sure").click(function () {
+            //alert("1");
+            var partnerId =localStorage.getItem("partnerId");
+            var deposit=$(".reward>input").val();
+            if(deposit<0){
+                deposit=0
+            }
+            if(deposit==""){
+                alert("请填写打赏金额(不能小于0)");
+                $(".reward>input").val("");
+                return false;
+            }
+            sign_up(partnerId,deposit);
+        })
+
+    })
+</script>
+</html>

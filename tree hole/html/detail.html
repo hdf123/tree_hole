@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>详情</title>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/mui_img.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/chat.css"/>
+    <link rel="stylesheet" href="../css/Dynamic-hot.css"/>
+    <link rel="stylesheet" href="../css/focus.css"/>
+    <link rel="stylesheet" href="../css/detail.css"/>
+
+    <style>
+        .detail_header{
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index:122;
+        }
+        .response{
+            padding-bottom: 1rem;
+        }
+        .my_response em{
+            position: absolute;
+            right:5%;
+            width: 0.8rem;
+            background: none;
+            border-radius: 5px;
+            color:#fff;
+            background: #5f321a;
+            border: 1px solid #5f321a;
+            top: 21%;
+            height: 0.6rem;
+            line-height: 0.6rem;
+            display: none;
+            font-size: 0.26rem;
+            padding-left: 0.1rem;
+        }
+       #info_detil{
+            padding-top: 1.5rem;
+        }
+        .response_header{
+            margin-top: 0.3rem;
+            margin-left: 0.3rem;
+            position: relative;
+        }
+        .content_info{
+            width: 100%;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 10;
+            -webkit-box-orient: vertical;
+            word-break: break-all;
+            font-size: 0.3rem;
+            color:#999;
+            padding:0 0.3rem;
+            margin-top: 0.5rem;
+        }
+        .response{
+            margin-top: 0;
+        }
+        .response_header_right{
+            margin-right: 0.3rem;
+            margin-top: 0;
+        }
+        #comment{
+            vertical-align: middle;
+        }
+        #info_detil .picture{
+
+        }
+        body{
+            background-color: #fff;!important;
+        }
+        .content_main{
+            margin-left: 0.5rem;
+            margin-top: 0.3rem;
+        }
+     .content_footer{
+         margin-left: 0.3rem;
+         margin-top: 0.3rem;
+     }
+        .location_size{
+            font-size: 0.22rem;
+            display: inline-block;
+            width:80%;
+        }
+        .response_header_center{
+            top: 0%;
+            left: 15%;
+            position: absolute;
+        }
+        header i{
+            top: 25%;
+            left: 3%;
+        }
+        .img_box{
+            display: inline-block;
+            background-color: #333333;
+            position: relative;
+            width: 45%;
+            height: 2.5rem;
+            overflow: hidden;
+            margin: 0.4rem 0.1rem 0.2rem 0.2rem;
+        }
+        .img_box>img{
+            position: absolute;
+            top: 50%;
+            width: 100%;
+
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+</div>
+<div class="layer ">
+    <header class="detail_header clearfix">
+        <i onclick="back()" ></i>
+        <h3>详情</h3>
+    </header>
+    <div id="info_detil">
+<!--回复信息 及图片展示-->
+    </div>
+    <!--评论列表-->
+    <div class="content_main" id="content_main">
+        <!--填充-->
+    </div>
+    <div class="response">
+
+        <div class="response_content clearfix" >
+            <div class="my_response">
+                <form action="">
+                    <input type="text" placeholder="我也说一句..."  autofocus class="user_input"/>
+                    <em>发送</em>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/mui.preview.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script id="intro" type="text/html">
+    <div class="response_header clearfix">
+        <img src="{{noteMessage.student.avatar}}" alt=""/>
+        <div class="response_header_center ">
+            <span>{{noteMessage.student.realName}}</span>
+            <em>{{time(noteMessage.pushTime)}}</em>
+        </div>
+        <div class="response_header_right">
+            <i id="comment"></i>
+        </div>
+    </div>
+    <p class="content_info">{{noteMessage.message}}</p>
+    <!--发表的有可能是图片  这时候就要显示图片-->
+    <!--判断有没有图片-->
+    {{if noteMessage.mediaPath==null}}
+    <img  src="" data-preview-src="" data-preview-group="{{i+1}}" class="picture" alt=""/>
+    {{else}}
+    {{each str(noteMessage.mediaPath) as resource i}}
+    <div class="img_box">
+        <img src="{{resource}}" data-preview-src="" data-preview-group="{{1}}" class="picture" alt=""/>
+    </div>
+    {{/each}}
+    {{/if}}
+</script>
+<script id="response_info" type="text/html">
+    {{if noteComments.length==0}}
+    <div class="one_response">暂时没有评论信息哦</div>
+    {{else}}
+    {{each noteComments as value i }}
+    <div class="one_response" >
+        <del class="reply" data-id="{{value.fromStudent==null?0:value.fromStudent.studentId}}">{{value.fromStudent==null||value.fromStudent.realName==null?"暂无姓名":value.fromStudent.realName}}</del>回复
+        <i class="reply" data-id="{{value.toStudent==null?0:value.toStudent.studentId}}">{{value.toStudent==null||value.toStudent.realName==null?"暂无姓名":value.toStudent.realName}}</i> :
+        <span>{{value.message}}</span>
+    </div>
+    {{/each}}
+    {{/if}}
+
+</script>
+<script>
+    $(document).ajaxStop(function(){
+        $("#loading").hide();
+    });
+    var href=location.href.split("=")[1];
+    //console.log(href);
+    noteMessageLookNumber(href);
+    //评论校园资讯 detail(message,id)
+    mui.previewImage();
+    //获取某一帖子的详情
+    render();
+    function render(){
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            type: "post",
+            url: baseUrl+"/noteMessage/getOneNoteMessage",
+            data:{
+                noteMessageId:href
+            },
+            dataType: 'json',
+            success:function(data){
+                console.log(data);
+                template.helper("time",function(date){
+                    var time=new Date(date).toLocaleString().replace(/:\d{1,2}$/,' ').substr(5,11).replace("/","-");
+                    return time;
+                    /* return new Date(parseInt(date) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');*/
+                });
+                template.helper("str",function(str){
+                    return str.split(",");
+                });
+                $("#info_detil").html(template("intro",data))
+
+            }
+        })
+    }
+    //评论帖子
+    /*noteMessage.noteMessageId		帖子主键
+     message	                   评论的内容
+     toStudent.studentId  */
+    function detail(message,id){
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            type: "post",
+            url: baseUrl+"/noteMessage/setNoteComment",
+            data:{
+                "noteMessage.noteMessageId":href,
+                message:message,
+                "toStudent.studentId":id
+            },
+            dataType: 'json',
+            success:function(data){
+                console.log(data);
+                intro()
+
+            },
+            error:function(data){
+                console.log(data);
+            }
+        })
+    }
+    //detail()
+    //输入  渲染 追加到页面上
+    //需要发送到后台 并且保存到页面上
+    $(".user_input").keyup(function(){
+        //console.log($(".user_input").val());
+        //console.log(data[0].input_name);
+        //判断用户输入的不能为空
+        if($(".user_input").val()==""){
+            $(".my_response em").css("display","none");
+            return false;
+        }else{
+            $(".my_response em").css("display","block");
+            $(".my_response em").click(function(){
+                /*var html="<div ><i>xx</i>回复 <del>xx</del>: <span>"+$(".user_input").val()+"</span> </div>";*/
+                //console.log($(".user_input").val());
+                if($(".user_input").val()==""){
+                    return false;
+                }
+                //renter($(".user_input").val());
+                var reply_id=localStorage.getItem("reply_id");
+                if(reply_id){
+                    detail($(".user_input").val(),reply_id);
+
+                    //删除本地存储
+                    localStorage.removeItem("reply_id")
+                }else{
+                    detail($(".user_input").val(),localStorage.getItem("data_id"));
+                }
+                $(".user_input").val("");
+            })
+
+        }
+
+    })
+    //获取全部评论
+    intro();
+    function intro(){
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            type: "get",
+            url: baseUrl+"/noteMessage/getNoteComment",
+            data:{
+                noteMessageId:href
+            },
+            dataType: 'json',
+            success:function(data){
+                console.log(data);
+
+                    template.helper("time",function(date){
+                        var time=new Date(date).toLocaleString().replace(/:\d{1,2}$/,' ').substr(5,11).replace("/","-");
+                        return time;
+                    });
+                    var html=template("response_info",data);
+                    $("#content_main").html(html);
+                localStorage.setItem("data_id",data.message.student.studentId);
+                //回复某人 的评论
+                $(".one_response").on("click",".reply",function(){
+                    var id=$(this).data("id");
+                    localStorage.setItem("reply_id",id);
+                    localStorage.setItem("data_id",data.message.student.studentId);
+                    console.log(id);
+                })
+
+            },
+            error:function(data){
+                console.log(data);
+            }
+        })
+    }
+
+
+
+
+</script>
+</body>
+</html>

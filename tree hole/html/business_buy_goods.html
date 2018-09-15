@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>购买宝贝</title>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <style>
+        body{
+            background-color: #fff;
+        }
+        .layer>header>h3{
+            line-height: 1rem;
+        }
+        .content{
+            width: 100%;
+            border-top: 0.2rem solid #eee;
+        }
+        .content .list{
+            width: 100%;
+            padding: 0.3rem;
+            position: relative;
+            border-bottom: 0.2rem solid #eeeeee;
+        }
+        .content .list img{
+            width: 2.1rem;
+            min-height: 2rem;
+            max-height: 2.1rem;
+            vertical-align: middle;
+        }
+        .content .list .middle{
+            position: absolute;
+            left: 2.6rem;
+            top: 18%;
+        }
+        .content .list .middle span{
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            word-break: break-all;
+            font-size: 0.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .content .list .middle em{
+            font-size: 0.36rem;
+            color:#ff4947;
+        }
+        .content .list .middle em i{
+            font-size: 0.24rem;
+            color:#666;
+        }
+        .add_location{
+            width: 100%;
+            padding: 0.3rem;
+            border-bottom: 0.2rem solid #eeeeee;
+        }
+        .add_location span{
+            font-size: 0.3rem;
+            color:#333;
+        }
+        .add_location img{
+            vertical-align: middle;
+            margin-left: 0.7rem;
+            width: 18%;
+        }
+        .footer{
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            height: 1rem;
+            line-height: 1rem;
+            background-color: #fff;
+            border-top: 1px solid #eeeeee;
+        }
+        .footer>span{
+            font-size: 0.32rem;
+            color:#333;
+            padding-left: 0.3rem;
+        }
+        .footer>span i{
+            color:#fe4543;
+        }
+        .footer .confirm{
+            position: absolute;
+            right: 0;
+            height: 1rem;
+            line-height: 1rem;
+            background-color: #5f321a;
+            color: #ffffff;
+            font-size: 0.36rem;
+            width: 30%;
+        }
+        .add_location>em{
+            display: none;
+        }
+        .add_location>em>i,.add_location>em>s,.add_location>em>del{
+            display: block;
+            margin-right: .1rem;
+            font-size: 0.26rem;
+            color:#666;
+        }
+        .change_address{
+            padding-left: 0.3rem;
+            height: 1rem;
+            line-height: 1rem;
+            font-size: 0.3rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+    <div>请等待，正在加载...</div>
+</div>
+
+<div class="layer">
+    <header>
+        <i onclick="back()"></i>
+        <h3>购买宝贝</h3>
+    </header>
+    <div class="content">
+    <!--填充-->
+    </div>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script id="buy_goods" type="text/html">
+{{each list as value i}}
+<div class="list">
+    <img src="{{value.goods.images[0].path}}" alt=""/>
+    <div class="middle">
+        <span>{{value.goods.introduction}}</span>
+        <em>￥{{value.goods.price}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>快递：￥{{value.goods.expressFee==null?0:value.goods.expressFee}}</i> </em>
+    </div>
+</div>
+<div class="add_location clearfix">
+    <span>添加地址</span>
+    <img src="../img/add_location.png" alt="" onclick="location.href='./business_choose_address.html?goodsId={{value.goods.goodsId}}'"/>
+    <em class="f_left">
+        <i></i>
+        <s></s>
+        <del></del>
+    </em>
+</div>
+<p class="change_address"  onclick="location.href='./business_choose_address.html?goodsId={{value.goods.goodsId}}'">更换地址</p>
+<div class="footer">
+    <span>实付款： <i>￥{{add(value.goods.price,value.goods.expressFee)}}</i></span>
+    <button class="confirm" data-index="{{value.goods.goodsId}}">确定</button>
+</div>
+    {{/each}}
+</script>
+<script>
+    $(document).ajaxStop(function(){
+        $("#loading").hide();
+    });
+    var goodsId=location.href.split("=")[1];
+    if(goodsId){
+        goodsId=goodsId;
+    }else{
+        goodsId=localStorage.getItem("href");
+    }
+    //business_buy_goods  参数 goodsId 获取商品详情
+    function render(){
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+            type:"post",
+            dataType:"json",
+            data:{
+                goodsId:goodsId
+            },
+            url:baseUrl+"/goods/getOneGoods",
+            success:function(data){
+                console.log(data);
+                if(data.code=="success"||data.state==true||data.list!=="网络出了点小问题...."){
+                    template.helper("add",function(a,b){
+                        if(typeof (b)==null||typeof (b)=="undefined"){
+                            b=0;
+                        }
+                        return a+b;
+                    });
+
+                    $(".content").html(template("buy_goods",data));
+                   /* var status=localStorage.getItem("address.status");
+                    if(status=="true"){
+
+                    }
+                    var people=localStorage.getItem("people");
+                    var phone_number=localStorage.getItem("phone_number");
+                    var address=localStorage.getItem("address");
+                    if(people){
+                        $(".add_location>img").css("display","none");
+                        $(".add_location>em").css("display","block");
+                        $(".add_location>em>i").text("收货人："+people);
+                        $(".add_location>em>s").text("电话："+phone_number);
+                        $(".add_location>em>del").text("地址："+address);
+                        $(".change_address").show();
+                        $(".add_location>span").hide();
+                    }*/
+                    var choose=localStorage.getItem("addressId");
+                    if(choose){
+                        getAddress(choose);
+
+                        }
+                }
+                else{
+                    $("#loading").show();
+                    $("#loading>div").text("网络错误，请稍后重试");
+                }
+            }
+        })
+    }
+    render();
+    //获取地址
+    function getAddress(addressId) {
+        $.ajax({
+            //处理session每次不唯一问题
+            xhrFields: {
+                withCredentials: true
+            },
+            async: false,
+            type: "post",
+            url: baseUrl + "/goods/selectAddressById",
+            data: {
+                addressId:addressId
+            },
+            beforeSend: function () {
+                $("#loading").show();
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                if (data.state == true) {
+                    $(".add_location>img").css("display","none");
+                    $(".add_location>em").css("display","block");
+
+                    $(".add_location>em>i").text("收货人：" +data.list.receiver);
+                    var people=localStorage.setItem("people",data.list.receiver);
+                    $(".add_location>em>s").text("电话："+data.list.receiverPhone);
+                    var receiverPhone=localStorage.setItem("receiverPhone",data.list.receiverPhone);
+                    $(".add_location>em>del").text("地址："+data.list.address);
+                    var address=localStorage.setItem("address",data.list.address);
+                    $(".change_address").show();
+                    $(".add_location>span").hide();
+                    //location.href = ''
+                }
+            }
+        })
+    }
+
+
+    $(".confirm").click(function(){
+        //onclick="location.href='./local_market_business_buy_goods_pay.html'"
+    //发送成功之后判断是否为，默认地址 否则删除本地存储
+        //先 判断地址有没有输入
+        var hasAddress=localStorage.getItem("address");
+        if(!hasAddress){
+            alert("请您填写收货地址");
+            return false;
+        }else{
+            hasAddress=hasAddress;
+        }
+        var goodsId=$(this).data("index");
+        console.log(goodsId);
+        var people=localStorage.getItem("people");
+        var phone=localStorage.getItem("receiverPhone");
+        $.ajax({
+
+            //处理session每次不唯一问题
+            xhrFields: {
+                withCredentials: true
+            },
+            async:false,
+
+            type: "post",
+            url: baseUrl+"/goods/buyGoods",
+            data:{
+                "receiveAddress.addressId":localStorage.getItem("addressId"),
+                "goods.goodsId":goodsId,
+                number:1,
+            },
+            beforeSend:function(){
+                $("#loading>div").text("请等待，正在付款");
+                $("#loading").show();
+            },
+            dataType: 'json',
+            success:function(data) {
+                console.log(data);
+                if(data.code=="success"){
+                   alert("购买成功");
+                    //删除本地存储的 addressId href
+                    location.href='./business.html'
+                }
+            }
+
+        })
+
+    })
+</script>
+</html>

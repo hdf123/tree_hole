@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>报名详情（个人详细信息）</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <link rel="stylesheet" href="../css/my_post_activity_list.css"/>
+    <style>
+        .top,.sign_up_pay,.sign_up,.age,.connect_phone{
+            border-bottom: 1px solid #eeeeee;
+            margin-bottom: 0.2rem;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+    <div>请等待，正在加载...</div>
+</div>
+<div class="layer">
+    <header>
+        <i onclick="back()"></i>
+        <h3 onclick="back()">报名详情</h3>
+    </header>
+    <div class="main_content">
+     <!--   <div class="top">
+            <img src="../img/focus-img1.png" alt=""/>
+            <span>七月的雪</span>
+        </div>
+        <div class="sign_up_pay">
+            <span>报名费:</span>
+            <em>已支付￥20</em>
+        </div>
+        <div class="sign_up">
+            <span>姓名:</span>
+            <em>嘻嘻嘻</em>
+        </div>
+        <div class="age">
+            <span>年龄:</span>
+            <em>19</em>
+        </div>
+        <div class="connect_phone">
+            <span>联系电话:</span>
+            <em>19115565565235</em>
+        </div>
+        <button class="rejest">拒绝</button>
+        <button class="agree">同意</button>
+    </div>-->
+
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<!--校园资讯-->
+<script id="my_post_activity_detail" type="text/html">
+    <div class="top">
+            <img src="{{list.schoolMessage.student.avatar}}" alt=""/>
+            <span>{{list.schoolMessage.student.userName==null?list.schoolMessage.student.realName:list.schoolMessage.student.userName}}</span>
+            </div>
+            <div class="sign_up_pay">
+            <span>报名费:</span>
+    <em>已支付￥{{list.schoolMessage.price}}</em>
+    </div>
+    <div class="sign_up">
+            <span>姓名:</span>
+    <em>{{list.schoolMessage.student.realName}}</em>
+    </div>
+    <div class="age">
+            <span>年龄:</span>
+    <em>{{list.schoolMessage.student.age==null?"保密（你猜）":list.schoolMessage.student.age}}</em>
+    </div>
+    <div class="connect_phone">
+            <span>联系电话:</span>
+    <em>{{list.mobilePhone}}</em>
+    </div>
+    <button class="rejest" onclick="completeSignUp('{{list.signUpOrderId}}',0)" >拒绝</button>
+    <button class="agree" onclick="completeSignUp('{{list.signUpOrderId}}',1)">同意</button>
+
+</script>
+<!--约单-->
+<script id="sigle_detail" type="text/html">
+
+    <div class="top">
+        <img src="{{list.partner.pusher.avatar}}" alt=""/>
+        <span>{{list.student.userName==null?list.student.realName:list.student.userName}}</span>
+    </div>
+    <div class="sign_up_pay">
+        <span>打赏:</span>
+        <em>已打赏</em>
+    </div>
+    <div class="sign_up">
+        <span>姓名:</span>
+        <em>{{list.partner.pusher.realName}}</em>
+    </div>
+    <div class="age">
+        <span>年龄:</span>
+        <em>{{list.partner.pusher.age==null?"保密（你猜）":list.partner.pusher.age}}</em>
+    </div>
+    <div class="connect_phone">
+        <span>联系电话:</span>
+        <em>{{list.partner.pusher.mobilePhone}}</em>
+    </div>
+    <button class="rejest" onclick="partner_completeSignUp('{{list.partnerOrderId}}',0)">拒绝</button>
+    <button class="agree" onclick="partner_completeSignUp('{{list.partnerOrderId}}',1)">同意</button>
+
+</script>
+<script>
+    //ajax 发送完毕
+    $(document).ajaxStop(function(){
+        $("#loading").hide();
+    });
+    //获取URL 地址栏参数 判断
+    // 如果是studentId 就是校园资讯列表 跳转页面 发送 getSignUpOrderForPusher()请求
+    //如果是 partnerId 就是 约单 发送另一个 请求
+    var getUrlParams=function(){
+        var search=location.search;//search里面包含?
+        search=search.substr(1);
+        console.log(search);
+        var str=search.split("=");
+        if(str[0]=="studentId"){
+            getSignUpOrderForPusher(str[1])
+        }else{
+            getPartnerOrderById(str[1]);
+        }
+    }
+    getUrlParams()
+
+ /*   var href=location.href.split("=")[1];
+    getSignUpOrderForPusher();*/
+
+    //资讯
+    function  getSignUpOrderForPusher(href) {
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            type: "post",
+            url: baseUrl + "/schoolMessage/getOneSignUpOrder",
+            data: {
+                signUpOrderId:href
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                if(data.state==true&&data.list!=="网络出了点小问题...."){
+                    $(".main_content").html(template("my_post_activity_detail",data))
+                }else{
+                    $("#loading").show();
+                    $("#loading>div").text("网络错误，请稍后重试");
+                }
+            }
+        })
+    }
+    //约单
+    function getPartnerOrderById(href){
+/*/partner/getPartnerOrderById */
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            type: "post",
+            url: baseUrl + "/partner/getPartnerOrderById",
+            data: {
+                partnerOrderId:href
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                if(data.state==true&&data.list!=="网络出了点小问题...."){
+                    $(".main_content").html(template("sigle_detail",data))
+                }else{
+                    $("#loading").show();
+                    $("#loading>div").text("网络错误，请稍后重试");
+                }
+            }
+        })
+    }
+//同意 或者 拒绝 默认报名资讯活动 /schoolMessage/completeSignUp
+   function  completeSignUp(id,state){
+       $.ajax({
+           xhrFields: {
+               withCredentials: true
+           },
+           type: "post",
+           url: baseUrl + "/schoolMessage/completeSignUp",
+           data: {
+               signUpOrderId:id,
+               status:state
+           },
+           dataType: 'json',
+           success: function (data) {
+               console.log(data);
+               if(data.state==true||data.code=="success"){
+                  alert("已完成");
+                   location.href="./my_post_activity.html"
+               }else{
+                   $("#loading").show();
+                   $("#loading>div").text("网络错误，请稍后重试");
+               }
+           }
+       })
+   }
+
+    //发布约单者点击确认报名信息  /partner/completeSignUp
+    function  partner_completeSignUp(id,state){
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            type: "post",
+            url: baseUrl + "/partner/completeSignUp",
+            data: {
+                partnerOrderId:id,
+                status:state
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                if(data.state==true||data.code=="success"){
+                    alert("已完成");
+                    location.href="my_post_singel.html"
+                }else{
+                    $("#loading").show();
+                    $("#loading>div").text("网络错误，请稍后重试");
+                }
+            }
+        })
+    }
+
+</script>
+</html>

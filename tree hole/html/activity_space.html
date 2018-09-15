@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>活动场地</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/city/city.css"/>
+    <style>
+        .layer {
+            width: 100% ;
+        }
+        .layer header{
+            width: 100%;
+            height: 1.3rem;
+            padding-top: 0.4rem;
+            line-height: 1.3rem ;
+            position: relative;
+            font-size: 0.36rem;
+        }
+        .layer header i{
+            position: absolute;
+            width: 0.6rem;
+            height: 0.9rem;
+            left: 3%;
+            top: 35%;
+            background: url("../img/left.png") no-repeat center;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+        }
+        .layer header h3{
+            text-align: center;
+        }
+        .layer header em{
+            text-align: right;
+            width: 1.5rem;
+            position: absolute;
+            right: 3%;
+            top: 25%;
+
+        }
+        .space{
+            width: 100% ;
+            height: 1rem;
+            line-height: 1rem;
+            padding:0 0.3rem;
+            position: relative;
+        }
+        .space span{
+            font-size: 0.36rem ;
+        }
+        .space input{
+            width: 100%;
+            left: 0%;
+            /*left:14%;*/
+            position: absolute;
+            opacity:0;
+            background-color: pink;
+            height: 0.9rem;
+            line-height: 0.9rem ;
+            z-index: 2;
+            text-indent: 5em;
+        }
+        .space em{
+            position: absolute;
+            right: 5%;
+            top: 0;
+            width: 0.6rem;
+            height: 100%;
+            background: url("../img/right_03.png") no-repeat center;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+        }
+        .detail{
+            width: 100%;
+            height: 1rem;
+            line-height: 1rem ;
+            font-size: 0.36rem;
+            padding:0 0.3rem
+        }
+        .detail textarea{
+          border: none;
+        }
+        #city{
+            width: 100%;
+            height: 0.8rem;
+            line-height: 0.8rem ;
+            text-indent: 1em;
+            font-size: 0.3rem;
+        }
+        /*改变placeholder的字体颜色*/
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #999; opacity:1;
+        }
+
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: #999;opacity:1;
+        }
+
+        input:-ms-input-placeholder{
+            color: #999;opacity:1;
+        }
+
+        input::-webkit-input-placeholder{
+            color: #999;opacity:1;
+        }
+    </style>
+</head>
+<body>
+<div class="layer">
+    <header>
+        <i onclick="back()"></i>
+        <h3>活动场地</h3>
+        <em class="confirm">确定</em>
+    </header>
+    <div class="space" >
+        <span>地址</span>
+    </div>
+    <input type="text" id="city" placeholder="请选择地址..." />
+    <div class="detail">
+        <span>详细</span>
+        <textarea type="text"cols="30" rows="10" placeholder="例如：楼层、房号、厅"></textarea>
+    </div>
+</div>
+
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/city/cityjson.js"></script>
+<script src="../js/city/cityset.js"></script>
+<script src="../js/city/popt.js"></script>
+
+<script>
+    var falg=true;
+    $("#city").click(function (e) {
+        if(falg){
+            $(".space input").css("opacity",1);
+            $("#PoPy").show();
+            SelCity(this,e);
+            falg=false;
+        }else{
+            $(".space input").css("opacity",0);
+       /*     SelCity(this,e);*/
+            $("#PoPy").hide();
+            falg=true;
+        }
+//点击确定的时候
+        $(".confirm").click(function(){
+            //获取输入的省市县信息
+           var harea= $("#harea").val();
+            var hcity=$("#hcity").val();
+            var hproper=$("#hproper").val();
+            var detail=$(".detail textarea").val();
+            var address=hcity+hproper+harea+detail;
+            address=address.replace(/undefined/g,"");
+            //console.log(address);
+            localStorage.setItem("address",address);
+            back();
+        })
+        //console.log($(this).val());
+
+       /* $("#id").text($(this).val()) ;*/
+
+       /* console.log("inout",$(this).val(),new Date())*/
+    });
+</script>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+
+    <style>
+        .layer {
+            width: 100% ;
+        }
+
+        .add_friends,.my_friends,.new_friends{
+
+            color:#333;
+            height: 1.2rem;
+            line-height: 1.2rem;
+            padding:0 0.3rem;
+            font-size: 0.32rem;
+            border-bottom: 1px solid #eeeeee;
+            position: relative;
+        }
+        .my_friends{
+            border-top:  0.2rem solid #eee;
+        }
+        .add_friends i,.new_friends i{
+            position: absolute;
+            right: 3%;
+            top: 0%;
+            width: 0.6rem;
+            height: 100%;
+            background: url("../img/right_03.png") no-repeat center;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+        }
+        .friends_list{
+            width: 100%;
+        }
+        .friends_list li{
+            width: 100%;
+            padding:0.2rem 0.3rem;
+        }
+        .friends_list li img{
+            width: 0.8rem;
+            min-height: 0.8rem;
+            vertical-align: middle;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<div class="layer">
+    <header class="my_friends_header">
+        <i onclick="back()"></i>
+        <h3>我的好友</h3>
+      <!--  <em onclick="location.href='./message.html'"></em>-->
+    </header>
+    <p class="add_friends" onclick="location.href='my_friends_add.html'">添加好友 <i></i></p>
+    <p class="new_friends" onclick="location.href='my_friends_new_friends.html'">新朋友 <i></i></p>
+    <p class="my_friends">我的好友</p>
+    <ul class="friends_list">
+        <li onclick="location.href='./friends_chat_index.html'">
+            <img src="../img/focus-img1.png" alt=""/>
+            <span>半夜半月</span>
+        </li>
+        <li onclick="location.href='./friends_chat_index.html'">
+            <img src="../img/focus-img1.png" alt=""/>
+            <span>半夜半月</span>
+        </li>
+        <li onclick="location.href='./friends_chat_index.html'">
+            <img src="../img/focus-img1.png" alt=""/>
+            <span>半夜半月</span>
+        </li>
+        <li onclick="location.href='./friends_chat_index.html'">
+            <img src="../img/focus-img1.png" alt=""/>
+            <span>半夜半月</span>
+        </li>
+    </ul>
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/template-web.js"></script>
+<script>
+
+</script>
+</html>

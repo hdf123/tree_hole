@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>他人的信息点开</title>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/mui_img.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/business.css"/>
+    <link rel="stylesheet" href="../css/news.css"/>
+    <link rel="stylesheet" href="../css/community.css"/>
+    <link rel="stylesheet" href="../css/other_information.css"/>
+</head>
+<body>
+<div class="layer" style="overflow: hidden">
+    <header id="header" class="clearfix" >
+        <i onclick="back()"></i>
+        <div class="top_header">
+            <img src="../img/focus-img1.png" alt=""/>
+            <div class="center">
+                <em>七月的雪</em>
+                <span>待到山花烂漫时，她在丛中笑待到山花烂漫时，她在丛中笑待到山花烂漫时，她在丛中笑</span>
+            </div>
+        </div>
+    </header>
+    <div class="nav">
+        <ul class="clearfix">
+            <li><a href="./other_information.html" >社团活动</a></li>
+            <li><a href="./other_information_post.html">发帖</a></li>
+            <li><a href="./other_information_sigle.html">约单</a></li>
+            <li><a href="./other_information_space.html" class="active">闲置</a></li>
+        </ul>
+    </div>
+    <div class="market_news_list">
+        <div class="goods">
+            <div class="top clearfix">
+                <img src="../img/focus-img1.png" alt="">
+                <span>阳光正好</span>
+                <p>郑州金水 | <em>29分钟前来过</em></p>
+            </div>
+            <div class="center clearfix" onclick="location.href='./business_detail.html'">
+                <em class="price">￥15</em>
+                <span>夏日斜跨小包包女2018新款潮韩版百搭时尚</span>
+            </div>
+            <div class="img_list">
+                <img src="../img/goods.png" data-preview-src="" data-preview-group="1" alt="">
+                <img src="../img/goods.png" data-preview-src="" data-preview-group="1" alt="">
+                <img src="../img/goods.png" data-preview-src="" data-preview-group="1" alt="">
+            </div>
+            <div class="see">浏览12</div>
+        </div>
+        <div class="goods">
+            <div class="top clearfix">
+                <img src="../img/focus-img1.png" alt="">
+                <span>阳光正好</span>
+                <p>郑州金水 | <em>29分钟前来过</em></p>
+            </div>
+            <div class="center clearfix" onclick="location.href='./business_detail.html'">
+                <em class="price">￥15</em>
+                <span>夏日斜跨小包包女2018新款潮韩版百搭时尚</span>
+            </div>
+            <div class="img_list">
+                <img src="../img/goods.png" data-preview-src="" data-preview-group="1" alt="">
+                <img src="../img/goods.png" data-preview-src="" data-preview-group="1" alt="">
+                <img src="../img/goods.png" data-preview-src="" data-preview-group="1" alt="">
+            </div>
+            <div class="see">浏览12</div>
+        </div>
+
+    </div>
+</div>
+</body>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/mui.preview.js"></script>
+<script src="../js/x_rem.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/base.js"></script>
+<script>
+    $(function(){
+        mui.previewImage();
+        mui('body').on('tap','a',function(){document.location.href=this.href;});
+
+    })
+</script>
+</html>

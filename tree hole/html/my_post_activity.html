@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>我的帖子-社团活动</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <link rel="stylesheet" href="../css/my_post_activity.css"/>
+
+    <style>
+        .nav ul{
+            width: 100%;
+        }
+        .nav ul li{
+            width: 33%;
+            height: 1rem;
+            line-height: 1rem;
+            float: left;
+        }
+        .nav ul li a{
+            color:#8c8c8c;
+            font-size: 0.34rem;
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+        .nav ul li .active{
+            color:#71462a;
+        }
+        .news_list {
+            padding-top: 0;
+        }
+        .footer ul .pay i{
+            left: 40%;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+    <div>请等待，正在加载...</div>
+</div>
+<div class="layer" style="overflow-x: hidden">
+    <header>
+        <i onclick="location.href='./community.html'"></i>
+        <h3>发布的帖子</h3>
+    </header>
+    <div class="nav">
+        <ul class="clearfix">
+            <li>
+                <a href="./my_post_activity.html" class="active">
+                    社团活动
+                </a>
+            </li>
+            <li >
+                <a href="./my_post.html" >
+                    社区交友
+                </a>
+            </li>
+            <li>
+                <a href="./my_post_singel.html">
+                    约单
+                </a>
+            </li>
+        </ul>
+    </div>
+<div class="main">
+    <ul class="activity clearfix">
+
+    </ul>
+</div>
+
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<script id="my_post_activity" type="text/html">
+{{each list as value i}}
+<li onclick="location.href='./my_post_activity_list.html?schoolMessageId={{value.SchoolMessage.schoolMessageId}}'">
+    {{if value.SchoolMessage.imagePath.length==0}}
+    <img src="../img/no_photo.png" alt=""/>
+    {{else}}
+    <img src="{{str(value.SchoolMessage.imagePath)[0]}}" alt=""/>
+    {{/if}}
+    <div class="center">
+                <span>{{value.SchoolMessage.message}}</span>
+        <i>{{value.SignUpOrder}}人报名</i>
+    </div>
+</li>
+{{/each}}
+</script>
+<script >
+$(function(){
+    $(document).ajaxStop(function(){
+        $("#loading").hide();
+})
+    //获取当前用户发布的校园资讯 /schoolMessage/getSchoolMessage
+    //根据当前用户查询发布的校园资讯的报名情况  /schoolMessage/getSignUpOrderForPusher
+    function getSchoolMessage(){
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            type: "post",
+            url:baseUrl+"/schoolMessage/getSchoolMessage ",
+            data:{},
+            dataType: 'json',
+            success:function(data) {
+                console.log(data);
+                if(data.state==true){
+                    template.helper("str",function(str){
+                        return str.split(",");
+                    });
+                $('.activity').html(template("my_post_activity",data))
+                }else{
+                   $("#loading").show();
+                }
+            }
+        })
+    }
+    //根据当前用户查询发布的校园资讯的报名情况
+    getSchoolMessage();
+    //
+
+})
+</script>
+</html>

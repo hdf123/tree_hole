@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+
+    <title>查看评价</title>
+    <link rel="stylesheet" href="../css/mui.min.css"/>
+    <link rel="stylesheet" href="../css/mui_img.css"/>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <link rel="stylesheet" href="../css/local_market_goodlist_detail.css">
+    <style>
+        .layer>header{
+            position: fixed;
+            top: 0%;
+
+        }
+        .layer>header>h3{
+            line-height: 1rem;
+        }
+        header>del{
+            position: absolute;
+            left: 3%;
+            width: 0.6rem;
+            height: 1rem;
+            background:url("../img/left.png") no-repeat center;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+        }
+        .main_content{
+            padding-top:1.3rem;
+        }
+        .mui-slider .mui-slider-group .mui-slider-item img{
+            position: absolute;
+            top:40%;
+        }
+        .goods_comment_list{
+            border-bottom: 0.2rem solid #eeeeee;
+        }
+        .goods_comment_list:last-of-type{
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+<div class="layer">
+    <header class="clearfix">
+        <del onclick="back()"></del>
+        <h3>评价</h3>
+    </header>
+    <div class="main_content">
+        <div class="goods_comment_list">
+            <div class="goods_list_header">
+                <img src="../img/focus-img1.png" alt="">
+                <em>时***</em>
+                <del>8月27日  17:11</del>
+            </div>
+            <div class="p_info">
+                <p>宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！</p>
+                <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="2">
+            </div>
+        </div>
+        <div class="goods_comment_list">
+            <div class="goods_list_header">
+                <img src="../img/focus-img1.png" alt="">
+                <em>时***</em>
+                <del>8月27日  17:11</del>
+            </div>
+            <div class="p_info">
+                <p>宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！</p>
+                <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="2">
+            </div>
+        </div>
+        <div class="goods_comment_list">
+            <div class="goods_list_header">
+                <img src="../img/focus-img1.png" alt="">
+                <em>时***</em>
+                <del>8月27日  17:11</del>
+            </div>
+            <div class="p_info">
+                <p>宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！宝贝很好呢，我很喜欢，下次还会加购哦！</p>
+                <img src="../img/focus-img1.png" alt="" data-preview-src="" data-preview-group="2">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.zoom.js"></script>
+<script src="../js/mui.preview.js"></script>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script>
+    $(function () {
+        mui.previewImage();
+    })
+</script>
+</html>

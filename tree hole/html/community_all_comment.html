@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>详情</title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/chat.css"/>
+    <link rel="stylesheet" href="../css/Dynamic-hot.css"/>
+    <link rel="stylesheet" href="../css/focus.css"/>
+    <link rel="stylesheet" href="../css/detail.css"/>
+
+    <style>
+        .detail_header{
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index:122;
+        }
+        .user_res_info{
+            padding-top: 1.5rem;
+        }
+        body{
+            background-color: #fff;
+        }
+
+        p img {
+            max-width: 100%;
+            height: auto;
+        }
+        .response{
+            padding-bottom: 1rem;
+        }
+        .my_response em{
+            right:5%;
+            background: none;
+            color:#fff;
+            background: #5f4321;
+            border: 1px solid #5f4321;
+            padding:0.04rem 0.2rem;
+            display: none;
+        }
+        .middle span{
+            width: 3rem;
+            color:#999;
+        }
+
+        .response_header_right{
+            margin-top: 0;
+        }
+        .response_header_center {
+            position: absolute;
+            left: 20%;
+
+        }
+        .my_response em{
+            width: 0.6rem;
+            top: 22%;
+            height: 0.4rem;
+            padding:0.06rem 0.2rem;
+        }
+        .content_main,.response_header{
+            margin-top: 0.3rem;
+            margin-left: 0.3rem;
+        }
+        .response_header_right{
+            padding-right: 0.3rem;
+        }
+        header i{
+            margin-top: 0;
+            top:10%;
+        }
+        .no_response{
+            color:#999;
+            font-size: 0.36rem;
+            text-indent: 3em;
+            margin-top: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">
+    <img src="../img/login.gif" alt=""/>
+</div>
+<div class="layer">
+    <header class="detail_header clearfix">
+        <i onclick="back()" ></i>
+        <h3>全部评论</h3>
+    </header>
+    <div class="user_res_info">
+        <!--    {{if schoolMessage.student==null}}
+    <div style="padding-top:0.5rem"> </div>
+    {{else}}
+    <div class="response_header clearfix">
+        <img src="{{schoolMessage.student.avatar}}" alt=""/>
+        <div class="response_header_center ">
+            <span>{{schoolMessage.student.realName}}</span>
+            <em>{{time(schoolMessage.pushTime)}}</em>
+        </div>
+        <div class="response_header_right">
+            <i id="comment"></i>
+        </div>
+    </div>
+    {{/if}}-->
+        <!--填充-->
+    </div>
+    <div class="response">
+
+        <div class="response_content clearfix" >
+
+            <div class="my_response">
+                <form action="">
+                    <input type="text" placeholder="我也说一句..."  autofocus class="user_input"/>
+                    <em>发送</em>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script src="../js/template.js"></script>
+<!--<script id="detail" type="text/html">
+
+    <div class="dynamic_header clearfix detail_main_header ">
+        <img src="../img/portrait.png"  alt=""/><em ></em>
+        <div class="middle clearfix">
+            <h4>{{spaceDynamic.name}}</h4>
+            <span>{{spaceDynamic.publish_time.substr(11,12).substr(0,5)}}</span>
+        </div>
+    </div>
+    <div class="close_focus_confirm"></div>
+    <div class="content_bottom1">
+        <p>{{spaceDynamic.content}}
+        </p>
+        <img src="../img/focus1.png" class="picture" data-preview-src="" data-preview-group="1" alt=""/>
+        <img src="../img/portrait.png" class="picture" data-preview-src="" data-preview-group="1" alt=""/>
+
+    </div>
+
+</script>-->
+
+<!--<del class="reply" data-id="{{value.fromStudent}}">{{value.fromStudent}}</del>回复
+            <i class="reply" data-id="{{value.toStudent.studentId}}">{{value.toStudent.realName==null?"暂无姓名":value.toStudent.realName}}</i> :
+            <span>{{value.message}}</span>-->
+<script id="info" type="text/html">
+    <div class="content_main" id="content_main">
+        {{if noteComments.length==0}}
+        <div class="no_response"> 暂时没有评论信息</div>
+        {{else}}
+        {{each noteComments as value i}}
+        <div class="one_response" >
+            <del class="reply" data-id="{{value.fromStudent==null?0:value.fromStudent.studentId}}">{{value.fromStudent==null||value.fromStudent.realName==null?"暂无姓名":value.fromStudent.realName}}</del>回复
+            <i class="reply" data-id="{{value.toStudent==null?0:value.toStudent.studentId}}">{{value.toStudent==null||value.toStudent.realName==null?"暂无姓名":value.toStudent.realName}}</i> :
+            <span>{{value.message}}</span>
+        </div>
+        {{/each}}
+        {{/if}}
+    </div>
+</script>
+<script>
+    $(document).ajaxStop(function(){
+        $("#loading").hide();
+    });
+    var href=location.href.split("=")[1];
+    //console.log(href);
+    noteMessageLookNumber(href);
+    //评论校园资讯 detail(message,id)
+
+    //评论帖子
+    /*noteMessage.noteMessageId		帖子主键
+     message	                   评论的内容
+     toStudent.studentId  */
+    function detail(message,id){
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            type: "post",
+            url: baseUrl+"/noteMessage/setNoteComment",
+            data:{
+                "noteMessage.noteMessageId":href,
+                message:message,
+                "toStudent.studentId":id
+            },
+            dataType: 'json',
+            success:function(data){
+                console.log(data);
+                    intro();
+
+
+            },
+            error:function(data){
+                console.log(data);
+            }
+        })
+    }
+    //detail()
+
+    //输入  渲染 追加到页面上
+    //需要发送到后台 并且保存到页面上
+
+
+    //输入  渲染 追加到页面上
+    //需要发送到后台 并且保存到页面上
+
+    $(".user_input").keyup(function(){
+        //console.log($(".user_input").val());
+        //console.log(data[0].input_name);
+        //判断用户输入的不能为空
+        if($(".user_input").val()==""){
+            $(".my_response em").css("display","none");
+            return false;
+        }else{
+            $(".my_response em").css("display","block");
+            $(".my_response em").click(function(){
+                /*var html="<div ><i>xx</i>回复 <del>xx</del>: <span>"+$(".user_input").val()+"</span> </div>";*/
+                //console.log($(".user_input").val());
+                if($(".user_input").val()==""){
+                    return false;
+                }
+                //renter($(".user_input").val());
+                var reply_id=localStorage.getItem("reply_id");
+                if(reply_id){
+                    detail($(".user_input").val(),reply_id);
+                    //删除本地存储
+                    localStorage.removeItem("reply_id")
+                }else{
+                    detail($(".user_input").val(),localStorage.getItem("data_id"));
+
+                }
+                $(".user_input").val("");
+            })
+
+        }
+
+    })
+    //获取全部评论
+    intro();
+    function intro(){
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            type: "get",
+            url: baseUrl+"/noteMessage/getNoteComment",
+            data:{
+                noteMessageId:href
+            },
+            dataType: 'json',
+            success:function(data){
+                console.log(data);
+                    template.helper("time",function(date) {
+                        var time = new Date(date).toLocaleString().replace(/:\d{1,2}$/, ' ').substr(5, 11).replace("/", "-");
+                        return time;
+                    })
+                    var html=template("info",data);
+                    $(".user_res_info").html(html);
+
+                localStorage.setItem("data_id",data.message.student.studentId);
+                    //回复某人 的评论
+                    $(".one_response").on("click",".reply",function(){
+                        var id=$(this).data("id");
+                        localStorage.setItem("reply_id",id);
+                        localStorage.setItem("data_id",data.message.student.studentId);
+                        console.log(id);
+                    })
+
+                /* if(data.code==0){
+                 template.helper('jsonStringToArr', function(data) {
+                 return JSON.parse(data);
+                 });
+                 var html=template("intro",data);
+                 $("#info").html(html);
+                 }*/
+
+            },
+            error:function(data){
+                console.log(data);
+            }
+        })
+    }
+
+
+
+</script>
+</body>
+</html>

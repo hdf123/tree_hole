@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>
+        本地商城（商品列表页面）
+    </title>
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/header.css"/>
+    <link rel="stylesheet" href="../css/local_market_goods_list.css"/>
+
+</head>
+<body>
+<div class="layer">
+    <header>
+        <i onclick="location.href='./local_market.html'"></i>
+        <input type="text" placeholder="搜索商品" onclick="location.href='./business_search.html'"/>
+        <del>搜索</del>
+    </header>
+    <nav>
+        <ul class="clearfix">
+            <li>
+                <a href="./local_market_goods_list.html" >人气</a>
+            </li>
+            <li>
+                <a href="./local_market_goods_list_new.html" class="activity">最新</a>
+            </li>
+            <li>
+                <a href="./local_market_goods_list_count.html">销量</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="good_list">
+        <ul>
+
+        <!--填充-->
+        </ul>
+    </div>
+
+</div>
+</body>
+<script src="../js/x_rem.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/template-web.js"></script>
+<script id="new" type="text/html">
+   {{each list as value i}}
+   <li>
+       <a href="./local_market_goodList_detail.html?goodsId={{value.goodsId}}">
+           <img src="{{value.images[0].path}}" alt=""/>
+           <span>{{value.introduction}}</span>
+           <em> ￥{{value.smallPrice}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>销量 {{value.saleNumber}}</i></em>
+       </a>
+   </li>
+    {{/each}}
+</script>
+<script>
+    $(function () {
+        //获取商品数据的第二种形式
+        function render(){
+            $.ajax({
+                //处理session每次不唯一问题
+                xhrFields: {
+                    withCredentials: true
+                },
+                type: "post",
+                url: "http://192.168.1.126/goods/getAllBusinessGoodsByType2",
+
+                dataType: 'json',
+                success:function(data){
+                    console.log(data);
+                    var html=template("new",data);
+                    $(".good_list>ul").html(html);
+                }
+
+            })
+        }
+        render()
+    })
+</script>
+</html>
